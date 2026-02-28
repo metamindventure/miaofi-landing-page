@@ -31,13 +31,23 @@ const WalletInput = () => {
   };
 
   return (
-    <div className="glass-card-prominent rounded-2xl p-6">
+    <div className="glass-card-prominent rounded-2xl p-6 relative">
+      {/* Focus glow */}
+      <div
+        className="absolute inset-0 rounded-2xl pointer-events-none transition-opacity duration-500"
+        style={{
+          background: 'radial-gradient(circle at 50% 50%, rgba(139,92,246,0.08) 0%, transparent 70%)',
+          opacity: focused ? 1 : 0,
+        }}
+      />
       {/* Input */}
       <div className="relative">
         <input
           type="text"
           value={address}
           onChange={(e) => setAddress(e.target.value)}
+          onFocus={() => setFocused(true)}
+          onBlur={() => setFocused(false)}
           placeholder="Paste your wallet address (EVM or Solana)"
           className="glass-input w-full h-[52px] rounded-xl px-4 pr-12 font-mono text-sm text-foreground placeholder:text-muted-custom focus:outline-none transition-all"
         />
@@ -78,7 +88,7 @@ const WalletInput = () => {
       <button
         onClick={handleSubmit}
         disabled={!isValid}
-        className="w-full h-12 mt-3 rounded-xl brand-gradient brand-gradient-hover text-primary-foreground font-heading font-semibold text-[15px] transition-all disabled:opacity-40 disabled:cursor-not-allowed disabled:shadow-none"
+        className="cta-streak w-full h-12 mt-3 rounded-xl brand-gradient brand-gradient-hover text-primary-foreground font-heading font-semibold text-[15px] transition-all disabled:opacity-40 disabled:cursor-not-allowed disabled:shadow-none"
       >
         Analyze Portfolio →
       </button>

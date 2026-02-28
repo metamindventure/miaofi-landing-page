@@ -20,7 +20,7 @@ const Index = () => {
               </div>
               <span className="font-heading font-semibold text-[22px] text-foreground text-glow-brand">MiaoFi</span>
             </div>
-            <p className="text-secondary-custom text-base font-body">Your AI Investment Copilot for DeFi</p>
+            <p className="text-secondary-custom text-base font-body">Your AI Investment Copilot for Crypto</p>
             <p className="text-muted-custom text-sm font-body mt-1">
               Paste an address. See your real P&L. Get AI advice in 30 seconds.
             </p>
@@ -28,8 +28,9 @@ const Index = () => {
 
           {/* Social proof */}
           <p className="text-center text-[13px] text-muted-custom font-body">
-            <span className="green-tint font-mono font-medium">12,847</span> portfolios analyzed ·{' '}
-            <span className="green-tint font-mono font-medium">$340M+</span> in assets scanned
+            Powered by <span className="text-glow-green green-tint font-mono font-medium">Zerion</span> ·{' '}
+            <span className="text-glow-green green-tint font-mono font-medium">CoinGecko</span> ·{' '}
+            <span className="text-glow-green green-tint font-mono font-medium">Claude AI</span>
           </p>
 
           {/* Input Section */}
@@ -43,7 +44,7 @@ const Index = () => {
               { icon: Eye, text: 'Read-only analysis' },
             ].map(({ icon: Icon, text }) => (
               <div key={text} className="flex items-center gap-1.5 text-muted-custom text-xs font-body">
-                <Icon size={13} />
+                <Icon size={13} className="trust-pulse" />
                 <span>{text}</span>
               </div>
             ))}
