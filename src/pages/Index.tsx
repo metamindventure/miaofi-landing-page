@@ -1,40 +1,38 @@
 import { useState } from 'react';
+import { Search } from 'lucide-react';
 import AnimatedBackground from '@/components/landing/AnimatedBackground';
 import WalletInput from '@/components/landing/WalletInput';
-import ValueProposition from '@/components/landing/ValueProposition';
-import HowItWorks from '@/components/landing/HowItWorks';
-import DiagnosisCardMockup from '@/components/landing/DiagnosisCardMockup';
-import TrustSection from '@/components/landing/TrustSection';
+import ProductPreview from '@/components/landing/ProductPreview';
+import PersonaCards from '@/components/landing/PersonaCards';
 
-const HEADLINE_WORDS = ['Your', 'AI', 'Investment', 'Copilot', 'for', 'Crypto'];
-const CHAINS = ['Ethereum', 'Solana', 'Arbitrum', 'Base', 'Polygon'];
+const HEADLINE_WORDS = ['See', 'Through', 'Your', 'Portfolio'];
 
 const Index = () => {
   const [inputFocused, setInputFocused] = useState(false);
 
   return (
-    <div className="relative min-h-screen flex flex-col grain">
+    <div className="relative min-h-screen flex flex-col">
       <AnimatedBackground inputFocused={inputFocused} />
 
-      {/* Hero */}
+      {/* Hero — full viewport */}
       <main className="relative z-10 flex-1 flex flex-col items-center justify-center min-h-screen px-5">
-        <div className="w-full flex flex-col items-center gap-8 -mt-8">
+        <div className="w-full flex flex-col items-center gap-8 -mt-12">
 
           {/* Logo */}
-          <div className="flex items-center gap-2.5 stagger-word" style={{ animationDelay: '0s' }}>
-            <div className="logo-pulse w-9 h-9 rounded-lg bg-primary flex items-center justify-center">
+          <div className="flex items-center gap-2.5">
+            <div className="logo-pulse w-8 h-8 rounded-full bg-gradient-to-br from-violet-600 to-indigo-500 flex items-center justify-center">
               <span className="text-primary-foreground font-display font-bold text-sm">M</span>
             </div>
-            <span className="font-display font-semibold text-xl text-foreground tracking-tight">MiaoFi</span>
+            <span className="font-display font-bold text-xl text-foreground/90 tracking-tight">MiaoFi</span>
           </div>
 
-          {/* Headline */}
-          <h1 className="font-display font-bold text-4xl sm:text-5xl lg:text-6xl text-center leading-[1.1] max-w-3xl">
+          {/* Headline — staggered word entrance */}
+          <h1 className="font-display font-bold text-4xl sm:text-5xl lg:text-6xl text-center leading-[1.1] max-w-xl">
             {HEADLINE_WORDS.map((word, i) => (
               <span
-                key={`${word}-${i}`}
-                className="stagger-word text-foreground mr-[0.25em]"
-                style={{ animationDelay: `${0.15 + i * 0.1}s` }}
+                key={word}
+                className="stagger-word bg-clip-text text-transparent bg-gradient-to-b from-white to-white/60 mr-[0.3em]"
+                style={{ animationDelay: `${0.15 + i * 0.12}s` }}
               >
                 {word}
               </span>
@@ -42,61 +40,35 @@ const Index = () => {
           </h1>
 
           {/* Sub-headline */}
-          <p className="text-muted-foreground text-base sm:text-lg text-center max-w-md stagger-word" style={{ animationDelay: '0.9s' }}>
+          <p className="text-foreground/40 text-base sm:text-lg text-center max-w-md stagger-word" style={{ animationDelay: '0.8s' }}>
             Paste an address. Get your diagnosis in 30 seconds.
           </p>
 
-          {/* Chain row */}
-          <div className="flex items-center gap-2 flex-wrap justify-center stagger-word" style={{ animationDelay: '1s' }}>
-            {CHAINS.map((chain) => (
-              <span key={chain} className="glass-pill px-3 py-1.5 rounded-md text-[11px] text-muted-foreground font-mono">
-                {chain}
-              </span>
-            ))}
-          </div>
-
-          {/* Input */}
-          <div className="w-full stagger-word" style={{ animationDelay: '1.1s' }}>
-            <WalletInput onFocusChange={setInputFocused} />
-          </div>
+          {/* Wallet Input with orbiting stats */}
+          <WalletInput onFocusChange={setInputFocused} />
         </div>
       </main>
 
-      {/* Sections */}
-      <ValueProposition />
-      <HowItWorks />
-      <DiagnosisCardMockup />
-      <TrustSection />
+      {/* Product Preview — X-Ray */}
+      <ProductPreview />
 
-      {/* Bottom CTA */}
-      <section className="relative z-10 w-full max-w-xl mx-auto px-5 py-28 text-center">
-        <h2 className="font-display font-bold text-3xl sm:text-4xl text-foreground mb-3">
-          How healthy is your portfolio?
-        </h2>
-        <p className="text-muted-foreground text-base mb-10">
-          Free 30-second checkup. No strings attached.
-        </p>
-        <WalletInput compact />
-      </section>
+      {/* Persona Cards — Case Files */}
+      <PersonaCards />
+
+      {/* Famous Wallets CTA */}
+      <div className="relative z-10 text-center py-8">
+        <a
+          href="#"
+          className="inline-flex items-center gap-2 text-primary hover:underline text-sm transition-colors"
+        >
+          <Search size={14} />
+          Peek at a famous wallet →
+        </a>
+      </div>
 
       {/* Footer */}
-      <footer className="relative z-10 py-12 text-center border-t border-border">
-        <div className="flex items-center justify-center gap-2 mb-5">
-          <div className="w-6 h-6 rounded-md bg-primary flex items-center justify-center">
-            <span className="text-primary-foreground font-display font-bold text-[10px]">M</span>
-          </div>
-          <span className="font-display font-semibold text-sm text-foreground/60">MiaoFi</span>
-        </div>
-        <div className="flex items-center justify-center gap-4 text-muted-foreground text-xs mb-5">
-          <a href="#" className="hover:text-foreground transition-colors">Privacy</a>
-          <span className="text-border">·</span>
-          <a href="#" className="hover:text-foreground transition-colors">Twitter/X</a>
-          <span className="text-border">·</span>
-          <a href="#" className="hover:text-foreground transition-colors">Telegram</a>
-        </div>
-        <p className="text-muted-foreground/40 text-[11px]">
-          Built with ❤️ by a solo founder + AI agents
-        </p>
+      <footer className="relative z-10 py-8 text-center text-foreground/20 text-[11px]">
+        © 2026 MiaoFi · Terms · Privacy
       </footer>
     </div>
   );
