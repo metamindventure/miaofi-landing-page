@@ -2,9 +2,12 @@ import { useState } from 'react';
 import { Search } from 'lucide-react';
 import AnimatedBackground from '@/components/landing/AnimatedBackground';
 import WalletInput from '@/components/landing/WalletInput';
+import HowItWorks from '@/components/landing/HowItWorks';
+import Comparison from '@/components/landing/Comparison';
 import ProductPreview from '@/components/landing/ProductPreview';
 import PersonaCards from '@/components/landing/PersonaCards';
-
+import TrustSecurity from '@/components/landing/TrustSecurity';
+import BottomCTA from '@/components/landing/BottomCTA';
 const HEADLINE_WORDS = ['See', 'Through', 'Your', 'Portfolio'];
 
 const Index = () => {
@@ -49,11 +52,20 @@ const Index = () => {
         </div>
       </main>
 
+      {/* How It Works */}
+      <HowItWorks />
+
       {/* Product Preview — X-Ray */}
       <ProductPreview />
 
+      {/* Comparison — Others vs MiaoFi */}
+      <Comparison />
+
       {/* Persona Cards — Case Files */}
       <PersonaCards />
+
+      {/* Trust & Security */}
+      <TrustSecurity />
 
       {/* Famous Wallets CTA */}
       <div className="relative z-10 text-center py-8">
@@ -65,6 +77,9 @@ const Index = () => {
           Peek at a famous wallet →
         </a>
       </div>
+
+      {/* Bottom CTA */}
+      <BottomCTA />
 
       {/* Footer */}
       <footer className="relative z-10 py-8 text-center text-foreground/20 text-[11px]">
