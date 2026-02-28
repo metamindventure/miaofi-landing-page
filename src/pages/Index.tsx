@@ -1,6 +1,7 @@
 import { Shield, Zap, Eye, Search } from 'lucide-react';
 import AnimatedBackground from '@/components/landing/AnimatedBackground';
 import WalletInput from '@/components/landing/WalletInput';
+import DiagnosisPreview from '@/components/landing/DiagnosisPreview';
 import SampleCards from '@/components/landing/SampleCards';
 
 const Index = () => {
@@ -49,6 +50,12 @@ const Index = () => {
               </div>
             ))}
           </div>
+
+          {/* Diagnosis preview */}
+          <DiagnosisPreview />
+
+          {/* Gradient divider */}
+          <div className="h-px w-full" style={{ background: 'linear-gradient(90deg, transparent, rgba(139,92,246,0.2), transparent)' }} />
 
           {/* Sample cards */}
           <SampleCards />
