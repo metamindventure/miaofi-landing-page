@@ -1,4 +1,4 @@
-import { Shield, Zap, Eye } from 'lucide-react';
+import { Shield, Zap, Eye, Search } from 'lucide-react';
 import AnimatedBackground from '@/components/landing/AnimatedBackground';
 import WalletInput from '@/components/landing/WalletInput';
 import SampleCards from '@/components/landing/SampleCards';
@@ -54,11 +54,15 @@ const Index = () => {
           <SampleCards />
 
           {/* Famous wallets teaser */}
-          <p className="text-center">
-            <a href="#" className="text-brand text-[13px] font-body hover:underline transition-all">
-              or peek at a famous wallet →
+          <div className="flex justify-center">
+            <a
+              href="#"
+              className="inline-flex items-center gap-2.5 px-4 py-2.5 rounded-xl glass-card text-[13px] font-body text-brand hover:text-foreground transition-all group"
+            >
+              <Search size={14} className="opacity-60 group-hover:opacity-100 transition-opacity" />
+              <span>Peek at a famous wallet — see what AI finds</span>
             </a>
-          </p>
+          </div>
         </div>
       </main>
 

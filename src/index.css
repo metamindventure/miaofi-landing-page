@@ -72,6 +72,13 @@
     box-shadow: 0 0 60px rgba(139, 92, 246, 0.1);
   }
 
+  /* Persona cards — custom glow on hover */
+  .persona-card:hover {
+    transform: translateY(-8px);
+    border-color: var(--card-hover-border, rgba(255, 255, 255, 0.2));
+    box-shadow: 0 0 50px var(--card-glow, rgba(139, 92, 246, 0.1));
+  }
+
   .glass-card-prominent {
     background: rgba(255, 255, 255, 0.05);
     border: 1px solid rgba(255, 255, 255, 0.08);
