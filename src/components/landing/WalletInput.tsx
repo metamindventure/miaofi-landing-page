@@ -13,13 +13,7 @@ const detectChain = (address: string): ChainType => {
 const DEMO_EVM = '0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045';
 const DEMO_SOL = '7xKXtg2CW87d97TXJSDpbD5jBkheTqA83TZRuJosgAsU';
 
-const ORBIT_STATS = [
-  '47,291 portfolios scanned',
-  'EVM + Solana',
-  '6 AI models',
-  '$2.1B analyzed',
-  'Free to start',
-];
+// Orbit stats removed — now in dedicated sections
 
 interface WalletInputProps {
   onFocusChange?: (focused: boolean) => void;
@@ -93,20 +87,6 @@ const WalletInput = ({ onFocusChange }: WalletInputProps) => {
 
   return (
     <div className="w-full max-w-2xl mx-auto relative">
-      {/* Orbiting Stats Ring */}
-      <div className="orbit-ring absolute inset-0 pointer-events-none" style={{ width: '140%', height: '140%', left: '-20%', top: '-20%' }}>
-        {ORBIT_STATS.map((stat, i) => (
-          <div
-            key={stat}
-            className="orbit-item pointer-events-auto"
-            style={{ '--orbit-start': `${(360 / ORBIT_STATS.length) * i}deg`, '--orbit-radius': '240px' } as React.CSSProperties}
-          >
-            <span className="glass-pill px-3 py-1.5 rounded-full text-[11px] text-foreground/40 font-medium whitespace-nowrap">
-              {stat}
-            </span>
-          </div>
-        ))}
-      </div>
 
       {/* Input fields */}
       <div className="flex flex-col gap-3 relative z-10">
@@ -194,12 +174,12 @@ const WalletInput = ({ onFocusChange }: WalletInputProps) => {
         disabled={!isValid}
         className="btn-shimmer w-full h-12 mt-3 rounded-xl bg-gradient-to-r from-violet-600 to-indigo-500 text-primary-foreground font-display font-semibold text-[15px] transition-all duration-200 hover:brightness-110 hover:-translate-y-[1px] hover:shadow-[0_8px_30px_-5px_rgba(139,92,246,0.4)] disabled:opacity-30 disabled:cursor-not-allowed disabled:hover:translate-y-0 disabled:hover:shadow-none disabled:hover:brightness-100 relative z-10"
       >
-        Run Diagnosis →
+        Diagnose My Portfolio →
       </button>
 
       {/* Trust line */}
       <p className="text-center text-foreground/20 text-[11px] mt-4 relative z-10">
-        30 seconds · Read-only · No wallet connection · Free
+        Free · No sign-up · No wallet connection · Read-only
       </p>
     </div>
   );
