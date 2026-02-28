@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
+import { Lock } from 'lucide-react';
 
 const ProductPreview = () => {
   const ref = useRef<HTMLDivElement>(null);
@@ -16,16 +17,14 @@ const ProductPreview = () => {
   }, []);
 
   return (
-    <section ref={ref} className="w-full max-w-5xl mx-auto px-5 py-24">
+    <section ref={ref} className="w-full max-w-5xl mx-auto px-5 py-24 relative">
       <h2 className={`text-center font-display font-bold text-2xl sm:text-3xl text-foreground/90 mb-12 transition-all duration-700 ${visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
         See what others can't
       </h2>
 
-      <div
-        className={`transition-all duration-700 delay-200 ${visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-5'}`}
-        style={{ perspective: '1200px' }}
-      >
-        <div className="browser-frame sm:transform sm:rotate-y-[2deg]" style={{ transformStyle: 'preserve-3d', transform: 'rotateY(-2deg) rotateX(1deg)' }}>
+      <div className={`relative transition-all duration-700 delay-200 ${visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-5'}`}>
+        {/* Dashboard content — blurred */}
+        <div className={`browser-frame blur-reveal ${visible ? 'blur-partial' : ''}`}>
           {/* Chrome bar */}
           <div className="browser-chrome">
             <div className="browser-dot" />
@@ -88,6 +87,19 @@ const ProductPreview = () => {
               ))}
             </div>
           </div>
+        </div>
+
+        {/* Overlay CTA */}
+        <div className="absolute inset-0 flex flex-col items-center justify-center z-10 pointer-events-none">
+          <div className="w-14 h-14 rounded-full bg-primary/20 flex items-center justify-center mb-4" style={{ animation: 'pulse-glow 3s ease-in-out infinite' }}>
+            <Lock size={22} className="text-primary" />
+          </div>
+          <p className="font-display font-bold text-lg sm:text-xl text-foreground/90 text-center px-4">
+            Your portfolio has secrets.
+          </p>
+          <p className="text-foreground/40 text-sm mt-1">
+            Paste an address to reveal them.
+          </p>
         </div>
 
         {/* Glow reflection */}

@@ -1,4 +1,4 @@
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useEffect, useRef } from 'react';
 import { Clipboard, Check, X, Plus } from 'lucide-react';
 
 type ChainType = 'evm' | 'solana' | 'invalid' | null;
@@ -13,15 +13,42 @@ const detectChain = (address: string): ChainType => {
 const DEMO_EVM = '0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045';
 const DEMO_SOL = '7xKXtg2CW87d97TXJSDpbD5jBkheTqA83TZRuJosgAsU';
 
+const ORBIT_STATS = [
+  '47,291 portfolios scanned',
+  'EVM + Solana',
+  '6 AI models',
+  '$2.1B analyzed',
+  'Free to start',
+];
+
 interface WalletInputProps {
   onFocusChange?: (focused: boolean) => void;
 }
 
 const WalletInput = ({ onFocusChange }: WalletInputProps) => {
   const [addresses, setAddresses] = useState<string[]>(['']);
+  const [sonarActive, setSonarActive] = useState(false);
+  const [scanActive, setScanActive] = useState(false);
+  const sonarTimeout = useRef<ReturnType<typeof setTimeout>>();
   const primaryAddress = addresses[0];
   const chain = detectChain(primaryAddress);
   const isValid = chain === 'evm' || chain === 'solana';
+
+  const triggerSonar = useCallback(() => {
+    setSonarActive(false);
+    setScanActive(true);
+    // Force reflow for sonar restart
+    requestAnimationFrame(() => {
+      setSonarActive(true);
+    });
+    clearTimeout(sonarTimeout.current);
+    sonarTimeout.current = setTimeout(() => {
+      setSonarActive(false);
+      setScanActive(false);
+    }, 900);
+  }, []);
+
+  useEffect(() => () => clearTimeout(sonarTimeout.current), []);
 
   const handlePaste = useCallback(async (index: number) => {
     try {
@@ -29,15 +56,17 @@ const WalletInput = ({ onFocusChange }: WalletInputProps) => {
       const updated = [...addresses];
       updated[index] = text.trim();
       setAddresses(updated);
+      triggerSonar();
     } catch {
       // clipboard not available
     }
-  }, [addresses]);
+  }, [addresses, triggerSonar]);
 
   const handleChange = (index: number, value: string) => {
     const updated = [...addresses];
     updated[index] = value;
     setAddresses(updated);
+    if (value.length > 5) triggerSonar();
   };
 
   const addWallet = () => {
@@ -54,6 +83,7 @@ const WalletInput = ({ onFocusChange }: WalletInputProps) => {
 
   const handleDemo = (type: 'evm' | 'solana') => {
     setAddresses([type === 'evm' ? DEMO_EVM : DEMO_SOL]);
+    triggerSonar();
   };
 
   const handleSubmit = () => {
@@ -62,11 +92,32 @@ const WalletInput = ({ onFocusChange }: WalletInputProps) => {
   };
 
   return (
-    <div className="w-full max-w-2xl mx-auto">
+    <div className="w-full max-w-2xl mx-auto relative">
+      {/* Orbiting Stats Ring */}
+      <div className="orbit-ring absolute inset-0 pointer-events-none" style={{ width: '140%', height: '140%', left: '-20%', top: '-20%' }}>
+        {ORBIT_STATS.map((stat, i) => (
+          <div
+            key={stat}
+            className="orbit-item pointer-events-auto"
+            style={{ '--orbit-start': `${(360 / ORBIT_STATS.length) * i}deg`, '--orbit-radius': '240px' } as React.CSSProperties}
+          >
+            <span className="glass-pill px-3 py-1.5 rounded-full text-[11px] text-foreground/40 font-medium whitespace-nowrap">
+              {stat}
+            </span>
+          </div>
+        ))}
+      </div>
+
       {/* Input fields */}
-      <div className="flex flex-col gap-3">
+      <div className="flex flex-col gap-3 relative z-10">
         {addresses.map((addr, i) => (
           <div key={i} className="relative">
+            {/* Sonar ring */}
+            <div className={`sonar-ring ${sonarActive && i === 0 ? 'sonar-active' : ''}`} />
+            
+            {/* Scan line */}
+            <div className={`scan-line ${scanActive && i === 0 ? 'scan-active' : ''}`} />
+            
             <input
               type="text"
               value={addr}
@@ -99,7 +150,7 @@ const WalletInput = ({ onFocusChange }: WalletInputProps) => {
       </div>
 
       {/* Below input row */}
-      <div className="flex items-center justify-between mt-3 px-1">
+      <div className="flex items-center justify-between mt-3 px-1 relative z-10">
         <button
           onClick={addWallet}
           className="flex items-center gap-1.5 text-foreground/30 hover:text-foreground/50 text-xs transition-colors"
@@ -116,7 +167,7 @@ const WalletInput = ({ onFocusChange }: WalletInputProps) => {
       </div>
 
       {/* Chain detection */}
-      <div className="h-5 mt-2 flex items-center gap-2 px-1">
+      <div className="h-5 mt-2 flex items-center gap-2 px-1 relative z-10">
         {chain === 'evm' && (
           <>
             <Check size={13} className="text-accent" />
@@ -141,14 +192,14 @@ const WalletInput = ({ onFocusChange }: WalletInputProps) => {
       <button
         onClick={handleSubmit}
         disabled={!isValid}
-        className="btn-shimmer w-full h-12 mt-3 rounded-xl bg-gradient-to-r from-violet-600 to-indigo-500 text-primary-foreground font-display font-semibold text-[15px] transition-all duration-200 hover:brightness-110 hover:-translate-y-[1px] hover:shadow-[0_8px_30px_-5px_rgba(139,92,246,0.4)] disabled:opacity-30 disabled:cursor-not-allowed disabled:hover:translate-y-0 disabled:hover:shadow-none disabled:hover:brightness-100"
+        className="btn-shimmer w-full h-12 mt-3 rounded-xl bg-gradient-to-r from-violet-600 to-indigo-500 text-primary-foreground font-display font-semibold text-[15px] transition-all duration-200 hover:brightness-110 hover:-translate-y-[1px] hover:shadow-[0_8px_30px_-5px_rgba(139,92,246,0.4)] disabled:opacity-30 disabled:cursor-not-allowed disabled:hover:translate-y-0 disabled:hover:shadow-none disabled:hover:brightness-100 relative z-10"
       >
-        Analyze Portfolio →
+        Run Diagnosis →
       </button>
 
       {/* Trust line */}
-      <p className="text-center text-foreground/20 text-[11px] mt-4">
-        Free · No sign-up · No wallet connection · Read-only
+      <p className="text-center text-foreground/20 text-[11px] mt-4 relative z-10">
+        30 seconds · Read-only · No wallet connection · Free
       </p>
     </div>
   );
