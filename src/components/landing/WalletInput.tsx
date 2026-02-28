@@ -31,67 +31,67 @@ const WalletInput = () => {
   };
 
   return (
-    <div className="glass-card-prominent rounded-2xl p-6 relative">
-      {/* Focus glow */}
+    <div className="relative">
+      {/* Pulsing radial glow — the portal */}
       <div
-        className="absolute inset-0 rounded-2xl pointer-events-none transition-opacity duration-500"
-        style={{
-          background: 'radial-gradient(circle at 50% 50%, rgba(139,92,246,0.08) 0%, transparent 70%)',
-          opacity: focused ? 1 : 0,
-        }}
+        className="hero-input-glow pointer-events-none"
+        style={{ opacity: focused ? 0.5 : undefined }}
       />
+
       {/* Input */}
-      <div className="relative">
-        <input
-          type="text"
-          value={address}
-          onChange={(e) => setAddress(e.target.value)}
-          onFocus={() => setFocused(true)}
-          onBlur={() => setFocused(false)}
-          placeholder="Paste your wallet address (EVM or Solana)"
-          className="glass-input w-full h-[52px] rounded-xl px-4 pr-12 font-mono text-sm text-foreground placeholder:text-muted-custom focus:outline-none transition-all"
-        />
+      <div className="relative z-10">
+        <div className="relative">
+          <input
+            type="text"
+            value={address}
+            onChange={(e) => setAddress(e.target.value)}
+            onFocus={() => setFocused(true)}
+            onBlur={() => setFocused(false)}
+            placeholder="Paste your wallet address (EVM or Solana)"
+            className={`hero-input w-full h-14 sm:h-16 rounded-2xl px-5 pr-14 font-mono text-sm sm:text-base text-foreground placeholder:text-muted-custom focus:outline-none transition-all duration-300 ${focused ? 'scale-[1.02]' : 'scale-100'}`}
+          />
+          <button
+            onClick={handlePaste}
+            className="absolute right-4 top-1/2 -translate-y-1/2 text-muted-custom hover:text-foreground transition-colors"
+            aria-label="Paste from clipboard"
+          >
+            <Clipboard size={18} />
+          </button>
+        </div>
+
+        {/* Chain detection */}
+        <div className="h-6 mt-2.5 flex items-center gap-2 px-1">
+          {chain === 'evm' && (
+            <>
+              <Check size={14} className="text-accent-green" />
+              <span className="text-accent-green text-xs font-body">EVM wallet detected</span>
+              <span className="text-xs text-muted-custom bg-secondary/40 px-2 py-0.5 rounded-full">ETH</span>
+            </>
+          )}
+          {chain === 'solana' && (
+            <>
+              <Check size={14} className="text-accent-green" />
+              <span className="text-accent-green text-xs font-body">Solana wallet detected</span>
+              <span className="text-xs text-muted-custom bg-secondary/40 px-2 py-0.5 rounded-full">SOL</span>
+            </>
+          )}
+          {chain === 'invalid' && (
+            <>
+              <X size={14} className="text-accent-red" />
+              <span className="text-accent-red text-xs font-body">Invalid wallet address</span>
+            </>
+          )}
+        </div>
+
+        {/* Submit */}
         <button
-          onClick={handlePaste}
-          className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-custom hover:text-foreground transition-colors"
-          aria-label="Paste from clipboard"
+          onClick={handleSubmit}
+          disabled={!isValid}
+          className="cta-shimmer w-full h-12 sm:h-14 mt-2 rounded-2xl brand-gradient brand-gradient-hover text-primary-foreground font-heading font-semibold text-[15px] sm:text-base transition-all disabled:opacity-40 disabled:cursor-not-allowed disabled:shadow-none"
         >
-          <Clipboard size={18} />
+          Analyze Portfolio →
         </button>
       </div>
-
-      {/* Chain detection */}
-      <div className="h-6 mt-2 flex items-center gap-2">
-        {chain === 'evm' && (
-          <>
-            <Check size={14} className="text-accent-green" />
-            <span className="text-accent-green text-xs font-body">EVM wallet detected</span>
-            <span className="text-xs text-muted-custom bg-secondary/40 px-2 py-0.5 rounded-full">ETH</span>
-          </>
-        )}
-        {chain === 'solana' && (
-          <>
-            <Check size={14} className="text-accent-green" />
-            <span className="text-accent-green text-xs font-body">Solana wallet detected</span>
-            <span className="text-xs text-muted-custom bg-secondary/40 px-2 py-0.5 rounded-full">SOL</span>
-          </>
-        )}
-        {chain === 'invalid' && (
-          <>
-            <X size={14} className="text-accent-red" />
-            <span className="text-accent-red text-xs font-body">Invalid wallet address</span>
-          </>
-        )}
-      </div>
-
-      {/* Submit */}
-      <button
-        onClick={handleSubmit}
-        disabled={!isValid}
-        className="cta-streak w-full h-12 mt-3 rounded-xl brand-gradient brand-gradient-hover text-primary-foreground font-heading font-semibold text-[15px] transition-all disabled:opacity-40 disabled:cursor-not-allowed disabled:shadow-none"
-      >
-        Analyze Portfolio →
-      </button>
     </div>
   );
 };

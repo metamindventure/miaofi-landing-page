@@ -78,6 +78,18 @@
     backdrop-filter: blur(20px);
   }
 
+  /* Hero input — frosted glass, no card wrapper */
+  .hero-input {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.10);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+  }
+  .hero-input:focus {
+    border-color: #8B5CF6;
+    box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.2), 0 0 40px rgba(139, 92, 246, 0.1);
+  }
+
   .glass-input {
     background: rgba(255, 255, 255, 0.04);
     border: 1px solid rgba(255, 255, 255, 0.08);
