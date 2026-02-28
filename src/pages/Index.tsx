@@ -9,8 +9,8 @@ const Index = () => {
       <AnimatedBackground />
 
       {/* Main content */}
-      <main className="relative z-10 flex-1 flex flex-col items-center justify-start pt-[15vh] sm:pt-[30vh] px-5 sm:px-6">
-        <div className="w-full max-w-[600px] flex flex-col gap-7">
+      <main className="relative z-10 flex-1 flex flex-col items-center justify-start pt-[15vh] sm:pt-[25vh] px-5 sm:px-6">
+        <div className="w-full max-w-[600px] flex flex-col gap-5">
 
           {/* Logo + Tagline */}
           <div className="text-center">
