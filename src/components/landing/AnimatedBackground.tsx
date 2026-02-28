@@ -5,73 +5,63 @@ interface Props {
 const AnimatedBackground = ({ inputFocused = false }: Props) => {
   return (
     <div className="fixed inset-0 overflow-hidden pointer-events-none">
-      {/* Dot grid */}
-      <div className="absolute inset-0 dot-grid" />
-
-      {/* Vortex — concentric rings radiating from center */}
+      {/* Base gradient */}
       <div
-        className="absolute"
+        className="absolute inset-0"
         style={{
-          top: '45%',
-          left: '50%',
-          width: '900px',
-          height: '900px',
-          animation: 'vortex-rotate 60s linear infinite',
-          transformOrigin: 'center',
-        }}
-      >
-        {/* Rings at varying sizes/opacities */}
-        {[
-          { size: 900, color: '#6366F1', opacity: 0.04 },
-          { size: 650, color: '#8B5CF6', opacity: 0.05 },
-          { size: 400, color: '#A78BFA', opacity: 0.06 },
-        ].map((ring, i) => (
-          <div
-            key={i}
-            className="absolute rounded-full"
-            style={{
-              width: ring.size,
-              height: ring.size,
-              top: '50%',
-              left: '50%',
-              marginTop: -ring.size / 2,
-              marginLeft: -ring.size / 2,
-              border: `1px solid rgba(139, 92, 246, ${ring.opacity})`,
-              background: `radial-gradient(circle, ${ring.color}${Math.round(ring.opacity * 255).toString(16).padStart(2, '0')} 0%, transparent 70%)`,
-            }}
-          />
-        ))}
-      </div>
-
-      {/* Light cone — spotlight on input area */}
-      <div
-        className="absolute transition-opacity duration-700"
-        style={{
-          top: '-5%',
-          left: '50%',
-          width: '300px',
-          height: '80vh',
-          marginLeft: '-150px',
-          background: 'linear-gradient(180deg, rgba(139,92,246,0.06) 0%, rgba(255,255,255,0.02) 40%, transparent 100%)',
-          clipPath: 'polygon(35% 0%, 65% 0%, 80% 100%, 20% 100%)',
-          opacity: inputFocused ? 1.6 : 1,
+          background: 'radial-gradient(ellipse 80% 60% at 50% 40%, hsl(220 14% 8%) 0%, hsl(220 14% 4%) 100%)',
         }}
       />
 
-      {/* Center glow — intensifies on focus */}
+      {/* Primary glow — center, behind input */}
       <div
-        className="absolute transition-all duration-500"
+        className="absolute transition-all duration-1000"
         style={{
-          top: '38%',
+          top: '30%',
           left: '50%',
-          width: '500px',
+          width: '700px',
           height: '500px',
-          marginLeft: '-250px',
-          marginTop: '-100px',
+          transform: 'translate(-50%, -50%)',
           borderRadius: '50%',
-          background: 'radial-gradient(circle, rgba(139,92,246,0.12) 0%, transparent 70%)',
+          background: `radial-gradient(circle, hsl(165 82% 51% / ${inputFocused ? 0.08 : 0.04}) 0%, transparent 70%)`,
           filter: 'blur(80px)',
-          opacity: inputFocused ? 0.35 : 0.15,
+        }}
+      />
+
+      {/* Secondary glow — top right accent */}
+      <div
+        className="absolute"
+        style={{
+          top: '10%',
+          right: '15%',
+          width: '400px',
+          height: '400px',
+          borderRadius: '50%',
+          background: 'radial-gradient(circle, hsl(220 60% 50% / 0.03) 0%, transparent 70%)',
+          filter: 'blur(60px)',
+        }}
+      />
+
+      {/* Grid lines */}
+      <div
+        className="absolute inset-0 opacity-[0.03]"
+        style={{
+          backgroundImage: `
+            linear-gradient(hsl(var(--foreground) / 0.15) 1px, transparent 1px),
+            linear-gradient(90deg, hsl(var(--foreground) / 0.15) 1px, transparent 1px)
+          `,
+          backgroundSize: '80px 80px',
+        }}
+      />
+
+      {/* Horizon line */}
+      <div
+        className="absolute left-0 right-0"
+        style={{
+          top: '65%',
+          height: '1px',
+          background: 'linear-gradient(90deg, transparent 5%, hsl(var(--border)) 30%, hsl(var(--border)) 70%, transparent 95%)',
+          opacity: 0.3,
         }}
       />
     </div>
