@@ -1,4 +1,4 @@
-import { Shield, Zap, Eye } from 'lucide-react';
+import { Shield, Zap, Eye, Search } from 'lucide-react';
 import AnimatedBackground from '@/components/landing/AnimatedBackground';
 import WalletInput from '@/components/landing/WalletInput';
 import SampleCards from '@/components/landing/SampleCards';
