@@ -1,11 +1,13 @@
 import { useState } from 'react';
-import { Search } from 'lucide-react';
 import AnimatedBackground from '@/components/landing/AnimatedBackground';
 import WalletInput from '@/components/landing/WalletInput';
-import ProductPreview from '@/components/landing/ProductPreview';
-import PersonaCards from '@/components/landing/PersonaCards';
+import ValueProposition from '@/components/landing/ValueProposition';
+import HowItWorks from '@/components/landing/HowItWorks';
+import DiagnosisCardMockup from '@/components/landing/DiagnosisCardMockup';
+import TrustSection from '@/components/landing/TrustSection';
 
-const HEADLINE_WORDS = ['See', 'Through', 'Your', 'Portfolio'];
+const HEADLINE_WORDS = ['Your', 'AI', 'Investment', 'Copilot', 'for', 'Crypto'];
+const CHAINS = ['Ethereum', 'Solana', 'Arbitrum', 'Base', 'Polygon'];
 
 const Index = () => {
   const [inputFocused, setInputFocused] = useState(false);
@@ -16,7 +18,7 @@ const Index = () => {
 
       {/* Hero — full viewport */}
       <main className="relative z-10 flex-1 flex flex-col items-center justify-center min-h-screen px-5">
-        <div className="w-full flex flex-col items-center gap-8 -mt-12">
+        <div className="w-full flex flex-col items-center gap-7 -mt-8">
 
           {/* Logo */}
           <div className="flex items-center gap-2.5">
@@ -26,13 +28,13 @@ const Index = () => {
             <span className="font-display font-bold text-xl text-foreground/90 tracking-tight">MiaoFi</span>
           </div>
 
-          {/* Headline — staggered word entrance */}
-          <h1 className="font-display font-bold text-4xl sm:text-5xl lg:text-6xl text-center leading-[1.1] max-w-xl">
+          {/* Headline */}
+          <h1 className="font-display font-bold text-3xl sm:text-4xl lg:text-5xl text-center leading-[1.15] max-w-2xl">
             {HEADLINE_WORDS.map((word, i) => (
               <span
-                key={word}
-                className="stagger-word bg-clip-text text-transparent bg-gradient-to-b from-white to-white/60 mr-[0.3em]"
-                style={{ animationDelay: `${0.15 + i * 0.12}s` }}
+                key={`${word}-${i}`}
+                className="stagger-word bg-clip-text text-transparent bg-gradient-to-b from-white to-white/60 mr-[0.25em]"
+                style={{ animationDelay: `${0.15 + i * 0.1}s` }}
               >
                 {word}
               </span>
@@ -40,35 +42,65 @@ const Index = () => {
           </h1>
 
           {/* Sub-headline */}
-          <p className="text-foreground/40 text-base sm:text-lg text-center max-w-md stagger-word" style={{ animationDelay: '0.8s' }}>
+          <p className="text-foreground/40 text-base sm:text-lg text-center max-w-md stagger-word" style={{ animationDelay: '0.9s' }}>
             Paste an address. Get your diagnosis in 30 seconds.
           </p>
 
-          {/* Wallet Input with orbiting stats */}
+          {/* Chain row */}
+          <div className="flex items-center gap-2 stagger-word" style={{ animationDelay: '1s' }}>
+            {CHAINS.map((chain) => (
+              <span key={chain} className="glass-pill px-3 py-1.5 rounded-full text-[11px] text-foreground/30 font-medium">
+                {chain}
+              </span>
+            ))}
+          </div>
+
+          {/* Wallet Input */}
           <WalletInput onFocusChange={setInputFocused} />
         </div>
       </main>
 
-      {/* Product Preview — X-Ray */}
-      <ProductPreview />
+      {/* Value Proposition */}
+      <ValueProposition />
 
-      {/* Persona Cards — Case Files */}
-      <PersonaCards />
+      {/* How It Works */}
+      <HowItWorks />
 
-      {/* Famous Wallets CTA */}
-      <div className="relative z-10 text-center py-8">
-        <a
-          href="#"
-          className="inline-flex items-center gap-2 text-primary hover:underline text-sm transition-colors"
-        >
-          <Search size={14} />
-          Peek at a famous wallet →
-        </a>
-      </div>
+      {/* Diagnosis Card Mockup */}
+      <DiagnosisCardMockup />
+
+      {/* Trust Section */}
+      <TrustSection />
+
+      {/* Bottom CTA */}
+      <section className="relative z-10 w-full max-w-2xl mx-auto px-5 py-24 text-center">
+        <h2 className="font-display font-bold text-2xl sm:text-3xl text-foreground/90 mb-3">
+          How healthy is your portfolio?
+        </h2>
+        <p className="text-foreground/40 text-base mb-10">
+          Free 30-second checkup.
+        </p>
+        <WalletInput />
+      </section>
 
       {/* Footer */}
-      <footer className="relative z-10 py-8 text-center text-foreground/20 text-[11px]">
-        © 2026 MiaoFi · Terms · Privacy
+      <footer className="relative z-10 py-10 text-center border-t border-foreground/[0.05]">
+        <div className="flex items-center justify-center gap-2 mb-4">
+          <div className="w-6 h-6 rounded-full bg-gradient-to-br from-violet-600 to-indigo-500 flex items-center justify-center">
+            <span className="text-primary-foreground font-display font-bold text-[10px]">M</span>
+          </div>
+          <span className="font-display font-bold text-sm text-foreground/60">MiaoFi</span>
+        </div>
+        <div className="flex items-center justify-center gap-4 text-foreground/25 text-xs mb-4">
+          <a href="#" className="hover:text-foreground/50 transition-colors">Privacy Policy</a>
+          <span>·</span>
+          <a href="#" className="hover:text-foreground/50 transition-colors">Twitter/X</a>
+          <span>·</span>
+          <a href="#" className="hover:text-foreground/50 transition-colors">Telegram</a>
+        </div>
+        <p className="text-foreground/15 text-[11px]">
+          Built with ❤️ by a solo founder + AI agents
+        </p>
       </footer>
     </div>
   );

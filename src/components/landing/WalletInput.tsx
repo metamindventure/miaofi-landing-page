@@ -13,13 +13,7 @@ const detectChain = (address: string): ChainType => {
 const DEMO_EVM = '0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045';
 const DEMO_SOL = '7xKXtg2CW87d97TXJSDpbD5jBkheTqA83TZRuJosgAsU';
 
-const ORBIT_STATS = [
-  '47,291 portfolios scanned',
-  'EVM + Solana',
-  '6 AI models',
-  '$2.1B analyzed',
-  'Free to start',
-];
+// Orbit stats removed — now in dedicated sections
 
 interface WalletInputProps {
   onFocusChange?: (focused: boolean) => void;
