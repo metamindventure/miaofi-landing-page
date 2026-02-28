@@ -1,5 +1,5 @@
 import { useState, useCallback } from 'react';
-import { Clipboard, Check, X } from 'lucide-react';
+import { Clipboard, Check, X, Plus } from 'lucide-react';
 
 type ChainType = 'evm' | 'solana' | 'invalid' | null;
 
@@ -10,65 +10,129 @@ const detectChain = (address: string): ChainType => {
   return 'invalid';
 };
 
-const WalletInput = () => {
-  const [address, setAddress] = useState('');
-  const chain = detectChain(address);
+const DEMO_EVM = '0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045';
+const DEMO_SOL = '7xKXtg2CW87d97TXJSDpbD5jBkheTqA83TZRuJosgAsU';
+
+interface WalletInputProps {
+  onFocusChange?: (focused: boolean) => void;
+}
+
+const WalletInput = ({ onFocusChange }: WalletInputProps) => {
+  const [addresses, setAddresses] = useState<string[]>(['']);
+  const primaryAddress = addresses[0];
+  const chain = detectChain(primaryAddress);
   const isValid = chain === 'evm' || chain === 'solana';
 
-  const handlePaste = useCallback(async () => {
+  const handlePaste = useCallback(async (index: number) => {
     try {
       const text = await navigator.clipboard.readText();
-      setAddress(text.trim());
+      const updated = [...addresses];
+      updated[index] = text.trim();
+      setAddresses(updated);
     } catch {
       // clipboard not available
     }
-  }, []);
+  }, [addresses]);
+
+  const handleChange = (index: number, value: string) => {
+    const updated = [...addresses];
+    updated[index] = value;
+    setAddresses(updated);
+  };
+
+  const addWallet = () => {
+    if (addresses.length < 5) {
+      setAddresses([...addresses, '']);
+    }
+  };
+
+  const removeWallet = (index: number) => {
+    if (addresses.length > 1) {
+      setAddresses(addresses.filter((_, i) => i !== index));
+    }
+  };
+
+  const handleDemo = (type: 'evm' | 'solana') => {
+    setAddresses([type === 'evm' ? DEMO_EVM : DEMO_SOL]);
+  };
 
   const handleSubmit = () => {
     if (!isValid) return;
-    alert(`Navigating to /portfolio?address=${address}&chain=${chain}`);
+    alert(`Navigating to /portfolio?address=${primaryAddress}&chain=${chain}`);
   };
 
   return (
-    <div className="glass-card-prominent rounded-2xl p-6">
-      {/* Input */}
-      <div className="relative">
-        <input
-          type="text"
-          value={address}
-          onChange={(e) => setAddress(e.target.value)}
-          placeholder="Paste your wallet address (EVM or Solana)"
-          className="glass-input w-full h-[52px] rounded-xl px-4 pr-12 font-mono text-sm text-foreground placeholder:text-muted-custom focus:outline-none transition-all"
-        />
+    <div className="w-full max-w-2xl mx-auto">
+      {/* Input fields */}
+      <div className="flex flex-col gap-3">
+        {addresses.map((addr, i) => (
+          <div key={i} className="relative">
+            <input
+              type="text"
+              value={addr}
+              onChange={(e) => handleChange(i, e.target.value)}
+              onFocus={() => onFocusChange?.(true)}
+              onBlur={() => onFocusChange?.(false)}
+              placeholder="Paste your wallet address (EVM or Solana)"
+              className="glass-input w-full h-14 rounded-2xl px-5 pr-14 font-mono text-sm text-foreground/90 placeholder:text-foreground/30 focus:outline-none transition-all duration-300"
+            />
+            <div className="absolute right-3 top-1/2 -translate-y-1/2 flex items-center gap-1">
+              {i > 0 && (
+                <button
+                  onClick={() => removeWallet(i)}
+                  className="p-1.5 text-foreground/30 hover:text-foreground/60 transition-colors"
+                  aria-label="Remove wallet"
+                >
+                  <X size={14} />
+                </button>
+              )}
+              <button
+                onClick={() => handlePaste(i)}
+                className="p-1.5 text-foreground/30 hover:text-foreground/60 transition-colors"
+                aria-label="Paste from clipboard"
+              >
+                <Clipboard size={16} />
+              </button>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      {/* Below input row */}
+      <div className="flex items-center justify-between mt-3 px-1">
         <button
-          onClick={handlePaste}
-          className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-custom hover:text-foreground transition-colors"
-          aria-label="Paste from clipboard"
+          onClick={addWallet}
+          className="flex items-center gap-1.5 text-foreground/30 hover:text-foreground/50 text-xs transition-colors"
         >
-          <Clipboard size={18} />
+          <Plus size={12} />
+          <span>Add another wallet</span>
         </button>
+        <div className="text-xs text-foreground/30">
+          No wallet?{' '}
+          <button onClick={() => handleDemo('evm')} className="text-primary hover:underline">EVM</button>
+          {' · '}
+          <button onClick={() => handleDemo('solana')} className="text-primary hover:underline">Solana</button>
+        </div>
       </div>
 
       {/* Chain detection */}
-      <div className="h-6 mt-2 flex items-center gap-2">
+      <div className="h-5 mt-2 flex items-center gap-2 px-1">
         {chain === 'evm' && (
           <>
-            <Check size={14} className="text-accent-green" />
-            <span className="text-accent-green text-xs font-body">EVM wallet detected</span>
-            <span className="text-xs text-muted-custom bg-secondary/40 px-2 py-0.5 rounded-full">ETH</span>
+            <Check size={13} className="text-accent" />
+            <span className="text-accent text-xs">EVM wallet detected</span>
           </>
         )}
         {chain === 'solana' && (
           <>
-            <Check size={14} className="text-accent-green" />
-            <span className="text-accent-green text-xs font-body">Solana wallet detected</span>
-            <span className="text-xs text-muted-custom bg-secondary/40 px-2 py-0.5 rounded-full">SOL</span>
+            <Check size={13} className="text-accent" />
+            <span className="text-accent text-xs">Solana wallet detected</span>
           </>
         )}
         {chain === 'invalid' && (
           <>
-            <X size={14} className="text-accent-red" />
-            <span className="text-accent-red text-xs font-body">Invalid wallet address</span>
+            <X size={13} className="text-destructive" />
+            <span className="text-destructive text-xs">Invalid wallet address</span>
           </>
         )}
       </div>
@@ -77,10 +141,15 @@ const WalletInput = () => {
       <button
         onClick={handleSubmit}
         disabled={!isValid}
-        className="w-full h-12 mt-3 rounded-xl brand-gradient brand-gradient-hover text-primary-foreground font-heading font-semibold text-[15px] transition-all disabled:opacity-40 disabled:cursor-not-allowed disabled:shadow-none"
+        className="btn-shimmer w-full h-12 mt-3 rounded-xl bg-gradient-to-r from-violet-600 to-indigo-500 text-primary-foreground font-display font-semibold text-[15px] transition-all duration-200 hover:brightness-110 hover:-translate-y-[1px] hover:shadow-[0_8px_30px_-5px_rgba(139,92,246,0.4)] disabled:opacity-30 disabled:cursor-not-allowed disabled:hover:translate-y-0 disabled:hover:shadow-none disabled:hover:brightness-100"
       >
         Analyze Portfolio →
       </button>
+
+      {/* Trust line */}
+      <p className="text-center text-foreground/20 text-[11px] mt-4">
+        Free · No sign-up · No wallet connection · Read-only
+      </p>
     </div>
   );
 };
