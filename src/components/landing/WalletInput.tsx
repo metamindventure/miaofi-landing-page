@@ -12,6 +12,7 @@ const detectChain = (address: string): ChainType => {
 
 const WalletInput = () => {
   const [address, setAddress] = useState('');
+  const [focused, setFocused] = useState(false);
   const chain = detectChain(address);
   const isValid = chain === 'evm' || chain === 'solana';
 

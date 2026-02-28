@@ -48,7 +48,7 @@ const SampleCards = () => {
           <button
             key={s.label}
             onClick={() => handleClick(s.label)}
-            className="glass-card rounded-xl p-4 text-left transition-all hover:border-[rgba(255,255,255,0.12)] hover:-translate-y-0.5 cursor-pointer group"
+            className="glass-card rounded-xl p-4 text-left hover:-translate-y-1 cursor-pointer group"
           >
             <div className="text-[13px] font-heading font-semibold text-foreground mb-2">
               <span className="mr-1.5">{s.emoji}</span>{s.label}

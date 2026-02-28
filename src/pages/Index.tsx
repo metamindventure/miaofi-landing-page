@@ -18,7 +18,7 @@ const Index = () => {
               <div className="w-8 h-8 rounded-full brand-gradient flex items-center justify-center">
                 <span className="text-primary-foreground font-heading font-bold text-sm">M</span>
               </div>
-              <span className="font-heading font-semibold text-[22px] text-foreground">MiaoFi</span>
+              <span className="font-heading font-semibold text-[22px] text-foreground text-glow-brand">MiaoFi</span>
             </div>
             <p className="text-secondary-custom text-base font-body">Your AI Investment Copilot for DeFi</p>
             <p className="text-muted-custom text-sm font-body mt-1">
