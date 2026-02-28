@@ -5,6 +5,8 @@ import WalletInput from '@/components/landing/WalletInput';
 import ProductPreview from '@/components/landing/ProductPreview';
 import PersonaCards from '@/components/landing/PersonaCards';
 
+const HEADLINE_WORDS = ['See', 'Through', 'Your', 'Portfolio'];
+
 const Index = () => {
   const [inputFocused, setInputFocused] = useState(false);
 
@@ -18,42 +20,39 @@ const Index = () => {
 
           {/* Logo */}
           <div className="flex items-center gap-2.5">
-            <div className="w-8 h-8 rounded-full bg-gradient-to-br from-violet-600 to-indigo-500 flex items-center justify-center">
+            <div className="logo-pulse w-8 h-8 rounded-full bg-gradient-to-br from-violet-600 to-indigo-500 flex items-center justify-center">
               <span className="text-primary-foreground font-display font-bold text-sm">M</span>
             </div>
             <span className="font-display font-bold text-xl text-foreground/90 tracking-tight">MiaoFi</span>
           </div>
 
-          {/* Headline */}
+          {/* Headline — staggered word entrance */}
           <h1 className="font-display font-bold text-4xl sm:text-5xl lg:text-6xl text-center leading-[1.1] max-w-xl">
-            <span className="bg-clip-text text-transparent bg-gradient-to-b from-white to-white/70">
-              Your AI Investment Copilot for Crypto
-            </span>
+            {HEADLINE_WORDS.map((word, i) => (
+              <span
+                key={word}
+                className="stagger-word bg-clip-text text-transparent bg-gradient-to-b from-white to-white/60 mr-[0.3em]"
+                style={{ animationDelay: `${0.15 + i * 0.12}s` }}
+              >
+                {word}
+              </span>
+            ))}
           </h1>
 
           {/* Sub-headline */}
-          <p className="text-foreground/40 text-base sm:text-lg text-center max-w-md">
+          <p className="text-foreground/40 text-base sm:text-lg text-center max-w-md stagger-word" style={{ animationDelay: '0.8s' }}>
             Paste an address. Get your diagnosis in 30 seconds.
           </p>
 
-          {/* Badges */}
-          <div className="flex flex-wrap items-center justify-center gap-2">
-            {['EVM + Solana', '6 AI Models', 'Free to Start'].map(badge => (
-              <span key={badge} className="glass-pill px-3.5 py-1.5 rounded-full text-xs text-foreground/50 font-medium">
-                {badge}
-              </span>
-            ))}
-          </div>
-
-          {/* Wallet Input */}
+          {/* Wallet Input with orbiting stats */}
           <WalletInput onFocusChange={setInputFocused} />
         </div>
       </main>
 
-      {/* Product Preview */}
+      {/* Product Preview — X-Ray */}
       <ProductPreview />
 
-      {/* Persona Cards */}
+      {/* Persona Cards — Case Files */}
       <PersonaCards />
 
       {/* Famous Wallets CTA */}
