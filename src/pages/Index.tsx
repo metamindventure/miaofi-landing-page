@@ -1,68 +1,74 @@
-import { Shield, Zap, Eye } from 'lucide-react';
+import { useState } from 'react';
+import { Search } from 'lucide-react';
 import AnimatedBackground from '@/components/landing/AnimatedBackground';
 import WalletInput from '@/components/landing/WalletInput';
-import SampleCards from '@/components/landing/SampleCards';
+import ProductPreview from '@/components/landing/ProductPreview';
+import PersonaCards from '@/components/landing/PersonaCards';
 
 const Index = () => {
+  const [inputFocused, setInputFocused] = useState(false);
+
   return (
     <div className="relative min-h-screen flex flex-col">
-      <AnimatedBackground />
+      <AnimatedBackground inputFocused={inputFocused} />
 
-      {/* Main content */}
-      <main className="relative z-10 flex-1 flex flex-col items-center justify-start pt-[15vh] sm:pt-[30vh] px-5 sm:px-6">
-        <div className="w-full max-w-[600px] flex flex-col gap-7">
+      {/* Hero — full viewport */}
+      <main className="relative z-10 flex-1 flex flex-col items-center justify-center min-h-screen px-5">
+        <div className="w-full flex flex-col items-center gap-8 -mt-12">
 
-          {/* Logo + Tagline */}
-          <div className="text-center">
-            <div className="flex items-center justify-center gap-2.5 mb-2">
-              <div className="w-8 h-8 rounded-full brand-gradient flex items-center justify-center">
-                <span className="text-primary-foreground font-heading font-bold text-sm">M</span>
-              </div>
-              <span className="font-heading font-semibold text-[22px] text-foreground">MiaoFi</span>
+          {/* Logo */}
+          <div className="flex items-center gap-2.5">
+            <div className="w-8 h-8 rounded-full bg-gradient-to-br from-violet-600 to-indigo-500 flex items-center justify-center">
+              <span className="text-primary-foreground font-display font-bold text-sm">M</span>
             </div>
-            <p className="text-secondary-custom text-base font-body">Your AI Investment Copilot for DeFi</p>
-            <p className="text-muted-custom text-sm font-body mt-1">
-              Paste an address. See your real P&L. Get AI advice in 30 seconds.
-            </p>
+            <span className="font-display font-bold text-xl text-foreground/90 tracking-tight">MiaoFi</span>
           </div>
 
-          {/* Social proof */}
-          <p className="text-center text-[13px] text-muted-custom font-body">
-            <span className="green-tint font-mono font-medium">12,847</span> portfolios analyzed ·{' '}
-            <span className="green-tint font-mono font-medium">$340M+</span> in assets scanned
+          {/* Headline */}
+          <h1 className="font-display font-bold text-4xl sm:text-5xl lg:text-6xl text-center leading-[1.1] max-w-xl">
+            <span className="bg-clip-text text-transparent bg-gradient-to-b from-white to-white/70">
+              Your AI Investment Copilot for Crypto
+            </span>
+          </h1>
+
+          {/* Sub-headline */}
+          <p className="text-foreground/40 text-base sm:text-lg text-center max-w-md">
+            Paste an address. Get your diagnosis in 30 seconds.
           </p>
 
-          {/* Input Section */}
-          <WalletInput />
-
-          {/* Trust indicators */}
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-6">
-            {[
-              { icon: Shield, text: 'No wallet connection' },
-              { icon: Zap, text: 'Free · No signup' },
-              { icon: Eye, text: 'Read-only analysis' },
-            ].map(({ icon: Icon, text }) => (
-              <div key={text} className="flex items-center gap-1.5 text-muted-custom text-xs font-body">
-                <Icon size={13} />
-                <span>{text}</span>
-              </div>
+          {/* Badges */}
+          <div className="flex flex-wrap items-center justify-center gap-2">
+            {['EVM + Solana', '6 AI Models', 'Free to Start'].map(badge => (
+              <span key={badge} className="glass-pill px-3.5 py-1.5 rounded-full text-xs text-foreground/50 font-medium">
+                {badge}
+              </span>
             ))}
           </div>
 
-          {/* Sample cards */}
-          <SampleCards />
-
-          {/* Famous wallets teaser */}
-          <p className="text-center">
-            <a href="#" className="text-brand text-[13px] font-body hover:underline transition-all">
-              or peek at a famous wallet →
-            </a>
-          </p>
+          {/* Wallet Input */}
+          <WalletInput onFocusChange={setInputFocused} />
         </div>
       </main>
 
+      {/* Product Preview */}
+      <ProductPreview />
+
+      {/* Persona Cards */}
+      <PersonaCards />
+
+      {/* Famous Wallets CTA */}
+      <div className="relative z-10 text-center py-8">
+        <a
+          href="#"
+          className="inline-flex items-center gap-2 text-primary hover:underline text-sm transition-colors"
+        >
+          <Search size={14} />
+          Peek at a famous wallet →
+        </a>
+      </div>
+
       {/* Footer */}
-      <footer className="relative z-10 py-6 text-center text-muted-custom text-[11px] font-body">
+      <footer className="relative z-10 py-8 text-center text-foreground/20 text-[11px]">
         © 2026 MiaoFi · Terms · Privacy
       </footer>
     </div>
