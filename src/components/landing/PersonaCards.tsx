@@ -1,46 +1,8 @@
 import { useEffect, useRef, useState } from 'react';
-
-const personas = [
-  {
-    emoji: '🐋',
-    name: 'Vitalik Buterin',
-    label: '以太坊创始人',
-    wallet: '0xd8dA...96045',
-    pnl: '−$35M',
-    positive: false,
-    insight: '在 ETH 跌了 37% 的情况下抛售 19K ETH。如果在 $4,000 时分批减仓，同样的资金需求只需卖 9,700 ETH——少卖一半的币，多拿一倍的钱',
-    risk: 6,
-    chains: ['ETH'],
-    note: '基于链上公开数据 · Arkham Intelligence 可验证',
-  },
-  {
-    emoji: '🎰',
-    name: 'Ansem',
-    label: 'Solana Meme Coin 猎手 · @blknoiz06',
-    wallet: 'AVAZ...NXYm',
-    pnl: '−$8,200',
-    positive: false,
-    insight: '一周买了 5 个 meme coin，3 个已经归零。剩下 2 个浮亏 60%。不是运气差，是没有任何风控逻辑',
-    risk: 9,
-    chains: ['SOL', 'PUMP'],
-    note: '基于链上公开数据 · Solscan 可验证',
-  },
-  {
-    emoji: '😴',
-    name: '某散户',
-    label: '佛系持有者 · 也许就是你',
-    wallet: null,
-    pnl: '+$2,100',
-    pnlNote: '(错过的收益)',
-    positive: true,
-    insight: '$28K USDC 在钱包躺了 4 个月。白白送了 $1,120 利息给交易所。只需要点几下就能把钱放到 DeFi 里生息',
-    risk: 3,
-    chains: ['ETH', 'SOL'],
-    isMirror: true,
-  },
-];
+import { useI18n } from '@/i18n/I18nContext';
 
 const PersonaCards = () => {
+  const { t } = useI18n();
   const ref = useRef<HTMLDivElement>(null);
   const [visible, setVisible] = useState(false);
 
@@ -55,19 +17,59 @@ const PersonaCards = () => {
     return () => obs.disconnect();
   }, []);
 
+  const personas = [
+    {
+      emoji: '🐋',
+      name: 'Vitalik Buterin',
+      label: t('realDiagnoses.vitalikLabel'),
+      wallet: '0xd8dA...96045',
+      pnl: '−$35M',
+      positive: false,
+      insight: t('realDiagnoses.vitalikDiagnosis'),
+      risk: 6,
+      chains: ['ETH'],
+      note: t('realDiagnoses.vitalikFootnote'),
+    },
+    {
+      emoji: '🎰',
+      name: 'Ansem',
+      label: t('realDiagnoses.degenLabel') + ' · @blknoiz06',
+      wallet: 'AVAZ...NXYm',
+      pnl: '−$8,200',
+      positive: false,
+      insight: t('realDiagnoses.degenDiagnosis'),
+      risk: 9,
+      chains: ['SOL', 'PUMP'],
+      note: t('realDiagnoses.degenFootnote'),
+    },
+    {
+      emoji: '😴',
+      name: t('realDiagnoses.sleeperName'),
+      label: t('realDiagnoses.sleeperTag'),
+      wallet: null,
+      pnl: '+$2,100',
+      pnlNote: t('realDiagnoses.sleeperPnlNote'),
+      positive: true,
+      insight: t('realDiagnoses.sleeperDiagnosis'),
+      risk: 3,
+      chains: ['ETH', 'SOL'],
+      isMirror: true,
+    },
+  ];
+
   return (
     <section ref={ref} className="w-full max-w-5xl mx-auto px-5 py-20 relative z-10">
       <h2 className={`text-center font-display font-extrabold text-3xl sm:text-4xl mb-2 transition-all duration-700 ${visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
-        <span className="bg-clip-text text-transparent bg-gradient-to-b from-foreground to-foreground/60">真实钱包。真实诊断。</span>
+        <span className="bg-clip-text text-transparent bg-gradient-to-b from-foreground to-foreground/60">{t('realDiagnoses.title')}</span>
       </h2>
       <p className={`text-center text-muted-foreground text-sm mb-10 transition-all duration-700 delay-100 ${visible ? 'opacity-100' : 'opacity-0'}`}>
-        这些是 MiaoFi 对链上公开钱包的真实分析。任何人的钱包都能诊断。
+        {t('realDiagnoses.subtitle')}
       </p>
 
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
         {personas.map((p, i) => (
           <div
-            key={p.name}
+            key={i}
             className={`group glass-card rounded-2xl p-6 text-left transition-all duration-500 hover:scale-[1.03] hover:border-white/[0.15] hover:shadow-[0_8px_40px_-10px_rgba(108,92,231,0.15)] cursor-pointer relative overflow-hidden ${
               p.isMirror ? 'border-dashed' : ''
             } ${visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`}
@@ -102,7 +104,7 @@ const PersonaCards = () => {
               <p className="text-muted-foreground/30 text-[9px] mt-3 relative z-10">{p.note}</p>
             )}
             <p className="text-primary/60 text-[10px] mt-2 opacity-0 group-hover:opacity-100 transition-opacity relative z-10">
-              点击查看完整诊断 →
+              {t('realDiagnoses.clickFull')}
             </p>
           </div>
         ))}
