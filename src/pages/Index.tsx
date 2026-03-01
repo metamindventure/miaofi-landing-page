@@ -9,52 +9,29 @@ import ProductPreview from '@/components/landing/ProductPreview';
 import PersonaCards from '@/components/landing/PersonaCards';
 import TrustSecurity from '@/components/landing/TrustSecurity';
 import BottomCTA from '@/components/landing/BottomCTA';
+import Footer from '@/components/landing/Footer';
 
 const HEADLINE_PARTS = [
-  { text: 'Last Month, You Lost ', delay: 0.15 },
-  { text: '$2,847', delay: 0.35, red: true },
-  { text: ' and Didn\'t Know It', delay: 0.55 },
+  { text: 'ETH 从高点暴跌 ', delay: 0.15 },
+  { text: '59%', delay: 0.35, red: true },
+  { text: '。', delay: 0.45 },
+  { text: '你的仓位扛住了吗？', delay: 0.55 },
 ];
-
-const AnimatedCounter = ({ target, duration = 2000 }: { target: number; duration?: number }) => {
-  const [count, setCount] = useState(0);
-  const ref = useRef<HTMLSpanElement>(null);
-  const started = useRef(false);
-
-  useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
-    const obs = new IntersectionObserver(([entry]) => {
-      if (entry.isIntersecting && !started.current) {
-        started.current = true;
-        const startTime = performance.now();
-        const animate = (now: number) => {
-          const elapsed = now - startTime;
-          const progress = Math.min(elapsed / duration, 1);
-          // ease-out
-          const eased = 1 - Math.pow(1 - progress, 3);
-          setCount(Math.floor(eased * target));
-          if (progress < 1) requestAnimationFrame(animate);
-        };
-        requestAnimationFrame(animate);
-        obs.disconnect();
-      }
-    }, { threshold: 0.5 });
-    obs.observe(el);
-    return () => obs.disconnect();
-  }, [target, duration]);
-
-  return <span ref={ref}>{count.toLocaleString()}+</span>;
-};
 
 const Index = () => {
   const [inputFocused, setInputFocused] = useState(false);
 
+  const scrollToTopAndFillWhale = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    setTimeout(() => {
+      window.dispatchEvent(new CustomEvent('fill-wallet', { detail: '0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045' }));
+    }, 600);
+  };
+
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
     setTimeout(() => {
-      const input = document.querySelector<HTMLInputElement>('.glass-input');
-      input?.focus();
+      document.querySelector<HTMLInputElement>('.glass-input')?.focus();
     }, 600);
   };
 
@@ -77,10 +54,10 @@ const Index = () => {
           {/* Tags */}
           <div className="flex items-center gap-3 stagger-word" style={{ animationDelay: '0.1s' }}>
             <span className="glass-pill px-3 py-1 rounded-full text-[11px] text-foreground/50 font-medium">
-              Free · 30 seconds
+              免费 · 30 秒
             </span>
             <span className="glass-pill px-3 py-1 rounded-full text-[11px] text-foreground/50 font-medium font-mono">
-              <AnimatedCounter target={12000} /> wallets diagnosed this week
+              EVM + Solana
             </span>
           </div>
 
@@ -99,10 +76,10 @@ const Index = () => {
 
           {/* Sub-headline */}
           <p className="text-foreground/40 text-sm sm:text-base text-center max-w-lg stagger-word leading-relaxed" style={{ animationDelay: '0.8s' }}>
-            Hidden losses. Silent risks. Missed yield.<br className="sm:hidden" /> Paste your wallet — AI finds what you can't see.
+            粘贴钱包地址，AI + 投资专家 30 秒诊断你的<br className="sm:hidden" />持仓风险、交易习惯和错过的收益
           </p>
 
-          {/* Wallet Input with orbiting stats */}
+          {/* Wallet Input */}
           <WalletInput onFocusChange={setInputFocused} />
         </div>
       </main>
@@ -128,7 +105,7 @@ const Index = () => {
       {/* Famous Wallets CTA */}
       <div className="relative z-10 text-center py-8">
         <button
-          onClick={scrollToTop}
+          onClick={scrollToTopAndFillWhale}
           className="inline-flex items-center gap-2 text-primary hover:underline text-sm transition-colors"
         >
           <Search size={14} />
@@ -140,9 +117,7 @@ const Index = () => {
       <BottomCTA />
 
       {/* Footer */}
-      <footer className="relative z-10 py-8 text-center text-foreground/20 text-[11px]">
-        © 2026 MiaoFi · Terms · Privacy
-      </footer>
+      <Footer />
     </div>
   );
 };

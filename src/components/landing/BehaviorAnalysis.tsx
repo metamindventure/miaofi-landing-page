@@ -5,58 +5,62 @@ const cases = [
   {
     id: 'fomo',
     badge: '🔴 FOMO 追涨',
-    finding: '过去 30 天你买了 9 次，其中 7 次是在 token 涨了 15% 之后追入的。这 7 次平均亏了 22%。',
-    stat: '7/9 buys after 15%+ pump. Avg loss: -22%',
+    finding: 'SOL 从 $295 跌到 $120 时你没买。等它反弹到 $180（+50%）你追进去了。现在 $80，你亏了 56%。',
+    stat: '3 次买入全在反弹 30%+ 之后',
     statColor: 'text-[#ef4444]',
-    fix: '别用市价单追涨。设限价单在目标价，等回调来找你。你 2 月 2 日追的 RCH（涨了 32% 后买入）现在 -18%，如果当时设 limit order 在 $0.85，现在还没触发——但你也没亏。',
+    fix: '你的 3 次买入全在价格反弹 30%+ 之后。如果你在 $120 时分批建仓（每周定投），同样的金额现在成本是 $105，而不是 $180。设规则：只在价格低于 30 日均线时加仓。',
   },
   {
-    id: 'overtrade',
-    badge: '🟡 过度交易',
-    finding: '你 30 天交易了 47 次，平均每次持仓不到 18 小时。手续费和滑点加起来吃掉了 $340。',
-    stat: '$340 burned on fees + slippage',
-    statColor: 'text-[#ef4444]',
-    fix: '你的交易频率是盈利用户平均值的 4 倍。盈利用户平均持仓 5.2 天。建议：每次想下单前等 24 小时，仍然想买再操作。仅靠"等一等"这一条，你上个月能省 $340 手续费 + 避开至少 3 笔亏损交易。',
-  },
-  {
-    id: 'notp',
-    badge: '🟠 不会止盈',
-    finding: '你持有 ARB 从 +35% 到现在 -12%，中间没有任何止盈操作。这不是第一次——过去 3 个月你有 4 个 token 经历了"盈利 → 亏损"完整周期。',
-    stat: '4 tokens rode profit → loss in 3 months',
+    id: 'disposition',
+    badge: '🟡 赚了不跑，亏了死扛',
+    finding: '你的 ETH 从 $4,953 高点持有到现在 $2,036，中间没有任何减仓操作。浮盈 $29,000 变成了浮亏 $17,000。这不是第一次——过去 12 个月你有 3 个 token 经历了完整的"盈利→亏损"周期。',
+    stat: '浮盈 $29K → 浮亏 $17K，零止盈操作',
     statColor: 'text-amber-400',
-    fix: '你赚了不跑，亏了死扛。如果在 ARB +25% 时卖掉一半，锁定 $1,200 利润，剩下一半拿到现在也只亏 $180。总净赚 $1,020。设规则：任何 token 盈利超 25% 自动减半仓。',
+    fix: '如果在 ETH $4,000 时卖掉一半（离高点 -20%），锁定 $19,600 利润，剩下一半拿到现在也只亏 $9,800。总净赚 $9,800 vs 现在的净亏 $17,000。设规则：任何持仓盈利超 50% 时自动减仓 1/3。',
+  },
+  {
+    id: 'panic',
+    badge: '🔴 恐慌抛售',
+    finding: '2026 年 2 月 3 日 ETH 单日跌 8%，你在最低点附近卖出了全部仓位。3 天后价格反弹 11%。你卖在了地板上。过去 6 个月你有 2 次类似的"恐慌清仓→错过反弹"。',
+    stat: '2 次恐慌清仓，错过反弹共计 $4,800',
+    statColor: 'text-[#ef4444]',
+    fix: '恐慌抛售的代价：如果持有不动，你现在多 $2,400。如果你担心下跌，正确的做法是"分批减仓"而不是"一键清仓"。设规则：单次最多卖出持仓的 25%，间隔 24 小时再决定下一步。',
   },
 ];
 
 /* ── Mini Visualizations ── */
 
 const FomoChart = () => {
-  // Simplified price curve with buy markers at peaks
+  // SOL price trajectory: $295 peak → $120 dip → $180 bounce (user buys) → $80 now
   const points = [
-    { x: 0, y: 70 },
-    { x: 12, y: 55 },
-    { x: 22, y: 30 }, // peak — buy
-    { x: 30, y: 50 },
-    { x: 40, y: 60 },
-    { x: 48, y: 20 }, // peak — buy
-    { x: 56, y: 45 },
-    { x: 64, y: 55 },
-    { x: 72, y: 15 }, // peak — buy
-    { x: 80, y: 35 },
-    { x: 90, y: 25 }, // peak — buy
-    { x: 100, y: 50 },
+    { x: 0, y: 5 },    // $295 ATH
+    { x: 15, y: 10 },
+    { x: 30, y: 45 },  // dropping
+    { x: 45, y: 60 },  // $120 dip
+    { x: 55, y: 55 },
+    { x: 65, y: 30 },  // $180 bounce — BUY
+    { x: 72, y: 35 },
+    { x: 78, y: 28 },  // another bounce — BUY
+    { x: 85, y: 50 },
+    { x: 92, y: 65 },  // $80 — BUY at another bounce
+    { x: 100, y: 72 }, // current low
   ];
-  const buyIndices = [2, 5, 8, 10];
+  const buyIndices = [5, 7, 9];
   const path = points.map((p, i) => `${i === 0 ? 'M' : 'L'}${p.x},${p.y}`).join(' ');
 
   return (
     <div className="relative w-full h-28 sm:h-32">
       <svg viewBox="0 0 100 80" className="w-full h-full" preserveAspectRatio="none">
-        <path d={path} fill="none" stroke="rgba(255,255,255,0.15)" strokeWidth="1.5" className="price-line-draw" />
+        {/* Grid lines */}
+        {[20, 40, 60].map(y => (
+          <line key={y} x1="0" y1={y} x2="100" y2={y} stroke="rgba(255,255,255,0.03)" strokeWidth="0.5" />
+        ))}
+        <path d={path} fill="none" stroke="rgba(255,255,255,0.08)" strokeWidth="1.5" />
         <path d={path} fill="none" stroke="url(#fomoGrad)" strokeWidth="1.5" className="price-line-draw" />
         <defs>
           <linearGradient id="fomoGrad" x1="0%" y1="0%" x2="100%" y2="0%">
-            <stop offset="0%" stopColor="rgba(139,92,246,0.6)" />
+            <stop offset="0%" stopColor="rgba(74,222,128,0.5)" />
+            <stop offset="40%" stopColor="rgba(251,191,36,0.5)" />
             <stop offset="100%" stopColor="rgba(239,68,68,0.6)" />
           </linearGradient>
         </defs>
@@ -65,72 +69,101 @@ const FomoChart = () => {
           return (
             <g key={idx}>
               <circle cx={p.x} cy={p.y} r="2.5" fill="#ef4444" className="animate-[pulse_2s_ease-in-out_infinite]" />
-              <text x={p.x} y={p.y - 6} textAnchor="middle" fill="#ef4444" fontSize="5" fontWeight="bold" fontFamily="monospace">BUY</text>
+              <text x={p.x} y={p.y - 6} textAnchor="middle" fill="#ef4444" fontSize="4.5" fontWeight="bold" fontFamily="monospace">BUY</text>
             </g>
           );
         })}
+        {/* Price labels */}
+        <text x="2" y="8" fill="rgba(255,255,255,0.25)" fontSize="4" fontFamily="monospace">$295</text>
+        <text x="43" y="66" fill="rgba(255,255,255,0.25)" fontSize="4" fontFamily="monospace">$120</text>
+        <text x="63" y="25" fill="rgba(255,255,255,0.25)" fontSize="4" fontFamily="monospace">$180</text>
+        <text x="90" y="78" fill="rgba(255,255,255,0.25)" fontSize="4" fontFamily="monospace">$80</text>
       </svg>
-      <div className="absolute bottom-1 right-2 text-[9px] text-foreground/20 font-mono">30d price action</div>
+      <div className="absolute bottom-1 right-2 text-[9px] text-foreground/20 font-mono">SOL / USD · 12 个月</div>
     </div>
   );
 };
 
-const OvertradeChart = () => (
-  <div className="flex flex-col gap-3 w-full py-2">
-    {/* User bar */}
-    <div className="flex items-center gap-3">
-      <span className="text-[10px] text-foreground/40 font-mono w-10 shrink-0 text-right">You</span>
-      <div className="flex-1 h-6 rounded-md bg-white/[0.03] overflow-hidden relative">
-        <div className="overtrade-bar-user h-full rounded-md bg-gradient-to-r from-[#ef4444]/60 to-[#ef4444]/30 flex items-center pl-2" style={{ width: '85%' }}>
-          <span className="text-[10px] font-mono text-white/80 font-bold">47 trades</span>
-        </div>
-      </div>
-    </div>
-    {/* Profitable traders bar */}
-    <div className="flex items-center gap-3">
-      <span className="text-[10px] text-foreground/40 font-mono w-10 shrink-0 text-right">Avg</span>
-      <div className="flex-1 h-6 rounded-md bg-white/[0.03] overflow-hidden relative">
-        <div className="overtrade-bar-avg h-full rounded-md bg-gradient-to-r from-[#4ade80]/50 to-[#4ade80]/20 flex items-center pl-2" style={{ width: '25%' }}>
-          <span className="text-[10px] font-mono text-white/80 font-bold">12</span>
-        </div>
-      </div>
-    </div>
-    <div className="text-[9px] text-foreground/20 font-mono text-right">trades / 30 days — profitable traders avg</div>
-  </div>
-);
-
-const TakeProfitChart = () => {
-  // Actual: rises to +35% then falls to -12%
-  const actual = 'M0,50 C15,45 25,20 40,12 C50,8 55,10 60,18 C70,35 85,58 100,62';
-  // If took profit: plateaus at +25% then gentle decline but stays positive
-  const ideal = 'M0,50 C15,45 25,22 40,18 L55,18 C65,20 80,28 100,32';
+const DispositionChart = () => {
+  // ETH: rises to ATH $4,953, then falls to $2,036
+  const actual = 'M0,55 C10,50 20,35 30,18 C35,10 38,8 40,8 C45,10 55,25 65,40 C75,52 85,58 100,60';
+  // If took profit at $4,000: sell half, lock profit, gentle decline
+  const ideal = 'M0,55 C10,50 20,35 30,22 L40,22 C50,24 60,28 70,30 C80,32 90,34 100,36';
 
   return (
     <div className="relative w-full h-28 sm:h-32">
       <svg viewBox="0 0 100 70" className="w-full h-full" preserveAspectRatio="none">
         {/* Zero line */}
-        <line x1="0" y1="50" x2="100" y2="50" stroke="rgba(255,255,255,0.06)" strokeWidth="0.5" strokeDasharray="2,2" />
+        <line x1="0" y1="55" x2="100" y2="55" stroke="rgba(255,255,255,0.06)" strokeWidth="0.5" strokeDasharray="2,2" />
         {/* Ideal path */}
         <path d={ideal} fill="none" stroke="#4ade80" strokeWidth="1.2" strokeDasharray="3,2" opacity="0.6" className="price-line-draw" />
         {/* Actual path */}
         <path d={actual} fill="none" stroke="#ef4444" strokeWidth="1.5" opacity="0.8" className="price-line-draw" />
         {/* Labels */}
-        <text x="92" y="60" fill="#ef4444" fontSize="4.5" fontFamily="monospace" opacity="0.7">-12%</text>
-        <text x="92" y="30" fill="#4ade80" fontSize="4.5" fontFamily="monospace" opacity="0.7">+13%</text>
-        <text x="38" y="8" fill="rgba(255,255,255,0.3)" fontSize="4" fontFamily="monospace">+35%</text>
+        <text x="36" y="6" fill="rgba(255,255,255,0.3)" fontSize="4" fontFamily="monospace">$4,953</text>
+        <text x="88" y="66" fill="#ef4444" fontSize="4" fontFamily="monospace">$2,036</text>
+        <text x="88" y="34" fill="#4ade80" fontSize="4" fontFamily="monospace">+$9.8K</text>
+        <text x="28" y="18" fill="rgba(255,255,255,0.2)" fontSize="3.5" fontFamily="monospace">止盈点 $4,000</text>
       </svg>
       <div className="absolute bottom-1 left-2 flex items-center gap-3 text-[9px] font-mono">
-        <span className="flex items-center gap-1"><span className="w-3 h-[1.5px] bg-[#ef4444] inline-block"></span><span className="text-foreground/30">Actual</span></span>
-        <span className="flex items-center gap-1"><span className="w-3 h-[1.5px] bg-[#4ade80] inline-block border-dashed"></span><span className="text-foreground/30">If took profit</span></span>
+        <span className="flex items-center gap-1"><span className="w-3 h-[1.5px] bg-[#ef4444] inline-block"></span><span className="text-foreground/30">实际持仓</span></span>
+        <span className="flex items-center gap-1"><span className="w-3 h-[1.5px] bg-[#4ade80] inline-block"></span><span className="text-foreground/30">如果止盈</span></span>
       </div>
+    </div>
+  );
+};
+
+const PanicChart = () => {
+  // ETH drops 8% in one day, user sells at bottom, then rebounds 11%
+  const points = [
+    { x: 0, y: 30 },
+    { x: 15, y: 28 },
+    { x: 25, y: 25 },
+    { x: 35, y: 32 },
+    { x: 45, y: 55 },  // -8% drop starts
+    { x: 55, y: 68 },  // bottom — user SELLS here
+    { x: 60, y: 65 },
+    { x: 68, y: 50 },  // rebound starts
+    { x: 78, y: 38 },  // +11% rebound
+    { x: 88, y: 35 },
+    { x: 100, y: 40 },
+  ];
+  const path = points.map((p, i) => `${i === 0 ? 'M' : 'L'}${p.x},${p.y}`).join(' ');
+
+  return (
+    <div className="relative w-full h-28 sm:h-32">
+      <svg viewBox="0 0 100 80" className="w-full h-full" preserveAspectRatio="none">
+        {[20, 40, 60].map(y => (
+          <line key={y} x1="0" y1={y} x2="100" y2={y} stroke="rgba(255,255,255,0.03)" strokeWidth="0.5" />
+        ))}
+        <path d={path} fill="none" stroke="url(#panicGrad)" strokeWidth="1.5" className="price-line-draw" />
+        <defs>
+          <linearGradient id="panicGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" stopColor="rgba(255,255,255,0.3)" />
+            <stop offset="45%" stopColor="rgba(239,68,68,0.7)" />
+            <stop offset="60%" stopColor="rgba(239,68,68,0.5)" />
+            <stop offset="80%" stopColor="rgba(74,222,128,0.5)" />
+            <stop offset="100%" stopColor="rgba(74,222,128,0.3)" />
+          </linearGradient>
+        </defs>
+        {/* Sell marker at bottom */}
+        <circle cx={55} cy={68} r="3" fill="#ef4444" className="animate-[pulse_2s_ease-in-out_infinite]" />
+        <text x={55} y={78} textAnchor="middle" fill="#ef4444" fontSize="4.5" fontWeight="bold" fontFamily="monospace">SELL</text>
+        {/* Rebound marker */}
+        <circle cx={78} cy={38} r="2" fill="#4ade80" opacity="0.7" />
+        <text x={78} y={33} textAnchor="middle" fill="#4ade80" fontSize="4" fontFamily="monospace">+11%</text>
+        {/* Drop label */}
+        <text x={45} y={50} fill="rgba(255,255,255,0.2)" fontSize="3.5" fontFamily="monospace">-8%</text>
+      </svg>
+      <div className="absolute bottom-1 right-2 text-[9px] text-foreground/20 font-mono">ETH · 2026年2月</div>
     </div>
   );
 };
 
 const vizMap: Record<string, React.FC> = {
   fomo: FomoChart,
-  overtrade: OvertradeChart,
-  notp: TakeProfitChart,
+  disposition: DispositionChart,
+  panic: PanicChart,
 };
 
 const BehaviorAnalysis = () => {
@@ -164,7 +197,7 @@ const BehaviorAnalysis = () => {
         </span>
       </h2>
       <p className={`text-center text-foreground/35 text-sm max-w-xl mx-auto mb-14 transition-all duration-700 delay-100 ${visible ? 'opacity-100' : 'opacity-0'}`}>
-        Portfolio trackers show your holdings. Only MiaoFi reads your trading history like a behavioral psychologist.
+        Portfolio trackers 告诉你持有什么。只有 MiaoFi 像行为心理学家一样解读你的交易历史。
       </p>
 
       {/* Cards */}
@@ -185,21 +218,18 @@ const BehaviorAnalysis = () => {
               <div className="grid grid-cols-1 sm:grid-cols-[1fr_1fr] gap-0">
                 {/* Left: Diagnosis */}
                 <div className="px-5 py-4 sm:px-6 sm:py-5 flex flex-col gap-3 sm:border-r sm:border-white/[0.06]">
-                  {/* Viz */}
                   <Viz />
-                  {/* Finding */}
                   <p className="text-foreground/60 text-sm leading-relaxed">{c.finding}</p>
-                  {/* Stat */}
                   <p className={`font-mono text-xs font-bold ${c.statColor}`}>{c.stat}</p>
                 </div>
 
-                {/* Right: AI Prescription */}
+                {/* Right: AI + Expert Prescription */}
                 <div className="px-5 py-4 sm:px-6 sm:py-5 flex flex-col gap-3 bg-white/[0.01]">
                   <div className="flex items-center gap-2">
                     <div className="w-5 h-5 rounded-full bg-primary/20 flex items-center justify-center">
                       <span className="text-[10px]">🤖</span>
                     </div>
-                    <span className="text-[10px] font-mono text-primary/70 uppercase tracking-wider font-bold">AI 处方</span>
+                    <span className="text-[10px] font-mono text-primary/70 uppercase tracking-wider font-bold">AI + 专家处方</span>
                   </div>
                   <p className="text-foreground/80 text-sm leading-relaxed">{c.fix}</p>
                 </div>
