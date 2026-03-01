@@ -41,8 +41,11 @@ const TrustSecurity = () => {
 
   return (
     <section ref={ref} className="w-full max-w-4xl mx-auto px-5 py-24 relative z-10">
-      <p className={`text-center text-foreground/30 text-sm mb-10 transition-all duration-700 ${visible ? 'opacity-100' : 'opacity-0'}`}>
-        Security & Trust
+      <h2 className={`text-center font-display font-bold text-2xl sm:text-3xl mb-2 transition-all duration-700 ${visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
+        <span className="bg-clip-text text-transparent bg-gradient-to-r from-white to-white/60">Security & Trust</span>
+      </h2>
+      <p className={`text-center text-foreground/30 text-sm mb-10 transition-all duration-700 delay-100 ${visible ? 'opacity-100' : 'opacity-0'}`}>
+        Your safety is our first priority
       </p>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
