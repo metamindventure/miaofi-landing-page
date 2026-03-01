@@ -5,19 +5,19 @@ const steps = [
     emoji: '📋',
     number: '01',
     title: '粘贴地址',
-    desc: 'EVM 或 Solana，支持多钱包同时分析',
+    desc: 'EVM 或 Solana，多钱包合并算总账。不连钱包，不碰私钥',
   },
   {
     emoji: '🧠',
     number: '02',
-    title: '30秒 AI 扫描',
-    desc: '6 个 AI 模型交叉分析持仓、交易历史与行为模式',
+    title: '6 个 AI 交叉会诊',
+    desc: 'Claude、GPT-4o、Gemini 同时看你的持仓和交易记录，像 3 个基金经理会诊你的操作',
   },
   {
     emoji: '⚡',
     number: '03',
-    title: '收到诊断卡片',
-    desc: '不是报告，是具体的卖出、质押等执行动作，一步到位',
+    title: '拿到处方，不是报告',
+    desc: '别人告诉你"要分散投资"。我们说"把 30% 的 ETH 换成 USDC，在 Aave 存着吃 4.2%"',
   },
 ];
 
@@ -38,7 +38,6 @@ const HowItWorks = () => {
 
   return (
     <section ref={ref} className="w-full max-w-4xl mx-auto px-5 py-24 relative z-10">
-      {/* Section title — bold */}
       <h2 className={`text-center font-display font-bold text-2xl sm:text-3xl mb-2 transition-all duration-700 ${visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
         <span className="bg-clip-text text-transparent bg-gradient-to-r from-white to-white/60">How It Works</span>
       </h2>
@@ -66,14 +65,12 @@ const HowItWorks = () => {
             className={`flex flex-col items-center text-center transition-all duration-700 ${visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}
             style={{ transitionDelay: `${200 + i * 200}ms` }}
           >
-            {/* Icon circle — large emoji */}
+            {/* Icon circle */}
             <div className="relative mb-5 group">
               <div className={`w-24 h-24 rounded-full glass-card flex items-center justify-center border-foreground/[0.08] transition-all duration-500 ${visible ? 'scale-100' : 'scale-75'}`} style={{ transitionDelay: `${300 + i * 200}ms` }}>
                 <span className="text-4xl">{step.emoji}</span>
               </div>
-              {/* Glow ring */}
               <div className={`absolute inset-0 rounded-full border border-primary/20 transition-all duration-700 ${visible ? 'scale-110 opacity-100' : 'scale-100 opacity-0'}`} style={{ transitionDelay: `${500 + i * 200}ms` }} />
-              {/* Number badge */}
               <span className="absolute -top-1 -right-1 font-mono text-[10px] text-primary bg-background/80 px-2 py-0.5 rounded-full border border-primary/20 font-bold">
                 {step.number}
               </span>
@@ -88,7 +85,7 @@ const HowItWorks = () => {
             )}
 
             <h3 className="font-display font-bold text-foreground/90 text-lg mb-2">{step.title}</h3>
-            <p className="text-foreground/35 text-sm leading-relaxed max-w-[240px]">{step.desc}</p>
+            <p className="text-foreground/35 text-sm leading-relaxed max-w-[260px]">{step.desc}</p>
           </div>
         ))}
       </div>

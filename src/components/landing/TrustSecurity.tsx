@@ -4,23 +4,23 @@ import { ShieldCheck, EyeOff, Brain, Lock } from 'lucide-react';
 const items = [
   {
     icon: EyeOff,
-    title: '只读分析',
-    desc: '永远不需要连接钱包或授权任何交易',
+    title: '只读，永远不碰你的币',
+    desc: '粘贴地址 ≠ 连接钱包。我们只读公开链上数据，和你用 Etherscan 查地址一样',
   },
   {
     icon: Lock,
-    title: '零私钥接触',
-    desc: '不存储私钥，不接触你的任何资产',
+    title: '零私钥，零风险',
+    desc: '不存私钥、不签交易、不碰资产。你的币在哪，还在哪',
   },
   {
     icon: Brain,
-    title: '6 AI Models',
-    desc: 'Claude, GPT-4o, Gemini 等多模型交叉验证',
+    title: '6 个 AI 交叉验证',
+    desc: 'Claude + GPT-4o + Gemini 三家 AI 同时分析，互相校验，减少单一模型的幻觉',
   },
   {
     icon: ShieldCheck,
-    title: '公开地址分析',
-    desc: '仅使用链上公开数据，和区块浏览器一样安全',
+    title: '链上公开数据',
+    desc: '所有分析基于区块链公开记录。没有数据泄露风险，因为数据本来就是公开的',
   },
 ];
 
