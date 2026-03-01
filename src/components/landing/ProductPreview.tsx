@@ -16,10 +16,20 @@ const ProductPreview = () => {
     return () => obs.disconnect();
   }, []);
 
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    setTimeout(() => {
+      const input = document.querySelector<HTMLInputElement>('.glass-input');
+      input?.focus();
+    }, 600);
+  };
+
   return (
     <section ref={ref} className="w-full max-w-5xl mx-auto px-5 py-24 relative">
-      <h2 className={`text-center font-display font-bold text-2xl sm:text-3xl text-foreground/90 mb-12 transition-all duration-700 ${visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
-        See what others can't
+      <h2 className={`text-center font-display font-bold text-2xl sm:text-3xl mb-12 transition-all duration-700 ${visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
+        <span className="bg-clip-text text-transparent bg-gradient-to-r from-white to-white/60">
+          You Think You're Up 12%. The Real Number Might Hurt.
+        </span>
       </h2>
 
       <div className={`relative transition-all duration-700 delay-200 ${visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-5'}`}>
@@ -75,9 +85,9 @@ const ProductPreview = () => {
             {/* Diagnosis cards */}
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
               {[
-                { icon: '🔴', title: 'Concentration Risk', desc: '68% in single asset', border: 'border-destructive/20' },
-                { icon: '⚠️', title: 'FOMO Pattern', desc: '4 buys after price spikes', border: 'border-amber-500/20' },
-                { icon: '💡', title: 'Yield Opportunity', desc: '$280/mo unrealized', border: 'border-accent/20' },
+                { icon: '🔴', title: '72% 砸在一个 Token', desc: '一次闪崩你就归零', border: 'border-destructive/20' },
+                { icon: '⚠️', title: '30天 FOMO 了 4 次', desc: '每次追高平均亏 23%', border: 'border-amber-500/20' },
+                { icon: '💡', title: '$8,400 在钱包里睡觉', desc: '每月少赚 $280', border: 'border-accent/20' },
               ].map(card => (
                 <div key={card.title} className={`glass-card rounded-xl p-4 ${card.border}`}>
                   <p className="text-base mb-1">{card.icon}</p>
@@ -95,11 +105,14 @@ const ProductPreview = () => {
             <Lock size={22} className="text-primary" />
           </div>
           <p className="font-display font-bold text-lg sm:text-xl text-foreground/90 text-center px-4">
-            Your portfolio has secrets.
+            Your portfolio is hiding something.
           </p>
-          <p className="text-foreground/40 text-sm mt-1">
-            Paste an address to reveal them.
-          </p>
+          <button
+            onClick={scrollToTop}
+            className="text-primary text-sm mt-2 hover:underline pointer-events-auto cursor-pointer"
+          >
+            30 秒看清真相 →
+          </button>
         </div>
 
         {/* Glow reflection */}

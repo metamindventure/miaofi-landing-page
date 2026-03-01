@@ -4,17 +4,17 @@ import { ArrowRight } from 'lucide-react';
 const comparisons = [
   {
     others: '你持有 60% ETH',
-    miaofi: '你的 ETH 集中度过高，建议分散到 3 个资产',
+    miaofi: '你的 ETH 仓位是组合的 3 倍标准风险线。现在把 $18K 换成 USDC 存 Aave，年化 4.2%，还能对冲 ETH 下跌',
     icon: '📊',
   },
   {
     others: '你昨天买了 ARB',
-    miaofi: '你最近 30 天有 4 次 FOMO 买入，平均亏损 23%',
+    miaofi: '这是你 30 天内第 4 次在价格涨超 15% 后追入。前 3 次平均亏 23%。建议：设 $1.15 止损，或者等回调到 $0.95 再加仓',
     icon: '🎯',
   },
   {
-    others: '你的组合价值 $50K',
-    miaofi: '如果 3 个月前听了建议，你现在多 $8K',
+    others: '你的 USDC 余额 $12,000',
+    miaofi: '$12,000 USDC 闲置 47 天了。存 Aave 能年赚 $504。存 Kamino 能赚 $780。点一下就能操作 →',
     icon: '💡',
   },
 ];
@@ -37,10 +37,10 @@ const Comparison = () => {
   return (
     <section ref={ref} className="w-full max-w-4xl mx-auto px-5 py-24 relative z-10">
       <h2 className={`text-center font-display font-bold text-2xl sm:text-3xl mb-2 transition-all duration-700 ${visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
-        <span className="bg-clip-text text-transparent bg-gradient-to-r from-white to-white/60">不只是数据，而是诊断</span>
+        <span className="bg-clip-text text-transparent bg-gradient-to-r from-white to-white/60">别人给你数据。我们给你操作指令。</span>
       </h2>
       <p className={`text-center text-foreground/35 text-sm mb-12 transition-all duration-700 delay-100 ${visible ? 'opacity-100' : 'opacity-0'}`}>
-        Others tell you what you have. MiaoFi tells you what to do.
+        Portfolio trackers show numbers. MiaoFi shows you what's wrong and how to fix it.
       </p>
 
       <div className="flex flex-col gap-4">
@@ -72,7 +72,7 @@ const Comparison = () => {
             {/* MiaoFi */}
             <div className="sm:pl-2">
               <span className="text-primary/70 text-[10px] font-mono uppercase tracking-wider font-bold group-hover:text-primary transition-colors">MiaoFi</span>
-              <p className="text-foreground/90 text-sm mt-1 font-medium group-hover:text-white transition-colors">"{c.miaofi}"</p>
+              <p className="text-foreground/90 text-sm mt-1 font-medium group-hover:text-white transition-colors leading-relaxed">"{c.miaofi}"</p>
             </div>
           </div>
         ))}

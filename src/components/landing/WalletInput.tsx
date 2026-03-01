@@ -37,7 +37,6 @@ const WalletInput = ({ onFocusChange }: WalletInputProps) => {
   const triggerSonar = useCallback(() => {
     setSonarActive(false);
     setScanActive(true);
-    // Force reflow for sonar restart
     requestAnimationFrame(() => {
       setSonarActive(true);
     });
@@ -124,7 +123,7 @@ const WalletInput = ({ onFocusChange }: WalletInputProps) => {
               onChange={(e) => handleChange(i, e.target.value)}
               onFocus={() => onFocusChange?.(true)}
               onBlur={() => onFocusChange?.(false)}
-              placeholder="Paste your wallet address (EVM or Solana)"
+              placeholder="0x... or Solana address"
               className="glass-input w-full h-14 rounded-2xl px-5 pr-14 font-mono text-sm text-foreground/90 placeholder:text-foreground/30 focus:outline-none transition-all duration-300"
             />
             <div className="absolute right-3 top-1/2 -translate-y-1/2 flex items-center gap-1">
@@ -194,12 +193,12 @@ const WalletInput = ({ onFocusChange }: WalletInputProps) => {
         disabled={!isValid}
         className="btn-shimmer w-full h-12 mt-3 rounded-xl bg-gradient-to-r from-violet-600 to-indigo-500 text-primary-foreground font-display font-semibold text-[15px] transition-all duration-200 hover:brightness-110 hover:-translate-y-[1px] hover:shadow-[0_8px_30px_-5px_rgba(139,92,246,0.4)] disabled:opacity-30 disabled:cursor-not-allowed disabled:hover:translate-y-0 disabled:hover:shadow-none disabled:hover:brightness-100 relative z-10"
       >
-        Run Diagnosis →
+        Diagnose My Portfolio →
       </button>
 
       {/* Trust line */}
       <p className="text-center text-foreground/20 text-[11px] mt-4 relative z-10">
-        30 seconds · Read-only · No wallet connection · Free
+        Read-only · No wallet connection · No signup · Your keys stay yours
       </p>
     </div>
   );
