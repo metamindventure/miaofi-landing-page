@@ -66,7 +66,11 @@ const Index = () => {
 
       {/* ─── Hero ─── */}
       <main className="relative z-10 flex-1 flex flex-col items-center justify-center min-h-screen px-5">
-        <div className="w-full max-w-xl flex flex-col items-center gap-7 -mt-8">
+        {/* Hero spotlight */}
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[600px] pointer-events-none"
+          style={{ background: 'radial-gradient(ellipse at 50% 20%, rgba(139, 92, 246, 0.12) 0%, transparent 60%)' }} />
+        
+        <div className="w-full max-w-xl flex flex-col items-center gap-7 -mt-8 relative">
 
           {/* Logo */}
           <div className="stagger-in flex items-center gap-2.5" style={{ animationDelay: '0ms' }}>
@@ -88,16 +92,11 @@ const Index = () => {
 
           {/* Headline */}
           <h1 className="text-center max-w-2xl">
-            <span className="stagger-in block font-display font-extrabold text-3xl sm:text-[48px] sm:leading-[1.1] text-foreground" style={{ animationDelay: '400ms' }}>
-              {t('hero.titlePrefix')}
+            <span className="stagger-in block font-display font-extrabold text-3xl sm:text-[44px] sm:leading-[1.15] text-foreground" style={{ animationDelay: '400ms' }}>
+              {t('hero.titlePrefix')}{' '}
+              <span className="text-danger red-glow-pulse text-4xl sm:text-[56px]">{percentCount}%</span>
             </span>
-            <span
-              className="stagger-in inline-block font-display font-extrabold text-5xl sm:text-[72px] leading-none text-danger red-glow-pulse mt-1"
-              style={{ animationDelay: '600ms' }}
-            >
-              {percentCount}%
-            </span>
-            <span className="stagger-in block font-display font-extrabold text-3xl sm:text-[48px] sm:leading-[1.1] text-foreground mt-2" style={{ animationDelay: '600ms' }}>
+            <span className="stagger-in block font-display font-extrabold text-3xl sm:text-[44px] sm:leading-[1.15] text-foreground mt-3" style={{ animationDelay: '600ms' }}>
               {t('hero.subtitle')}
             </span>
           </h1>
