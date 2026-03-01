@@ -3,32 +3,36 @@ import { useEffect, useRef, useState } from 'react';
 const personas = [
   {
     emoji: '🐋',
-    name: 'Whale',
-    pnl: '+$48,291',
-    positive: true,
-    insight: '赚了 $48K 但全押 3 个币。下一个 LUNA 式崩盘你扛得住？',
-    risk: 4,
-    chains: ['ETH', 'SOL', 'ARB'],
-    glowColor: 'hover:shadow-[0_0_30px_-5px_rgba(16,185,129,0.2)]',
+    name: 'Vitalik Buterin',
+    label: '以太坊创始人',
+    pnl: '-$35M',
+    positive: false,
+    insight: '在 ETH 跌了 37% 的情况下抛售 19K ETH。如果在 $4,000 时分批减仓，同样的资金需求只需卖 9,700 ETH——少卖一半的币，多拿一倍的钱',
+    risk: 6,
+    chains: ['ETH'],
+    note: '基于链上公开数据 · Arkham Intelligence 可验证',
+    glowColor: 'hover:shadow-[0_0_30px_-5px_rgba(244,63,94,0.2)]',
   },
   {
     emoji: '🎰',
     name: 'Degen',
-    pnl: '-$3,847',
+    label: 'Meme Coin 猎手',
+    pnl: '-$8,200',
     positive: false,
-    insight: '本周 4 次追涨，次次被套。不是运气差，是操作模式有毒',
+    insight: '一周买了 5 个 meme coin，3 个已经归零。剩下 2 个浮亏 60%。不是运气差，是没有任何风控逻辑',
     risk: 9,
-    chains: ['SOL', 'BASE'],
+    chains: ['SOL', 'PUMP'],
     glowColor: 'hover:shadow-[0_0_30px_-5px_rgba(244,63,94,0.2)]',
   },
   {
     emoji: '😴',
     name: 'Sleeper',
-    pnl: '+$891',
+    label: '佛系持有者',
+    pnl: '+$2,100',
     positive: true,
-    insight: '$12K USDC 躺了 3 个月。白送了 $840 利息给交易所',
+    insight: '$28K USDC 在钱包躺了 4 个月。白白送了 $1,120 利息给交易所。只需要点几下就能把钱放到 DeFi 里生息',
     risk: 3,
-    chains: ['ETH', 'OP'],
+    chains: ['ETH', 'SOL'],
     glowColor: 'hover:shadow-[0_0_30px_-5px_rgba(245,158,11,0.2)]',
   },
 ];
@@ -51,10 +55,10 @@ const PersonaCards = () => {
   return (
     <section ref={ref} className="w-full max-w-4xl mx-auto px-5 py-16">
       <h2 className={`text-center font-display font-bold text-2xl sm:text-3xl mb-2 transition-all duration-700 ${visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
-        <span className="bg-clip-text text-transparent bg-gradient-to-r from-white to-white/60">Real Diagnoses. Real Wallets.</span>
+        <span className="bg-clip-text text-transparent bg-gradient-to-r from-white to-white/60">真实钱包。真实诊断。</span>
       </h2>
       <p className={`text-center text-foreground/30 text-sm mb-8 transition-all duration-700 delay-100 ${visible ? 'opacity-100' : 'opacity-0'}`}>
-        These are actual findings from recent scans
+        这些是 MiaoFi 对链上公开钱包的真实分析。任何人的钱包都能诊断。
       </p>
 
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
@@ -70,6 +74,7 @@ const PersonaCards = () => {
 
             <span className="text-[40px] leading-none relative z-10">{p.emoji}</span>
             <p className="font-display font-bold text-foreground/90 text-lg mt-3 relative z-10">{p.name}</p>
+            <p className="text-foreground/40 text-[11px] font-mono relative z-10">{p.label}</p>
             <p className={`font-mono text-2xl font-bold mt-1 relative z-10 ${p.positive ? 'text-[#4ade80]' : 'text-[#ef4444]'}`}>
               {p.pnl}
             </p>
@@ -82,8 +87,11 @@ const PersonaCards = () => {
                 <span key={c} className="glass-pill px-1.5 py-0.5 rounded text-[9px] font-mono text-foreground/35">{c}</span>
               ))}
             </div>
-            <p className="text-primary/60 text-[10px] mt-3 opacity-0 group-hover:opacity-100 transition-opacity relative z-10">
-              Tap to view full diagnosis →
+            {p.note && (
+              <p className="text-foreground/15 text-[9px] mt-3 relative z-10">{p.note}</p>
+            )}
+            <p className="text-primary/60 text-[10px] mt-2 opacity-0 group-hover:opacity-100 transition-opacity relative z-10">
+              点击查看完整诊断 →
             </p>
           </button>
         ))}

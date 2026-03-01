@@ -14,8 +14,8 @@ const items = [
   },
   {
     icon: Brain,
-    title: '6 个 AI 交叉验证',
-    desc: 'Claude + GPT-4o + Gemini 三家 AI 同时分析，互相校验，减少单一模型的幻觉',
+    title: 'AI + 人类专家交叉验证',
+    desc: '多个顶级 AI 模型同时分析，再由投资专家审核验证。机器找模式，人类把关判断，减少单一来源的偏差和幻觉',
   },
   {
     icon: ShieldCheck,
@@ -42,10 +42,10 @@ const TrustSecurity = () => {
   return (
     <section ref={ref} className="w-full max-w-4xl mx-auto px-5 py-24 relative z-10">
       <h2 className={`text-center font-display font-bold text-2xl sm:text-3xl mb-2 transition-all duration-700 ${visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
-        <span className="bg-clip-text text-transparent bg-gradient-to-r from-white to-white/60">Security & Trust</span>
+        <span className="bg-clip-text text-transparent bg-gradient-to-r from-white to-white/60">安全与信任</span>
       </h2>
       <p className={`text-center text-foreground/30 text-sm mb-10 transition-all duration-700 delay-100 ${visible ? 'opacity-100' : 'opacity-0'}`}>
-        Your safety is our first priority
+        你的安全是我们的第一优先级
       </p>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">

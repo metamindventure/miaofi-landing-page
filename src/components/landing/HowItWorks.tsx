@@ -10,14 +10,14 @@ const steps = [
   {
     emoji: '🧠',
     number: '02',
-    title: '6 个 AI 交叉会诊',
-    desc: 'Claude、GPT-4o、Gemini 同时看你的持仓和交易记录，像 3 个基金经理会诊你的操作',
+    title: 'AI + 投资专家交叉会诊',
+    desc: '多个顶尖 AI 模型和人类投资专家共同分析你的持仓与交易记录。不是单一算法，是多维度交叉验证',
   },
   {
     emoji: '⚡',
     number: '03',
     title: '拿到处方，不是报告',
-    desc: '别人告诉你"要分散投资"。我们说"把 30% 的 ETH 换成 USDC，在 Aave 存着吃 4.2%"',
+    desc: '别人告诉你"要分散投资"。我们说"把 30% 的 ETH 换成 USDC，存 Aave 年化 4.2%，对冲 ETH 下行风险"',
   },
 ];
 
@@ -39,10 +39,10 @@ const HowItWorks = () => {
   return (
     <section ref={ref} className="w-full max-w-4xl mx-auto px-5 py-24 relative z-10">
       <h2 className={`text-center font-display font-bold text-2xl sm:text-3xl mb-2 transition-all duration-700 ${visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
-        <span className="bg-clip-text text-transparent bg-gradient-to-r from-white to-white/60">How It Works</span>
+        <span className="bg-clip-text text-transparent bg-gradient-to-r from-white to-white/60">三步完成诊断</span>
       </h2>
       <p className={`text-center text-foreground/30 text-sm mb-14 transition-all duration-700 delay-100 ${visible ? 'opacity-100' : 'opacity-0'}`}>
-        Three steps to your portfolio diagnosis
+        粘贴地址 → AI + 专家分析 → 拿到操作指令
       </p>
 
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 relative">

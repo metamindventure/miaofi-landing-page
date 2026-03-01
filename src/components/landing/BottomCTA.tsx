@@ -29,11 +29,11 @@ const BottomCTA = () => {
       <div className={`transition-all duration-700 ${visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`}>
         <h2 className="font-display font-bold text-2xl sm:text-3xl mb-3">
           <span className="bg-clip-text text-transparent bg-gradient-to-r from-white to-white/60">
-            你的下一笔交易，可能是个错误。
+            91% 的散户在亏钱。你可以做得更好。
           </span>
         </h2>
         <p className="text-foreground/40 text-sm mb-8">
-          30 秒查出来，免费的
+          复盘你的交易行为，找出反复让你亏钱的模式。30 秒，免费。
         </p>
 
         <button
@@ -41,7 +41,7 @@ const BottomCTA = () => {
           className="btn-shimmer w-full max-w-md mx-auto h-14 rounded-2xl bg-gradient-to-r from-violet-600 to-indigo-500 text-primary-foreground font-display font-semibold text-base transition-all duration-200 hover:brightness-110 hover:-translate-y-[1px] hover:shadow-[0_8px_30px_-5px_rgba(139,92,246,0.4)] flex items-center justify-center gap-2"
         >
           <Search size={18} />
-          🔍 诊断我的钱包 →
+          🔍 开始诊断 →
         </button>
 
         <p className="text-foreground/20 text-[11px] mt-4">

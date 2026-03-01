@@ -13,14 +13,6 @@ const detectChain = (address: string): ChainType => {
 const DEMO_EVM = '0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045';
 const DEMO_SOL = '7xKXtg2CW87d97TXJSDpbD5jBkheTqA83TZRuJosgAsU';
 
-const ORBIT_STATS = [
-  '47,291 portfolios scanned',
-  'EVM + Solana',
-  '6 AI models',
-  '$2.1B analyzed',
-  'Free to start',
-];
-
 interface WalletInputProps {
   onFocusChange?: (focused: boolean) => void;
 }
@@ -46,6 +38,20 @@ const WalletInput = ({ onFocusChange }: WalletInputProps) => {
       setScanActive(false);
     }, 900);
   }, []);
+
+  // Listen for external fill-wallet events (e.g., "peek whale wallet")
+  useEffect(() => {
+    const handler = (e: Event) => {
+      const addr = (e as CustomEvent).detail;
+      if (addr) {
+        setAddresses([addr]);
+        triggerSonar();
+        document.querySelector<HTMLInputElement>('.glass-input')?.focus();
+      }
+    };
+    window.addEventListener('fill-wallet', handler);
+    return () => window.removeEventListener('fill-wallet', handler);
+  }, [triggerSonar]);
 
   useEffect(() => () => clearTimeout(sonarTimeout.current), []);
 
@@ -92,21 +98,6 @@ const WalletInput = ({ onFocusChange }: WalletInputProps) => {
 
   return (
     <div className="w-full max-w-2xl mx-auto relative">
-      {/* Orbiting Stats Ring */}
-      <div className="orbit-ring absolute inset-0 pointer-events-none" style={{ width: '140%', height: '140%', left: '-20%', top: '-20%' }}>
-        {ORBIT_STATS.map((stat, i) => (
-          <div
-            key={stat}
-            className="orbit-item pointer-events-auto"
-            style={{ '--orbit-start': `${(360 / ORBIT_STATS.length) * i}deg`, '--orbit-radius': '240px' } as React.CSSProperties}
-          >
-            <span className="glass-pill px-3 py-1.5 rounded-full text-[11px] text-foreground/40 font-medium whitespace-nowrap">
-              {stat}
-            </span>
-          </div>
-        ))}
-      </div>
-
       {/* Input fields */}
       <div className="flex flex-col gap-3 relative z-10">
         {addresses.map((addr, i) => (
@@ -123,7 +114,7 @@ const WalletInput = ({ onFocusChange }: WalletInputProps) => {
               onChange={(e) => handleChange(i, e.target.value)}
               onFocus={() => onFocusChange?.(true)}
               onBlur={() => onFocusChange?.(false)}
-              placeholder="0x... or Solana address"
+              placeholder="0x... 或 Solana 地址"
               className="glass-input w-full h-14 rounded-2xl px-5 pr-14 font-mono text-sm text-foreground/90 placeholder:text-foreground/30 focus:outline-none transition-all duration-300"
             />
             <div className="absolute right-3 top-1/2 -translate-y-1/2 flex items-center gap-1">
@@ -155,10 +146,10 @@ const WalletInput = ({ onFocusChange }: WalletInputProps) => {
           className="flex items-center gap-1.5 text-foreground/30 hover:text-foreground/50 text-xs transition-colors"
         >
           <Plus size={12} />
-          <span>Add another wallet</span>
+          <span>添加钱包</span>
         </button>
         <div className="text-xs text-foreground/30">
-          No wallet?{' '}
+          没有钱包？{' '}
           <button onClick={() => handleDemo('evm')} className="text-primary hover:underline">EVM</button>
           {' · '}
           <button onClick={() => handleDemo('solana')} className="text-primary hover:underline">Solana</button>
@@ -170,19 +161,19 @@ const WalletInput = ({ onFocusChange }: WalletInputProps) => {
         {chain === 'evm' && (
           <>
             <Check size={13} className="text-accent" />
-            <span className="text-accent text-xs">EVM wallet detected</span>
+            <span className="text-accent text-xs">✓ EVM 钱包已识别</span>
           </>
         )}
         {chain === 'solana' && (
           <>
             <Check size={13} className="text-accent" />
-            <span className="text-accent text-xs">Solana wallet detected</span>
+            <span className="text-accent text-xs">✓ Solana 钱包已识别</span>
           </>
         )}
         {chain === 'invalid' && (
           <>
             <X size={13} className="text-destructive" />
-            <span className="text-destructive text-xs">Invalid wallet address</span>
+            <span className="text-destructive text-xs">无效的钱包地址</span>
           </>
         )}
       </div>
@@ -193,12 +184,12 @@ const WalletInput = ({ onFocusChange }: WalletInputProps) => {
         disabled={!isValid}
         className="btn-shimmer w-full h-12 mt-3 rounded-xl bg-gradient-to-r from-violet-600 to-indigo-500 text-primary-foreground font-display font-semibold text-[15px] transition-all duration-200 hover:brightness-110 hover:-translate-y-[1px] hover:shadow-[0_8px_30px_-5px_rgba(139,92,246,0.4)] disabled:opacity-30 disabled:cursor-not-allowed disabled:hover:translate-y-0 disabled:hover:shadow-none disabled:hover:brightness-100 relative z-10"
       >
-        Diagnose My Portfolio →
+        诊断我的组合 →
       </button>
 
       {/* Trust line */}
       <p className="text-center text-foreground/20 text-[11px] mt-4 relative z-10">
-        Read-only · No wallet connection · No signup · Your keys stay yours
+        只读分析 · 不连钱包 · 不需注册 · 私钥永远在你手里
       </p>
     </div>
   );
