@@ -1,6 +1,8 @@
 import { useState, useEffect, useRef } from 'react';
 import { Search } from 'lucide-react';
+import { useI18n } from '@/i18n/I18nContext';
 import AnimatedBackground from '@/components/landing/AnimatedBackground';
+import LanguageSwitcher from '@/components/landing/LanguageSwitcher';
 import WalletInput from '@/components/landing/WalletInput';
 import BehaviorAnalysis from '@/components/landing/BehaviorAnalysis';
 import PersonaCards from '@/components/landing/PersonaCards';
@@ -30,13 +32,14 @@ const useCountUp = (target: number, duration: number, trigger: boolean) => {
 };
 
 const Index = () => {
+  const { t } = useI18n();
   const [inputFocused, setInputFocused] = useState(false);
   const [heroReady, setHeroReady] = useState(false);
-  const percentCount = useCountUp(60, 1500, heroReady);
+  const percentCount = useCountUp(59, 1500, heroReady);
 
   useEffect(() => {
-    const t = setTimeout(() => setHeroReady(true), 600);
-    return () => clearTimeout(t);
+    const timer = setTimeout(() => setHeroReady(true), 600);
+    return () => clearTimeout(timer);
   }, []);
 
   const scrollToTopAndFillWhale = () => {
@@ -49,6 +52,17 @@ const Index = () => {
   return (
     <div className="relative min-h-screen flex flex-col">
       <AnimatedBackground />
+
+      {/* ─── Top bar with logo + lang switcher ─── */}
+      <div className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-5 py-3">
+        <div className="flex items-center gap-2.5">
+          <div className="logo-pulse w-7 h-7 rounded-full bg-gradient-to-br from-[#6C5CE7] to-[#A29BFE] flex items-center justify-center">
+            <span className="text-white font-display font-bold text-[10px]">M</span>
+          </div>
+          <span className="font-display font-semibold text-sm text-foreground/80 tracking-tight">MiaoFi</span>
+        </div>
+        <LanguageSwitcher />
+      </div>
 
       {/* ─── Hero ─── */}
       <main className="relative z-10 flex-1 flex flex-col items-center justify-center min-h-screen px-5">
@@ -65,17 +79,17 @@ const Index = () => {
           {/* Pills */}
           <div className="stagger-in flex items-center gap-2" style={{ animationDelay: '200ms' }}>
             <span className="glass-pill px-3 py-1 rounded-full text-[12px] text-muted-foreground font-medium">
-              免费 · 30 秒
+              {t('hero.badge1')}
             </span>
             <span className="glass-pill px-3 py-1 rounded-full text-[12px] text-muted-foreground font-mono font-medium">
-              EVM + Solana
+              {t('hero.badge2')}
             </span>
           </div>
 
           {/* Headline */}
           <h1 className="text-center max-w-2xl">
             <span className="stagger-in block font-display font-extrabold text-3xl sm:text-[48px] sm:leading-[1.1] text-foreground" style={{ animationDelay: '400ms' }}>
-              ETH 从高点暴跌
+              {t('hero.titlePrefix')}
             </span>
             <span
               className="stagger-in inline-block font-display font-extrabold text-5xl sm:text-[72px] leading-none text-danger red-glow-pulse mt-1"
@@ -84,13 +98,13 @@ const Index = () => {
               {percentCount}%
             </span>
             <span className="stagger-in block font-display font-extrabold text-3xl sm:text-[48px] sm:leading-[1.1] text-foreground mt-2" style={{ animationDelay: '600ms' }}>
-              你的仓位扛住了吗？
+              {t('hero.subtitle')}
             </span>
           </h1>
 
           {/* Subtitle */}
           <p className="stagger-in text-muted-foreground text-sm sm:text-base text-center max-w-[480px] leading-relaxed" style={{ animationDelay: '800ms' }}>
-            粘贴钱包地址，AI + 投资专家 30 秒诊断你的<br className="sm:hidden" />持仓风险、交易习惯和错过的收益
+            {t('hero.desc')}
           </p>
 
           {/* Input */}
@@ -117,7 +131,7 @@ const Index = () => {
         >
           <Search size={16} />
           <span className="relative">
-            🔍 偷看一个巨鲸钱包 →
+            {t('realDiagnoses.peekWhale')}
             <span className="absolute bottom-0 left-0 w-0 h-px bg-primary group-hover:w-full transition-all duration-300" />
           </span>
         </button>

@@ -1,5 +1,6 @@
-import { useEffect, useRef, useState, useCallback } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Search } from 'lucide-react';
+import { useI18n } from '@/i18n/I18nContext';
 
 const useCountUp = (target: number, duration: number, trigger: boolean) => {
   const [value, setValue] = useState(0);
@@ -11,7 +12,6 @@ const useCountUp = (target: number, duration: number, trigger: boolean) => {
     const animate = (now: number) => {
       const elapsed = now - start;
       const progress = Math.min(elapsed / duration, 1);
-      // easeOutExpo
       const eased = progress === 1 ? 1 : 1 - Math.pow(2, -10 * progress);
       setValue(Math.round(eased * target));
       if (progress < 1) frame.current = requestAnimationFrame(animate);
@@ -24,6 +24,7 @@ const useCountUp = (target: number, duration: number, trigger: boolean) => {
 };
 
 const BottomCTA = () => {
+  const { t } = useI18n();
   const ref = useRef<HTMLDivElement>(null);
   const [visible, setVisible] = useState(false);
 
@@ -50,7 +51,6 @@ const BottomCTA = () => {
   return (
     <section ref={ref} className="w-full max-w-2xl mx-auto px-5 py-24 relative z-10 text-center">
       <div className={`transition-all duration-700 ${visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`}>
-        {/* Red glow behind the number */}
         <div className="relative inline-block mb-4">
           <div className="absolute inset-0 w-40 h-40 -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2 rounded-full bg-danger/10 red-glow-bg blur-3xl" />
           <span
@@ -66,12 +66,12 @@ const BottomCTA = () => {
         </div>
 
         <h2 className="font-display font-bold text-2xl sm:text-3xl mb-3">
-          <span className="text-foreground/90">的散户在亏钱。</span>
+          <span className="text-foreground/90">{t('bottomCta.title1')}</span>
           <br />
-          <span className="text-foreground">你可以做得更好。</span>
+          <span className="text-foreground">{t('bottomCta.title2')}</span>
         </h2>
         <p className="text-muted-foreground text-sm mb-8 max-w-md mx-auto">
-          复盘你的交易行为，找出反复让你亏钱的模式。30 秒，免费。
+          {t('bottomCta.subtitle')}
         </p>
 
         <button
@@ -79,11 +79,11 @@ const BottomCTA = () => {
           className="btn-shimmer btn-breathe w-full max-w-md mx-auto h-14 rounded-xl bg-gradient-to-r from-[#6C5CE7] to-[#A29BFE] text-white font-display font-semibold text-base transition-all duration-200 hover:scale-[1.02] hover:brightness-110 flex items-center justify-center gap-2"
         >
           <Search size={18} />
-          🔍 开始诊断 →
+          {t('bottomCta.cta')}
         </button>
 
         <p className="text-muted-foreground/40 text-[11px] mt-4">
-          免费 · 只读 · 不触碰资产 · 30 秒出结果
+          {t('bottomCta.trustLine')}
         </p>
       </div>
     </section>

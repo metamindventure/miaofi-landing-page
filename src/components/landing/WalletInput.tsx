@@ -1,5 +1,6 @@
 import { useState, useCallback, useEffect, useRef } from 'react';
 import { Clipboard, X, Plus } from 'lucide-react';
+import { useI18n } from '@/i18n/I18nContext';
 
 type ChainType = 'evm' | 'solana' | 'invalid' | null;
 
@@ -18,6 +19,7 @@ interface WalletInputProps {
 }
 
 const WalletInput = ({ onFocusChange }: WalletInputProps) => {
+  const { t } = useI18n();
   const [addresses, setAddresses] = useState<string[]>(['']);
   const [sonarActive, setSonarActive] = useState(false);
   const [scanActive, setScanActive] = useState(false);
@@ -101,7 +103,7 @@ const WalletInput = ({ onFocusChange }: WalletInputProps) => {
               onChange={(e) => handleChange(i, e.target.value)}
               onFocus={() => onFocusChange?.(true)}
               onBlur={() => onFocusChange?.(false)}
-              placeholder="0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045"
+              placeholder={t('hero.inputPlaceholder')}
               className="glass-input w-full h-14 rounded-xl px-5 pr-14 font-mono text-sm text-foreground/90 placeholder:text-foreground/20 focus:outline-none transition-all duration-300"
             />
             <div className="absolute right-3 top-1/2 -translate-y-1/2 flex items-center gap-1">
@@ -121,20 +123,20 @@ const WalletInput = ({ onFocusChange }: WalletInputProps) => {
       <div className="flex items-center justify-between mt-3 px-1 relative z-10">
         <button onClick={addWallet} className="flex items-center gap-1.5 text-primary/60 hover:text-primary text-xs transition-colors">
           <Plus size={12} />
-          <span>添加钱包</span>
+          <span>{t('hero.addWallet')}</span>
         </button>
         <div className="text-xs text-muted-foreground">
-          没有钱包？{' '}
-          <button onClick={() => handleDemo('evm')} className="text-primary/70 hover:text-primary hover:underline">EVM</button>
+          {t('hero.noWallet')}{' '}
+          <button onClick={() => handleDemo('evm')} className="text-primary/70 hover:text-primary hover:underline">{t('hero.noWalletEvm')}</button>
           {' · '}
-          <button onClick={() => handleDemo('solana')} className="text-primary/70 hover:text-primary hover:underline">Solana</button>
+          <button onClick={() => handleDemo('solana')} className="text-primary/70 hover:text-primary hover:underline">{t('hero.noWalletSolana')}</button>
         </div>
       </div>
 
       <div className="h-5 mt-2 flex items-center gap-2 px-1 relative z-10">
-        {chain === 'evm' && <span className="text-profit text-xs font-mono">✓ EVM 钱包已识别</span>}
-        {chain === 'solana' && <span className="text-profit text-xs font-mono">✓ Solana 钱包已识别</span>}
-        {chain === 'invalid' && <span className="text-danger text-xs font-mono">地址格式不正确</span>}
+        {chain === 'evm' && <span className="text-profit text-xs font-mono">{t('hero.evmDetected')}</span>}
+        {chain === 'solana' && <span className="text-profit text-xs font-mono">{t('hero.solanaDetected')}</span>}
+        {chain === 'invalid' && <span className="text-danger text-xs font-mono">{t('hero.invalidAddress')}</span>}
       </div>
 
       <button
@@ -142,11 +144,11 @@ const WalletInput = ({ onFocusChange }: WalletInputProps) => {
         disabled={!isValid}
         className="btn-shimmer btn-breathe w-full h-14 mt-3 rounded-xl bg-gradient-to-r from-[#6C5CE7] to-[#A29BFE] text-white font-display font-semibold text-base transition-all duration-200 hover:scale-[1.02] hover:brightness-110 disabled:opacity-30 disabled:cursor-not-allowed disabled:hover:scale-100 disabled:hover:brightness-100 disabled:animate-none relative z-10"
       >
-        诊断我的组合 →
+        {t('hero.cta')}
       </button>
 
       <p className="text-center text-muted-foreground/50 text-[11px] mt-4 relative z-10">
-        只读分析 · 不触碰资产 · 不需注册 · 私钥永远在你手里
+        {t('hero.trustLine')}
       </p>
     </div>
   );

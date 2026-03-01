@@ -1,6 +1,9 @@
 import { Twitter, MessageCircle, Send, Github } from 'lucide-react';
+import { useI18n } from '@/i18n/I18nContext';
 
 const Footer = () => {
+  const { t } = useI18n();
+
   return (
     <footer className="relative z-10 border-t border-white/[0.06] mt-8">
       <div className="max-w-5xl mx-auto px-5 py-12 sm:py-16">
@@ -14,18 +17,18 @@ const Footer = () => {
               <span className="font-display font-bold text-sm text-foreground/80">MiaoFi</span>
             </div>
             <p className="text-foreground/30 text-xs leading-relaxed mb-4">
-              AI + 投资专家，<br />你的 Crypto 投资助手
+              {t('footer.tagline')}
             </p>
             <p className="text-foreground/15 text-[10px]">
-              © 2026 MiaoFi. All rights reserved.
+              {t('footer.copyright')}
             </p>
           </div>
 
           {/* Product */}
           <div>
-            <h4 className="font-display font-bold text-foreground/50 text-xs uppercase tracking-wider mb-4">产品</h4>
+            <h4 className="font-display font-bold text-foreground/50 text-xs uppercase tracking-wider mb-4">{t('footer.product')}</h4>
             <ul className="space-y-2.5">
-              {['组合诊断', '行为分析', 'AI 处方', '定价'].map(item => (
+              {[t('footer.productDiagnosis'), t('footer.productBehavior'), t('footer.productPrescription'), t('footer.productPricing')].map(item => (
                 <li key={item}>
                   <a href="#" className="text-foreground/30 text-xs hover:text-foreground/60 transition-colors">{item}</a>
                 </li>
@@ -35,9 +38,9 @@ const Footer = () => {
 
           {/* Resources */}
           <div>
-            <h4 className="font-display font-bold text-foreground/50 text-xs uppercase tracking-wider mb-4">资源</h4>
+            <h4 className="font-display font-bold text-foreground/50 text-xs uppercase tracking-wider mb-4">{t('footer.resources')}</h4>
             <ul className="space-y-2.5">
-              {['文档', 'API', '博客'].map(item => (
+              {[t('footer.resourcesDocs'), t('footer.resourcesApi'), t('footer.resourcesBlog')].map(item => (
                 <li key={item}>
                   <a href="#" className="text-foreground/30 text-xs hover:text-foreground/60 transition-colors">{item}</a>
                 </li>
@@ -47,9 +50,9 @@ const Footer = () => {
 
           {/* Company */}
           <div>
-            <h4 className="font-display font-bold text-foreground/50 text-xs uppercase tracking-wider mb-4">公司</h4>
+            <h4 className="font-display font-bold text-foreground/50 text-xs uppercase tracking-wider mb-4">{t('footer.company')}</h4>
             <ul className="space-y-2.5">
-              {['关于我们', 'Terms of Service', 'Privacy Policy'].map(item => (
+              {[t('footer.companyAbout'), t('footer.companyTerms'), t('footer.companyPrivacy')].map(item => (
                 <li key={item}>
                   <a href="#" className="text-foreground/30 text-xs hover:text-foreground/60 transition-colors">{item}</a>
                 </li>
@@ -59,7 +62,7 @@ const Footer = () => {
 
           {/* Social */}
           <div>
-            <h4 className="font-display font-bold text-foreground/50 text-xs uppercase tracking-wider mb-4">社交</h4>
+            <h4 className="font-display font-bold text-foreground/50 text-xs uppercase tracking-wider mb-4">{t('footer.social')}</h4>
             <div className="flex flex-wrap gap-3">
               {[
                 { icon: Twitter, label: 'Twitter' },
