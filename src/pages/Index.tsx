@@ -3,6 +3,7 @@ import { Search } from 'lucide-react';
 import AnimatedBackground from '@/components/landing/AnimatedBackground';
 import WalletInput from '@/components/landing/WalletInput';
 import HowItWorks from '@/components/landing/HowItWorks';
+import BehaviorAnalysis from '@/components/landing/BehaviorAnalysis';
 import Comparison from '@/components/landing/Comparison';
 import ProductPreview from '@/components/landing/ProductPreview';
 import PersonaCards from '@/components/landing/PersonaCards';
@@ -108,6 +109,9 @@ const Index = () => {
 
       {/* How It Works */}
       <HowItWorks />
+
+      {/* Trading Behavior Analysis */}
+      <BehaviorAnalysis />
 
       {/* Product Preview — X-Ray */}
       <ProductPreview />
