@@ -466,7 +466,6 @@ const PanicCard = ({ visible, delay }: { visible: boolean; delay: number }) => {
 
   const pMin = 1980;
   const pMax = 2320;
-  const W = 320;
   const W = 360;
   const H = 180;
   const padTop = 24;
