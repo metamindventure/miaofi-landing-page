@@ -152,46 +152,37 @@ const FomoCard = ({ visible, delay }: { visible: boolean; delay: number }) => {
 
   const pMin = 70;
   const pMax = 310;
-  const W = 360;
-  const H = 180;
-  const padTop = 24;
-  const padLeft = 44;
-  const padRight = 36;
+  const W = 320;
+  const H = 150;
+  const padTop = 12;
+  const padLeft = 40;
+  const padRight = 8;
   const chartW = W - padLeft - padRight;
-  const chartH = H - padTop - 12;
+  const chartH = H - padTop - 8;
   const candleW = chartW / candles.length;
 
-  // Only show one combined BUY label with a bracket to avoid overlap
+  // BUY marker positions (candle index 11, 12, 13)
   const buyIndices = [11, 12, 13];
 
   const annotations = (
     <>
-      {/* Individual BUY dots */}
       {buyIndices.map((idx, i) => {
         const cx = padLeft + idx * candleW + candleW / 2;
         const y = priceToY(candles[idx].h, pMin, pMax, padTop, padTop + chartH);
         return (
-          <circle key={i} cx={cx} cy={y - 6} r="3" fill="#FF4757" className={visible ? 'animate-pulse' : ''} />
+          <g key={i}>
+            <circle cx={cx} cy={y - 6} r="3.5" fill="#FF4757" className={visible ? 'animate-pulse' : ''} />
+            <text x={cx} y={y - 14} textAnchor="middle" fill="#FF4757" fontSize="7" fontFamily="JetBrains Mono" fontWeight="bold">
+              BUY
+            </text>
+            <text x={cx} y={y - 22} textAnchor="middle" fill="#FF4757" fontSize="7" fontFamily="JetBrains Mono">
+              ${candles[idx].h}
+            </text>
+          </g>
         );
       })}
-      {/* Single combined label above the middle BUY dot */}
-      {(() => {
-        const midIdx = 12;
-        const cx = padLeft + midIdx * candleW + candleW / 2;
-        const y = priceToY(candles[11].h, pMin, pMax, padTop, padTop + chartH);
-        return (
-          <>
-            <text x={cx} y={y - 18} textAnchor="middle" fill="#FF4757" fontSize="8" fontFamily="JetBrains Mono" fontWeight="bold">
-              3× BUY
-            </text>
-            <text x={cx} y={y - 28} textAnchor="middle" fill="#FF4757" fontSize="7" fontFamily="JetBrains Mono">
-              $155–$183
-            </text>
-          </>
-        );
-      })()}
-      {/* Current price label — outside chart area */}
-      <text x={W - 2} y={priceToY(80, pMin, pMax, padTop, padTop + chartH) + 4} textAnchor="end" fill="#FF4757" fontSize="9" fontFamily="JetBrains Mono" fontWeight="bold">
+      {/* Current price label */}
+      <text x={W - padRight} y={priceToY(80, pMin, pMax, padTop, padTop + chartH) + 3} textAnchor="end" fill="#FF4757" fontSize="9" fontFamily="JetBrains Mono" fontWeight="bold">
         $80
       </text>
     </>
@@ -302,28 +293,29 @@ const DispositionCard = ({ visible, delay }: { visible: boolean; delay: number }
   ];
 
   const pMin = 1800;
-  const pMax = 5200;
-  const W = 360;
-  const H = 180;
-  const padTop = 24;
-  const padLeft = 44;
-  const padRight = 50;
-  const chartH = H - padTop - 12;
+  const pMax = 5100;
+  const W = 320;
+  const H = 150;
+  const padTop = 12;
+  const padLeft = 40;
+  const padRight = 8;
+  const chartH = H - padTop - 8;
   const chartW = W - padLeft - padRight;
   const candleW = chartW / candles.length;
 
-  // Take-profit divergence line from candle 5
+  // Take-profit divergence line (green dashed) from candle 5 (~$4,000)
   const tpStartX = padLeft + 5 * candleW + candleW / 2;
   const tpStartY = priceToY(4000, pMin, pMax, padTop, padTop + chartH);
+  // Ends at approx breakeven — the line gently descends to ~$3,000 equivalent (neutral)
   const tpEndX = padLeft + 17 * candleW + candleW / 2;
   const tpEndY = priceToY(3000, pMin, pMax, padTop, padTop + chartH);
 
   const annotations = (
     <>
-      {/* Peak label — above chart */}
+      {/* Peak label */}
       <text
         x={padLeft + 8 * candleW + candleW / 2}
-        y={priceToY(4953, pMin, pMax, padTop, padTop + chartH) - 8}
+        y={priceToY(4953, pMin, pMax, padTop, padTop + chartH) - 6}
         textAnchor="middle"
         fill="#F0F0F5"
         fontSize="9"
@@ -332,9 +324,9 @@ const DispositionCard = ({ visible, delay }: { visible: boolean; delay: number }
         $4,900
       </text>
 
-      {/* Take-profit zone marker — label offset to the left to avoid candle overlap */}
+      {/* Take-profit zone marker */}
       <circle cx={tpStartX} cy={tpStartY} r="4" fill="#00E5A0" />
-      <text x={tpStartX} y={tpStartY - 10} textAnchor="middle" fill="#00E5A0" fontSize="8" fontFamily="JetBrains Mono">
+      <text x={tpStartX + 6} y={tpStartY - 8} fill="#00E5A0" fontSize="8" fontFamily="JetBrains Mono">
         止盈 $4,000
       </text>
 
@@ -348,11 +340,11 @@ const DispositionCard = ({ visible, delay }: { visible: boolean; delay: number }
         className={visible ? 'line-draw' : ''}
       />
 
-      {/* End labels — pushed to right margin outside candles */}
-      <text x={W - 2} y={priceToY(2000, pMin, pMax, padTop, padTop + chartH) + 4} textAnchor="end" fill="#FF4757" fontSize="9" fontFamily="JetBrains Mono" fontWeight="bold">
+      {/* End labels */}
+      <text x={W - padRight} y={priceToY(2000, pMin, pMax, padTop, padTop + chartH) + 3} textAnchor="end" fill="#FF4757" fontSize="9" fontFamily="JetBrains Mono" fontWeight="bold">
         $2,000
       </text>
-      <text x={W - 2} y={tpEndY + 4} textAnchor="end" fill="#00E5A0" fontSize="9" fontFamily="JetBrains Mono" fontWeight="bold">
+      <text x={W - padRight} y={tpEndY - 4} textAnchor="end" fill="#00E5A0" fontSize="9" fontFamily="JetBrains Mono" fontWeight="bold">
         +$5,000
       </text>
     </>
@@ -466,12 +458,12 @@ const PanicCard = ({ visible, delay }: { visible: boolean; delay: number }) => {
 
   const pMin = 1980;
   const pMax = 2320;
-  const W = 360;
-  const H = 180;
-  const padTop = 24;
-  const padLeft = 44;
-  const padRight = 16;
-  const chartH = H - padTop - 12;
+  const W = 320;
+  const H = 150;
+  const padTop = 12;
+  const padLeft = 40;
+  const padRight = 8;
+  const chartH = H - padTop - 8;
   const chartW = W - padLeft - padRight;
   const candleW = chartW / candles.length;
 
