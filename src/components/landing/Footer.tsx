@@ -1,17 +1,31 @@
+import { useEffect, useRef, useState } from 'react';
 import { Twitter, MessageCircle, Send, Github } from 'lucide-react';
 import { useI18n } from '@/i18n/I18nContext';
 
 const Footer = () => {
   const { t } = useI18n();
+  const ref = useRef<HTMLElement>(null);
+  const [visible, setVisible] = useState(false);
+
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const obs = new IntersectionObserver(
+      ([entry]) => { if (entry.isIntersecting) { setVisible(true); obs.disconnect(); } },
+      { threshold: 0.1 }
+    );
+    obs.observe(el);
+    return () => obs.disconnect();
+  }, []);
 
   return (
-    <footer className="relative z-10 border-t border-white/[0.06] mt-8">
+    <footer ref={ref} className={`relative z-10 border-t border-white/[0.06] mt-8 transition-all duration-700 ${visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
       <div className="max-w-5xl mx-auto px-5 py-12 sm:py-16">
         <div className="grid grid-cols-2 sm:grid-cols-5 gap-8">
           {/* Brand */}
           <div className="col-span-2 sm:col-span-1">
             <div className="flex items-center gap-2 mb-3">
-              <div className="w-6 h-6 rounded-full bg-gradient-to-br from-violet-600 to-indigo-500 flex items-center justify-center">
+              <div className="w-6 h-6 rounded-full bg-gradient-to-br from-primary to-primary/70 flex items-center justify-center">
                 <span className="text-primary-foreground font-display font-bold text-[10px]">M</span>
               </div>
               <span className="font-display font-bold text-sm text-foreground/80">MiaoFi</span>
