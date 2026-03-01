@@ -291,6 +291,16 @@
   to { stroke-dashoffset: 0; }
 }
 
+/* ─── Candlestick appear ─── */
+@keyframes candle-appear {
+  0% { opacity: 0; transform: scaleY(0); transform-origin: bottom; }
+  100% { opacity: 1; transform: scaleY(1); transform-origin: bottom; }
+}
+
+.animate-candle-appear {
+  animation: candle-appear 0.3s ease-out both;
+}
+
 /* ─── Classified watermark ─── */
 .classified-stamp {
   position: absolute;
