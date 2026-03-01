@@ -2,7 +2,7 @@ import { useState, useEffect, useRef } from 'react';
 import { Search } from 'lucide-react';
 import AnimatedBackground from '@/components/landing/AnimatedBackground';
 import WalletInput from '@/components/landing/WalletInput';
-import DiagnosisCard from '@/components/landing/DiagnosisCard';
+import BehaviorAnalysis from '@/components/landing/BehaviorAnalysis';
 import PersonaCards from '@/components/landing/PersonaCards';
 import TrustSecurity from '@/components/landing/TrustSecurity';
 import BottomCTA from '@/components/landing/BottomCTA';
@@ -100,8 +100,8 @@ const Index = () => {
         </div>
       </main>
 
-      {/* ─── Diagnosis Example ─── */}
-      <DiagnosisCard />
+      {/* ─── Trading Behavior Analysis ─── */}
+      <BehaviorAnalysis />
 
       {/* ─── Persona Cards ─── */}
       <PersonaCards />
