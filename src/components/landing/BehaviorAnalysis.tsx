@@ -467,11 +467,12 @@ const PanicCard = ({ visible, delay }: { visible: boolean; delay: number }) => {
   const pMin = 1980;
   const pMax = 2320;
   const W = 320;
-  const H = 150;
-  const padTop = 12;
-  const padLeft = 40;
-  const padRight = 8;
-  const chartH = H - padTop - 8;
+  const W = 360;
+  const H = 180;
+  const padTop = 24;
+  const padLeft = 44;
+  const padRight = 16;
+  const chartH = H - padTop - 12;
   const chartW = W - padLeft - padRight;
   const candleW = chartW / candles.length;
 
