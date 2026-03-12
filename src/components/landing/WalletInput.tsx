@@ -1,5 +1,6 @@
 import { useState, useCallback, useEffect, useRef } from 'react';
-import { Clipboard, X, Plus } from 'lucide-react';
+import { Clipboard, X, Plus, Upload } from 'lucide-react';
+import { Link } from 'react-router-dom';
 import { useI18n } from '@/i18n/I18nContext';
 
 type ChainType = 'evm' | 'solana' | 'invalid' | null;
@@ -147,7 +148,16 @@ const WalletInput = ({ onFocusChange }: WalletInputProps) => {
         {t('hero.cta')}
       </button>
 
-      <p className="text-center text-muted-foreground/50 text-[11px] mt-4 relative z-10">
+      {/* CEX upload secondary action */}
+      <div className="text-center mt-4 relative z-10">
+        <span className="text-muted-foreground/50 text-[11px]">{t('hero.cexUploadHint')} </span>
+        <Link to="/cex-upload" className="text-primary/60 hover:text-primary text-[11px] transition-colors inline-flex items-center gap-1">
+          <Upload size={10} />
+          {t('hero.cexUploadLink')}
+        </Link>
+      </div>
+
+      <p className="text-center text-muted-foreground/50 text-[11px] mt-3 relative z-10">
         {t('hero.trustLine')}
       </p>
     </div>
