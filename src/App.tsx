@@ -22,6 +22,8 @@ const App = () => (
           <Routes>
             <Route path="/" element={<Index />} />
             <Route path="/logo" element={<LogoShowcase />} />
+            <Route path="/cex-upload" element={<CexUpload />} />
+            <Route path="/cex-results" element={<CexResults />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </BrowserRouter>
