@@ -3,41 +3,38 @@ import { Activity, Zap, TrendingDown, ChevronDown } from "lucide-react";
 import PatternCard from "./PatternCard";
 import WorstTrades from "./WorstTrades";
 import BenchmarkComparison from "./BenchmarkComparison";
-import { mockPatterns, mockWorstTrades, mockBenchmark } from "./mockData";
+import { getMockPatterns, getMockWorstTrades, getMockBenchmark } from "./mockData";
 import { useI18n } from "@/i18n/I18nContext";
 
-const filteredPatterns = mockPatterns
-  .filter((p) => p.confidence > 50)
-  .sort((a, b) => b.confidence - a.confidence)
-  .slice(0, 4);
-
-const totalImpact = filteredPatterns.reduce((sum, p) => sum + p.dollarImpact, 0);
-
-const traderTypeMap: Record<string, { en: string; zh: string; ko: string; descEn: string; descZh: string; descKo: string }> = {
-  overtrading: {
-    en: "Overtrader", zh: "过度交易者", ko: "과잉 거래자",
-    descEn: "You trade too frequently — fees and poor timing are silently eating your gains.",
-    descZh: "你交易太频繁了——手续费和糟糕的入场时机正在无声地吞噬你的收益。",
-    descKo: "너무 자주 거래합니다 — 수수료와 잘못된 타이밍이 수익을 갉아먹고 있습니다.",
-  },
-  "fomo-buying": {
-    en: "Impulse Chaser", zh: "冲动追涨者", ko: "충동 추격 매수자",
-    descEn: "You tend to buy into hype — entries near local tops are eroding your returns.",
-    descZh: "你倾向于追涨——在局部高点入场正在侵蚀你的收益。",
-    descKo: "과열 시 매수하는 경향 — 고점 근처 진입이 수익을 깎고 있습니다.",
-  },
-};
-
 const TradingBehaviorSection = () => {
-  const { t, locale } = useI18n();
+  const { t } = useI18n();
   const [expanded, setExpanded] = useState(false);
 
-  const dominantPattern = filteredPatterns[0];
-  const traderType = dominantPattern ? traderTypeMap[dominantPattern.id] : null;
-  const traderLabel = traderType ? (locale === 'zh' ? traderType.zh : locale === 'ko' ? traderType.ko : traderType.en) : "Active Trader";
-  const traderDesc = traderType ? (locale === 'zh' ? traderType.descZh : locale === 'ko' ? traderType.descKo : traderType.descEn) : "";
+  const mockPatterns = getMockPatterns(t);
+  const mockWorstTrades = getMockWorstTrades(t);
+  const mockBenchmark = getMockBenchmark(t);
 
-  const overviewStats = { totalTrades: 847, winRate: 38, avgHold: "2.1 days" };
+  const filteredPatterns = mockPatterns
+    .filter((p) => p.confidence > 50)
+    .sort((a, b) => b.confidence - a.confidence)
+    .slice(0, 4);
+
+  const totalImpact = filteredPatterns.reduce((sum, p) => sum + p.dollarImpact, 0);
+
+  const dominantPattern = filteredPatterns[0];
+  const traderLabel = dominantPattern?.id === "overtrading"
+    ? t('cexResults.traderType.overtrader')
+    : dominantPattern?.id === "fomo-buying"
+    ? t('cexResults.traderType.impulseChaser')
+    : t('cexResults.traderType.activeTrader');
+
+  const traderDesc = dominantPattern?.id === "overtrading"
+    ? t('cexResults.traderType.overtraderDesc')
+    : dominantPattern?.id === "fomo-buying"
+    ? t('cexResults.traderType.impulseChaserDesc')
+    : "";
+
+  const overviewStats = { totalTrades: 847, winRate: 38, avgHold: "2.1" };
 
   return (
     <section className="w-full space-y-0">
@@ -88,7 +85,7 @@ const TradingBehaviorSection = () => {
           </div>
           <div>
             <span className="text-[11px] text-muted-foreground block">{t('cexResults.tba.avgHold')}</span>
-            <span className="text-lg font-bold font-mono text-foreground tabular-nums">{overviewStats.avgHold}</span>
+            <span className="text-lg font-bold font-mono text-foreground tabular-nums">{overviewStats.avgHold} {t('cexResults.tba.days')}</span>
           </div>
         </div>
 

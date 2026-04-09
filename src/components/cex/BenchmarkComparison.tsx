@@ -27,13 +27,13 @@ const BenchmarkComparison = ({ data }: { data: BenchmarkData }) => {
             </span>
           </div>
           <div className="flex flex-col">
-            <span className="text-[10px] uppercase tracking-wider text-muted-foreground mb-0.5">BTC Hold</span>
+            <span className="text-[10px] uppercase tracking-wider text-muted-foreground mb-0.5">{t('cexResults.benchmark.btcHold')}</span>
             <span className={`text-xl font-bold font-mono tabular-nums ${data.btcReturn < 0 ? "text-loss" : "text-profit"}`}>
               +{data.btcReturn}%
             </span>
           </div>
           <div className="flex flex-col">
-            <span className="text-[10px] uppercase tracking-wider text-muted-foreground mb-0.5">Gap</span>
+            <span className="text-[10px] uppercase tracking-wider text-muted-foreground mb-0.5">{t('cexResults.benchmark.gap')}</span>
             <div className="flex items-center gap-1.5">
               <TrendingDown className="w-4 h-4 text-loss" />
               <span className="text-xl font-bold font-mono tabular-nums text-loss">{data.gap}%</span>
@@ -91,10 +91,10 @@ const BenchmarkComparison = ({ data }: { data: BenchmarkData }) => {
                   fontSize: "12px",
                   boxShadow: "0 8px 24px -4px rgba(0,0,0,0.5)",
                 }}
-                labelFormatter={(v) => `Day ${v}`}
+                labelFormatter={(v) => `${t('cexResults.benchmark.day')} ${v}`}
                 formatter={(value: number, name: string) => [
                   `${value > 0 ? "+" : ""}${value}%`,
-                  name === "user" ? t('cexResults.tba.yourPortfolio') : "BTC Hold",
+                  name === "user" ? t('cexResults.tba.yourPortfolio') : t('cexResults.benchmark.btcHold'),
                 ]}
               />
               <Area type="monotone" dataKey="btc" stroke="hsl(160, 100%, 45%)" strokeWidth={2} fill="url(#cexBtcGrad)" dot={false} />
@@ -117,7 +117,7 @@ const BenchmarkComparison = ({ data }: { data: BenchmarkData }) => {
           </div>
           <div className="flex items-center gap-1.5">
             <div className="w-3 h-0.5 rounded-full bg-profit" />
-            <span className="text-[11px] text-muted-foreground">BTC Hold</span>
+            <span className="text-[11px] text-muted-foreground">{t('cexResults.benchmark.btcHold')}</span>
           </div>
         </div>
       </div>
