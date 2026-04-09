@@ -192,6 +192,39 @@
     "avgSellPrice": "평균 매도가",
     "estimatedPnl": "추정 손익",
     "startNewDiagnosis": "새 진단 시작 →",
-    "downloadReport": "보고서 다운로드"
+    "downloadReport": "보고서 다운로드",
+    "tba": {
+      "title": "거래 행동 분석",
+      "last9months": "최근 9개월",
+      "totalCost": "총 행동 비용",
+      "trades": "거래 수",
+      "winRate": "승률",
+      "avgHold": "평균 보유",
+      "patternsDetected": "감지된 패턴",
+      "impact": "영향",
+      "confidence": "신뢰도",
+      "copied": "복사 완료!",
+      "seeDetail": "상세 분석 보기",
+      "iKnow": "알겠어요",
+      "reviewed": "확인됨",
+      "viewEvidence": "증거 보기",
+      "evidenceShows": "증거 표시",
+      "helpful": "도움이 되었나요?",
+      "thanksFeedback": "피드백 감사합니다!",
+      "worstTrades": "최악의 거래",
+      "youVsBtc": "나 vs BTC 보유",
+      "yourReturn": "내 수익률",
+      "yourPortfolio": "내 포트폴리오"
+    },
+    "portfolio": {
+      "title": "포트폴리오 분석",
+      "highRisk": "고위험",
+      "summaryTitle": "고위험 거래 패턴",
+      "summaryDesc": "감정적 매매, 손절 없음, 2개 자산에 집중",
+      "issuesFound": "발견된 문제",
+      "critical": "심각",
+      "totalLoss": "추정 손실",
+      "insightsDetected": "인사이트 감지됨"
+    }
   }
 }

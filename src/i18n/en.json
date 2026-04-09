@@ -192,6 +192,39 @@
     "avgSellPrice": "Avg Sell Price",
     "estimatedPnl": "Est. P&L",
     "startNewDiagnosis": "Start New Diagnosis →",
-    "downloadReport": "Download Report"
+    "downloadReport": "Download Report",
+    "tba": {
+      "title": "Trading Behavior Analysis",
+      "last9months": "Last 9 months",
+      "totalCost": "total behavior cost",
+      "trades": "Trades",
+      "winRate": "Win Rate",
+      "avgHold": "Avg Hold",
+      "patternsDetected": "Patterns detected",
+      "impact": "Impact",
+      "confidence": "Confidence",
+      "copied": "Insight copied!",
+      "seeDetail": "See Detail Analysis",
+      "iKnow": "I know",
+      "reviewed": "Reviewed",
+      "viewEvidence": "View Evidence",
+      "evidenceShows": "Evidence shows",
+      "helpful": "Was this helpful?",
+      "thanksFeedback": "Thanks for your feedback!",
+      "worstTrades": "Worst Trades",
+      "youVsBtc": "You vs. Holding BTC",
+      "yourReturn": "Your Return",
+      "yourPortfolio": "Your Portfolio"
+    },
+    "portfolio": {
+      "title": "Portfolio Analysis",
+      "highRisk": "High Risk",
+      "summaryTitle": "High Risk Trading Pattern",
+      "summaryDesc": "Emotional trading with no stop-losses and heavy concentration in 2 assets",
+      "issuesFound": "Issues Found",
+      "critical": "Critical",
+      "totalLoss": "Est. Loss",
+      "insightsDetected": "Insights detected"
+    }
   }
 }

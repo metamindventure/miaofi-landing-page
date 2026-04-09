@@ -65,7 +65,9 @@ export default {
         },
         // Direct color tokens for the landing page
         'danger': '#FF4757',
-        'profit': '#00E5A0',
+        'profit': 'hsl(var(--profit))',
+        'loss': 'hsl(var(--loss))',
+        'info': 'hsl(var(--info))',
         'warn': '#FFB347',
       },
       borderRadius: {
