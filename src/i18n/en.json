@@ -172,9 +172,9 @@
     "behaviorTitle": "Behavior Diagnosis",
     "behaviorSubtitle": "AI identified these behavioral patterns from your trading history",
     "severity": "Severity",
-    "severityHigh": "High",
-    "severityMedium": "Medium",
-    "severityLow": "Low",
+    "severityHigh": "HIGH",
+    "severityMedium": "MEDIUM",
+    "severityLow": "LOW",
     "actionButton": "Set up on Binance →",
     "aiSummaryTitle": "AI Comprehensive Diagnosis",
     "statsTitle": "Trading Statistics",
@@ -200,6 +200,7 @@
       "trades": "Trades",
       "winRate": "Win Rate",
       "avgHold": "Avg Hold",
+      "days": "days",
       "patternsDetected": "Patterns detected",
       "impact": "Impact",
       "confidence": "Confidence",
@@ -215,6 +216,128 @@
       "youVsBtc": "You vs. Holding BTC",
       "yourReturn": "Your Return",
       "yourPortfolio": "Your Portfolio"
+    },
+    "traderType": {
+      "overtrader": "Overtrader",
+      "overtraderDesc": "You trade too frequently — fees and poor timing are silently eating your gains.",
+      "impulseChaser": "Impulse Chaser",
+      "impulseChaserDesc": "You tend to buy into hype — entries near local tops are eroding your returns.",
+      "activeTrader": "Active Trader"
+    },
+    "evidence": {
+      "asset": "Asset",
+      "action": "Action",
+      "date": "Date",
+      "price": "Price",
+      "amount": "Amount",
+      "pnl": "P&L",
+      "buy": "BUY",
+      "sell": "SELL"
+    },
+    "benchmark": {
+      "btcHold": "BTC Hold",
+      "gap": "Gap",
+      "day": "Day",
+      "attribution": "FOMO entries, revenge trades, and missing stop-losses account for 82% of underperformance vs BTC hold strategy."
+    },
+    "worstTrades": {
+      "closed": "CLOSED",
+      "stillHolding": "STILL HOLDING",
+      "soldAt": "Sold @",
+      "on": "on",
+      "wt1Comment": "Held through 35% drawdown with no stop-loss. A -10% stop would have saved $2,400.",
+      "wt2Comment": "Bought after 18% pump. Classic FOMO entry near the local top.",
+      "wt3Comment": "Entered after news hype. Still holding at a loss — unrealized."
+    },
+    "severity": {
+      "critical": "CRITICAL",
+      "warning": "WARNING",
+      "tip": "TIP"
+    },
+    "patterns": {
+      "overtrading": {
+        "label": "Overtrading",
+        "summary": "847 trades in 9 months, avg 3.1/day. Frequent trading didn't improve returns — it cost you $2,340 in fees. Every trade is paying the exchange.",
+        "recommendation": "Consolidate to 5-8 trades per month. Each unnecessary trade erodes returns through fees and poor timing. Set a weekly trade limit and stick to it.",
+        "action1": "Set Weekly Trade Limit",
+        "action1Desc": "Cap at 2 trades per week to reduce noise",
+        "action2": "Review Fee Impact",
+        "action2Desc": "See how much fees ate into your returns",
+        "action3": "Enable Trade Cooldown",
+        "action3Desc": "Add a 6h buffer between consecutive trades"
+      },
+      "fomo": {
+        "label": "FOMO Chasing",
+        "summary": "4 out of 5 BTC and ETH buys came after 15%+ price rebounds. Your avg entry is 22% above the 30-day average.",
+        "recommendation": "Set limit orders at your target price before hype cycles. Wait 4+ hours after a surge before evaluating entry. Historical data shows 78% of FOMO entries end in losses within 2 weeks.",
+        "action1": "Enable Cool-Down Timer",
+        "action1Desc": "Block buy orders for 4h after 15%+ surges",
+        "action2": "Set Price Alerts Instead",
+        "action2Desc": "Get notified at your target price, not at the top",
+        "action3": "Review Surge History",
+        "action3Desc": "See how past surges played out before buying"
+      },
+      "revenge": {
+        "label": "Revenge Trading",
+        "summary": "6 times you opened new trades within 2 hours of a big loss. 5 of those also lost money. Trying to win it back only dug the hole deeper.",
+        "recommendation": "After a loss exceeding 5%, enforce a mandatory 24-hour cooling period before your next trade. Your win rate drops to 17% on revenge trades vs 42% normal.",
+        "action1": "Enable 24h Cooldown After Loss",
+        "action1Desc": "Block trading for 24h after any loss > 5%",
+        "action2": "Set Loss Limit per Day",
+        "action2Desc": "Stop trading if daily loss exceeds $500",
+        "action3": "Review Revenge Trade History",
+        "action3Desc": "See the pattern of losses after losses"
+      },
+      "noStopLoss": {
+        "label": "No Stop-Loss Habit",
+        "summary": "Zero stop-losses set in 9 months. Max single loss: -$3,200 (SOL). A -10% stop-loss would have capped it at $800.",
+        "recommendation": "Set a -10% stop-loss on every position. This single habit would have saved you $2,400 on your worst trade alone.",
+        "action1": "Auto Stop-Loss at -10%",
+        "action1Desc": "Sell automatically at a planned level",
+        "action2": "Set Trailing Stop-Loss",
+        "action2Desc": "Lock in profits while limiting downside",
+        "action3": "Backtest Stop-Loss Impact",
+        "action3Desc": "See how stop-losses would have changed your P&L"
+      }
+    },
+    "insights": {
+      "ethConcentration": {
+        "impact": "Impact: ~$6,400 at risk",
+        "title": "60% Portfolio Concentrated in ETH",
+        "body": "Your ETH position ($28,500) represents 60% of your total trading volume. Combined with BTC ($42,800), you have 90% exposure to just 2 assets. If ETH drops 30%, you lose ~$6,400.",
+        "cta": "Diversify ETH",
+        "action1": "Swap 30% ETH → USDC",
+        "action1Desc": "Lock in profits and reduce volatility",
+        "action2": "Swap 20% ETH → SOL",
+        "action2Desc": "Diversify into high-growth L1",
+        "action3": "Set allocation alerts",
+        "action3Desc": "Get warned when any asset exceeds 40%",
+        "detail": "ETH represents a dangerous concentration risk. With 60% of trading volume in a single asset, a market correction could wipe out a significant portion of your portfolio. Historical data shows concentrated portfolios underperform diversified ones by 4-7% annually on a risk-adjusted basis."
+      },
+      "feeBleeding": {
+        "impact": "Impact: -$2,340 in fees",
+        "title": "Trading Fees Are Eating Your Profits",
+        "body": "You've paid $2,340 in trading fees over 9 months — that's $260/month. At your current trading frequency (3.1 trades/day), you need each trade to profit >0.3% just to break even on fees.",
+        "cta": "Reduce Fees",
+        "action1": "Switch to Limit Orders",
+        "action1Desc": "Maker fees are 50-80% cheaper than taker fees",
+        "action2": "Reduce Trading Frequency",
+        "action2Desc": "Fewer trades = fewer fees = better returns",
+        "action3": "Upgrade to VIP Tier",
+        "action3Desc": "Your volume qualifies for lower fee tiers",
+        "detail": "At 847 trades over 9 months, your average fee per trade is $2.76. If you reduced to 200 trades (still plenty for active trading), you'd save ~$1,787 in fees alone. Combined with better entry timing from less impulsive trading, the total improvement could be $3,000-5,000."
+      },
+      "dogeProfit": {
+        "impact": "Impact: +$1,600 profit",
+        "title": "DOGE Is Your Only Winner — Consider Why",
+        "body": "DOGE is the only asset where you made money (+$1,600). Interestingly, you traded DOGE less frequently and held longer. This pattern suggests your best returns come from patience, not activity.",
+        "cta": "Apply This Pattern",
+        "action1": "Set Hold Minimum to 7 Days",
+        "action1Desc": "Force yourself to hold winners longer",
+        "action2": "Reduce BTC/ETH Frequency",
+        "action2Desc": "Trade your main assets like you trade DOGE",
+        "detail": "Your DOGE trades had an average hold time of 12.3 days vs 2.1 days for BTC/ETH. The longer hold time allowed you to capture larger moves instead of getting shaken out by daily volatility. This is a clear signal that reducing frequency improves your returns."
+      }
     },
     "portfolio": {
       "title": "Portfolio Analysis",
