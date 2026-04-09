@@ -214,12 +214,12 @@ const PatternCard = ({ pattern, index }: { pattern: BehaviorPattern; index: numb
             <table className="w-full text-xs">
               <thead>
                 <tr className="border-b border-border">
-                  <th className="text-left px-5 py-2 text-muted-foreground font-medium">{t('cexResults.asset')}</th>
-                  <th className="text-left px-3 py-2 text-muted-foreground font-medium">Action</th>
-                  <th className="text-left px-3 py-2 text-muted-foreground font-medium">Date</th>
-                  <th className="text-right px-3 py-2 text-muted-foreground font-medium">Price</th>
-                  <th className="text-right px-3 py-2 text-muted-foreground font-medium">Amount</th>
-                  <th className="text-right px-5 py-2 text-muted-foreground font-medium">P&L</th>
+                  <th className="text-left px-5 py-2 text-muted-foreground font-medium">{t('cexResults.evidence.asset')}</th>
+                  <th className="text-left px-3 py-2 text-muted-foreground font-medium">{t('cexResults.evidence.action')}</th>
+                  <th className="text-left px-3 py-2 text-muted-foreground font-medium">{t('cexResults.evidence.date')}</th>
+                  <th className="text-right px-3 py-2 text-muted-foreground font-medium">{t('cexResults.evidence.price')}</th>
+                  <th className="text-right px-3 py-2 text-muted-foreground font-medium">{t('cexResults.evidence.amount')}</th>
+                  <th className="text-right px-5 py-2 text-muted-foreground font-medium">{t('cexResults.evidence.pnl')}</th>
                 </tr>
               </thead>
               <tbody>
@@ -230,7 +230,7 @@ const PatternCard = ({ pattern, index }: { pattern: BehaviorPattern; index: numb
                       <span className={`text-[10px] font-bold uppercase px-1.5 py-0.5 rounded ${
                         e.action === "buy" ? "text-profit bg-profit/10" : "text-loss bg-loss/10"
                       }`}>
-                        {e.action}
+                        {e.action === "buy" ? t('cexResults.evidence.buy') : t('cexResults.evidence.sell')}
                       </span>
                     </td>
                     <td className="px-3 py-2.5 text-muted-foreground">{e.date}</td>
@@ -256,7 +256,7 @@ const PatternCard = ({ pattern, index }: { pattern: BehaviorPattern; index: numb
                     <span className={`text-[10px] font-bold uppercase px-1.5 py-0.5 rounded ${
                       e.action === "buy" ? "text-profit bg-profit/10" : "text-loss bg-loss/10"
                     }`}>
-                      {e.action}
+                      {e.action === "buy" ? t('cexResults.evidence.buy') : t('cexResults.evidence.sell')}
                     </span>
                   </div>
                   <span className="text-[11px] text-muted-foreground">{e.date}</span>

@@ -2,7 +2,7 @@ import { Skull, ArrowRight } from "lucide-react";
 import { WorstTrade } from "./types";
 import { useI18n } from "@/i18n/I18nContext";
 
-const WorstTradeCard = ({ trade, rank }: { trade: WorstTrade; rank: number }) => (
+const WorstTradeCard = ({ trade, rank, t }: { trade: WorstTrade; rank: number; t: (key: string) => string }) => (
   <div className="glass-card p-4 relative overflow-hidden flex-1 min-w-[260px]">
     <div className="absolute top-3 right-4 text-[40px] font-display font-black text-foreground/[0.04] leading-none select-none">
       #{rank}
@@ -18,7 +18,7 @@ const WorstTradeCard = ({ trade, rank }: { trade: WorstTrade; rank: number }) =>
           <span className={`text-[10px] font-bold uppercase px-1.5 py-0.5 rounded ${
             trade.status === "sold" ? "text-muted-foreground bg-secondary" : "text-warning bg-warning/10"
           }`}>
-            {trade.status === "sold" ? "CLOSED" : "STILL HOLDING"}
+            {trade.status === "sold" ? t('cexResults.worstTrades.closed') : t('cexResults.worstTrades.stillHolding')}
           </span>
         </div>
         {trade.linkedPatternLabel && (
@@ -38,7 +38,7 @@ const WorstTradeCard = ({ trade, rank }: { trade: WorstTrade; rank: number }) =>
         <>
           <br />
           <span className="text-border">→</span>{" "}
-          <span>Sold @ {trade.sellPrice} on {trade.sellDate}</span>
+          <span>{t('cexResults.worstTrades.soldAt')} {trade.sellPrice} {t('cexResults.worstTrades.on')} {trade.sellDate}</span>
         </>
       )}
     </div>
@@ -69,7 +69,7 @@ const WorstTrades = ({ trades }: { trades: WorstTrade[] }) => {
       </div>
       <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
         {trades.map((trade, i) => (
-          <WorstTradeCard key={trade.id} trade={trade} rank={i + 1} />
+          <WorstTradeCard key={trade.id} trade={trade} rank={i + 1} t={t} />
         ))}
       </div>
     </div>

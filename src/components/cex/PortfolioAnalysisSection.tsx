@@ -2,17 +2,16 @@ import { useState, useRef, useEffect } from "react";
 import { Brain, Share2, ChevronDown, Check, Sparkles, ThumbsUp, ThumbsDown, Lock } from "lucide-react";
 import { toast } from "sonner";
 import { PortfolioInsight } from "./types";
-import { mockInsights, AI_SUMMARY, STATS, PNL_DATA } from "./mockData";
+import { getMockInsights, AI_SUMMARY, STATS, PNL_DATA } from "./mockData";
 import { useI18n } from "@/i18n/I18nContext";
 
-const severityConfig = {
-  critical: { border: "hsl(350, 100%, 65%)", bg: "hsla(350, 100%, 65%, 0.15)", text: "text-loss", label: "CRITICAL" },
-  warning: { border: "hsl(30, 100%, 64%)", bg: "hsla(30, 100%, 64%, 0.15)", text: "text-warning", label: "WARNING" },
-  tip: { border: "hsl(174, 60%, 55%)", bg: "hsla(174, 60%, 55%, 0.15)", text: "text-info", label: "TIP" },
-};
+const InsightCard = ({ insight, t }: { insight: PortfolioInsight; t: (key: string) => string }) => {
+  const severityConfig = {
+    critical: { border: "hsl(350, 100%, 65%)", bg: "hsla(350, 100%, 65%, 0.15)", text: "text-loss", label: t('cexResults.severity.critical') },
+    warning: { border: "hsl(30, 100%, 64%)", bg: "hsla(30, 100%, 64%, 0.15)", text: "text-warning", label: t('cexResults.severity.warning') },
+    tip: { border: "hsl(174, 60%, 55%)", bg: "hsla(174, 60%, 55%, 0.15)", text: "text-info", label: t('cexResults.severity.tip') },
+  };
 
-const InsightCard = ({ insight }: { insight: PortfolioInsight }) => {
-  const { t } = useI18n();
   const config = severityConfig[insight.severity];
   const [reviewed, setReviewed] = useState(false);
   const [collapsed, setCollapsed] = useState(false);
@@ -135,6 +134,7 @@ const PortfolioAnalysisSection = () => {
   const { t, locale } = useI18n();
   const [expanded, setExpanded] = useState(false);
 
+  const mockInsights = getMockInsights(t);
   const insightSeverities = mockInsights.map(i => ({ id: i.id, severity: i.severity, label: i.title }));
 
   return (
@@ -203,7 +203,7 @@ const PortfolioAnalysisSection = () => {
       {expanded && (
         <div className="space-y-4 pt-4">
           {mockInsights.map((insight) => (
-            <InsightCard key={insight.id} insight={insight} />
+            <InsightCard key={insight.id} insight={insight} t={t} />
           ))}
 
           {/* AI Summary */}
@@ -254,8 +254,8 @@ const PortfolioAnalysisSection = () => {
               <div className="bg-loss/50 rounded-r-full" style={{ width: `${STATS.sellPercent}%` }} />
             </div>
             <div className="flex justify-between mt-2">
-              <span className="text-xs text-profit font-mono">Buy {STATS.buyPercent}%</span>
-              <span className="text-xs text-loss font-mono">Sell {STATS.sellPercent}%</span>
+              <span className="text-xs text-profit font-mono">{t('cexResults.evidence.buy')} {STATS.buyPercent}%</span>
+              <span className="text-xs text-loss font-mono">{t('cexResults.evidence.sell')} {STATS.sellPercent}%</span>
             </div>
           </div>
 
