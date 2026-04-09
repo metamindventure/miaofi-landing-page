@@ -192,6 +192,39 @@
     "avgSellPrice": "均卖价",
     "estimatedPnl": "估算盈亏",
     "startNewDiagnosis": "开始新的诊断 →",
-    "downloadReport": "下载报告"
+    "downloadReport": "下载报告",
+    "tba": {
+      "title": "交易行为分析",
+      "last9months": "近 9 个月",
+      "totalCost": "总行为成本",
+      "trades": "交易次数",
+      "winRate": "胜率",
+      "avgHold": "平均持仓",
+      "patternsDetected": "识别到的模式",
+      "impact": "影响",
+      "confidence": "置信度",
+      "copied": "已复制！",
+      "seeDetail": "查看详细分析",
+      "iKnow": "我知道了",
+      "reviewed": "已确认",
+      "viewEvidence": "查看证据",
+      "evidenceShows": "证据显示",
+      "helpful": "这对你有帮助吗？",
+      "thanksFeedback": "感谢你的反馈！",
+      "worstTrades": "最差交易",
+      "youVsBtc": "你 vs 持有 BTC",
+      "yourReturn": "你的收益",
+      "yourPortfolio": "你的组合"
+    },
+    "portfolio": {
+      "title": "投资组合分析",
+      "highRisk": "高风险",
+      "summaryTitle": "高风险交易模式",
+      "summaryDesc": "情绪化交易、无止损、仓位集中在 2 个资产",
+      "issuesFound": "发现问题",
+      "critical": "严重",
+      "totalLoss": "估算损失",
+      "insightsDetected": "洞察发现"
+    }
   }
 }
