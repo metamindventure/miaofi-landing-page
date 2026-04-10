@@ -179,48 +179,99 @@ const CexUpload = () => {
                 </div>
               </div>
 
-              {/* File upload */}
-              <div>
-                <h2 className="font-display font-semibold text-lg text-foreground mb-4">{t('cexUpload.uploadTitle')}</h2>
-                <div
-                  onClick={() => fileInputRef.current?.click()}
-                  onDragOver={(e) => { e.preventDefault(); setDragOver(true); }}
-                  onDragLeave={() => setDragOver(false)}
-                  onDrop={handleDrop}
-                  className={`glass-card rounded-xl p-8 flex flex-col items-center gap-4 cursor-pointer transition-all duration-200 ${
-                    dragOver ? 'border-primary/40 bg-primary/5' : 'hover:border-foreground/10'
-                  }`}
-                >
-                  <input
-                    ref={fileInputRef}
-                    type="file"
-                    accept=".xlsx,.csv"
-                    className="hidden"
-                    onChange={(e) => e.target.files?.[0] && handleFileSelect(e.target.files[0])}
-                  />
-                  {file ? (
-                    <>
-                      <FileSpreadsheet size={36} className="text-primary" />
-                      <div className="text-center">
-                        <p className="text-sm text-foreground font-medium">{t('cexUpload.uploadSelected')}</p>
-                        <p className="text-xs text-muted-foreground font-mono mt-1">{file.name} ({(file.size / 1024 / 1024).toFixed(2)} MB)</p>
-                        <button
-                          onClick={(e) => { e.stopPropagation(); setFile(null); }}
-                          className="text-xs text-primary/70 hover:text-primary mt-2 underline"
-                        >
-                          {t('cexUpload.uploadReplace')}
-                        </button>
-                      </div>
-                    </>
-                  ) : (
-                    <>
-                      <Upload size={36} className="text-muted-foreground/40" />
-                      <div className="text-center">
-                        <p className="text-sm text-foreground/70">{t('cexUpload.uploadDesc')}</p>
-                        <p className="text-xs text-muted-foreground mt-1">{t('cexUpload.uploadFormats')} · {t('cexUpload.uploadMaxSize')}</p>
-                      </div>
-                    </>
-                  )}
+              {/* File uploads — side by side */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                {/* Trade history upload */}
+                <div>
+                  <h2 className="font-display font-semibold text-lg text-foreground mb-4">{t('cexUpload.uploadTitle')}</h2>
+                  <div
+                    onClick={() => fileInputRef.current?.click()}
+                    onDragOver={(e) => { e.preventDefault(); setDragOver(true); }}
+                    onDragLeave={() => setDragOver(false)}
+                    onDrop={handleDrop}
+                    className={`glass-card rounded-xl p-6 sm:p-8 flex flex-col items-center gap-3 cursor-pointer transition-all duration-200 min-h-[180px] justify-center ${
+                      dragOver ? 'border-primary/40 bg-primary/5' : 'hover:border-foreground/10'
+                    } ${file ? 'border-primary/20 bg-primary/[0.03]' : 'border-dashed'}`}
+                  >
+                    <input
+                      ref={fileInputRef}
+                      type="file"
+                      accept=".xlsx,.csv"
+                      className="hidden"
+                      onChange={(e) => e.target.files?.[0] && handleFileSelect(e.target.files[0])}
+                    />
+                    {file ? (
+                      <>
+                        <FileSpreadsheet size={32} className="text-primary" />
+                        <div className="text-center">
+                          <p className="text-sm text-foreground font-medium">{t('cexUpload.uploadSelected')}</p>
+                          <p className="text-xs text-muted-foreground font-mono mt-1 break-all">{file.name} ({(file.size / 1024 / 1024).toFixed(2)} MB)</p>
+                          <button
+                            onClick={(e) => { e.stopPropagation(); setFile(null); }}
+                            className="text-xs text-primary/70 hover:text-primary mt-2 underline"
+                          >
+                            {t('cexUpload.uploadReplace')}
+                          </button>
+                        </div>
+                      </>
+                    ) : (
+                      <>
+                        <Upload size={32} className="text-muted-foreground/40" />
+                        <div className="text-center">
+                          <p className="text-sm text-foreground/70">{t('cexUpload.uploadDesc')}</p>
+                          <p className="text-xs text-muted-foreground mt-1">{t('cexUpload.uploadFormats')}<br />{t('cexUpload.uploadMaxSize')}</p>
+                        </div>
+                      </>
+                    )}
+                  </div>
+                </div>
+
+                {/* PDF statement upload */}
+                <div>
+                  <div className="flex items-center gap-2 mb-4">
+                    <h2 className="font-display font-semibold text-lg text-foreground">{t('cexUpload.pdfUploadTitle')}</h2>
+                    <span className="text-[10px] text-muted-foreground bg-secondary px-2 py-0.5 rounded-full">{t('cexUpload.pdfUploadOptional')}</span>
+                  </div>
+                  <div
+                    onClick={() => pdfInputRef.current?.click()}
+                    onDragOver={(e) => { e.preventDefault(); setPdfDragOver(true); }}
+                    onDragLeave={() => setPdfDragOver(false)}
+                    onDrop={handlePdfDrop}
+                    className={`glass-card rounded-xl p-6 sm:p-8 flex flex-col items-center gap-3 cursor-pointer transition-all duration-200 min-h-[180px] justify-center ${
+                      pdfDragOver ? 'border-primary/40 bg-primary/5' : 'hover:border-foreground/10'
+                    } ${pdfFile ? 'border-primary/20 bg-primary/[0.03]' : 'border-dashed'}`}
+                  >
+                    <input
+                      ref={pdfInputRef}
+                      type="file"
+                      accept=".pdf"
+                      className="hidden"
+                      onChange={(e) => e.target.files?.[0] && handlePdfSelect(e.target.files[0])}
+                    />
+                    {pdfFile ? (
+                      <>
+                        <FileText size={32} className="text-primary" />
+                        <div className="text-center">
+                          <p className="text-sm text-foreground font-medium">{t('cexUpload.pdfUploadSelected')}</p>
+                          <p className="text-xs text-muted-foreground font-mono mt-1 break-all">{pdfFile.name} ({(pdfFile.size / 1024 / 1024).toFixed(2)} MB)</p>
+                          <button
+                            onClick={(e) => { e.stopPropagation(); setPdfFile(null); }}
+                            className="text-xs text-primary/70 hover:text-primary mt-2 underline"
+                          >
+                            {t('cexUpload.uploadReplace')}
+                          </button>
+                        </div>
+                      </>
+                    ) : (
+                      <>
+                        <Upload size={32} className="text-muted-foreground/40" />
+                        <div className="text-center">
+                          <p className="text-sm text-foreground/70">{t('cexUpload.pdfUploadDesc')}</p>
+                          <p className="text-xs text-muted-foreground mt-1">{t('cexUpload.pdfUploadFormats')}<br />{t('cexUpload.pdfUploadMaxSize')}</p>
+                        </div>
+                      </>
+                    )}
+                  </div>
                 </div>
               </div>
 
