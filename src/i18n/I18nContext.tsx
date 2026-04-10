@@ -1,4 +1,4 @@
-import { createContext, useContext, useState, useCallback, type ReactNode } from 'react';
+import { createContext, useContext, useState, useCallback, useMemo, type Context, type ReactNode } from 'react';
 import zh from './zh.json';
 import en from './en.json';
 import ko from './ko.json';
@@ -18,7 +18,16 @@ interface I18nContextType {
   setLocale: (locale: Locale) => void;
 }
 
-const I18nContext = createContext<I18nContextType | null>(null);
+type GlobalWithI18nContext = typeof globalThis & {
+  __MIAOFI_I18N_CONTEXT__?: Context<I18nContextType | null>;
+};
+
+const globalForI18n = globalThis as GlobalWithI18nContext;
+const I18nContext =
+  globalForI18n.__MIAOFI_I18N_CONTEXT__ ??
+  (globalForI18n.__MIAOFI_I18N_CONTEXT__ = createContext<I18nContextType | null>(null));
+
+I18nContext.displayName = 'I18nContext';
 
 export function I18nProvider({ children }: { children: ReactNode }) {
   const [locale, setLocale] = useState<Locale>('zh');
@@ -32,11 +41,9 @@ export function I18nProvider({ children }: { children: ReactNode }) {
     return typeof value === 'string' ? value : key;
   }, [locale]);
 
-  return (
-    <I18nContext.Provider value={{ locale, t, setLocale }}>
-      {children}
-    </I18nContext.Provider>
-  );
+  const value = useMemo(() => ({ locale, t, setLocale }), [locale, t]);
+
+  return <I18nContext.Provider value={value}>{children}</I18nContext.Provider>;
 }
 
 export function useI18n() {
