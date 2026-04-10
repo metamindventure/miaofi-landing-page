@@ -19,6 +19,7 @@ const CexUpload = () => {
   const { t } = useI18n();
   const navigate = useNavigate();
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const pdfInputRef = useRef<HTMLInputElement>(null);
 
   const [selectedExchange, setSelectedExchange] = useState<string | null>(null);
   const [file, setFile] = useState<File | null>(null);
