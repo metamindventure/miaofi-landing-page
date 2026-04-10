@@ -38,11 +38,24 @@ const CexUpload = () => {
     }
   }, []);
 
+  const handlePdfSelect = useCallback((f: File) => {
+    const ext = f.name.split('.').pop()?.toLowerCase();
+    if (ext === 'pdf') {
+      setPdfFile(f);
+    }
+  }, []);
+
   const handleDrop = useCallback((e: React.DragEvent) => {
     e.preventDefault();
     setDragOver(false);
     if (e.dataTransfer.files[0]) handleFileSelect(e.dataTransfer.files[0]);
   }, [handleFileSelect]);
+
+  const handlePdfDrop = useCallback((e: React.DragEvent) => {
+    e.preventDefault();
+    setPdfDragOver(false);
+    if (e.dataTransfer.files[0]) handlePdfSelect(e.dataTransfer.files[0]);
+  }, [handlePdfSelect]);
 
   const handleUploadClick = () => {
     if (!selectedExchange || !file) return;
