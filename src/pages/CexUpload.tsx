@@ -1,6 +1,6 @@
 import { useState, useRef, useCallback, useEffect } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
-import { Upload, FileSpreadsheet, ChevronDown, ChevronRight, Check, AlertTriangle, ArrowLeft, Loader2 } from 'lucide-react';
+import { Upload, FileSpreadsheet, FileText, ChevronDown, ChevronRight, Check, AlertTriangle, ArrowLeft, Loader2 } from 'lucide-react';
 import { useI18n } from '@/i18n/I18nContext';
 import AnimatedBackground from '@/components/landing/AnimatedBackground';
 import LanguageSwitcher from '@/components/landing/LanguageSwitcher';
