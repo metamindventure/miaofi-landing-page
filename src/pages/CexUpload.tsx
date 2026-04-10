@@ -22,9 +22,11 @@ const CexUpload = () => {
 
   const [selectedExchange, setSelectedExchange] = useState<string | null>(null);
   const [file, setFile] = useState<File | null>(null);
+  const [pdfFile, setPdfFile] = useState<File | null>(null);
   const [stage, setStage] = useState<Stage>('select');
   const [howToOpen, setHowToOpen] = useState(false);
   const [dragOver, setDragOver] = useState(false);
+  const [pdfDragOver, setPdfDragOver] = useState(false);
   const [analyzeStep, setAnalyzeStep] = useState(0);
 
   const currentStep = stage === 'select' ? 1 : stage === 'preview' ? 2 : 3;
