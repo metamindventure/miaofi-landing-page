@@ -180,16 +180,20 @@ const CexUpload = () => {
               </div>
 
               {/* File uploads — side by side */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                 {/* Trade history upload */}
-                <div>
-                  <h2 className="font-display font-semibold text-lg text-foreground mb-4">{t('cexUpload.uploadTitle')}</h2>
+                <div className="flex flex-col">
+                  <div className="flex items-center gap-2">
+                    <h2 className="font-display font-semibold text-lg text-foreground">{t('cexUpload.uploadTitle')}</h2>
+                    <span className="text-[10px] font-semibold text-warning bg-warning/10 border border-warning/20 px-2 py-0.5 rounded-full">{t('cexUpload.uploadRequired')}</span>
+                  </div>
+                  <p className="text-xs text-muted-foreground mt-1.5 mb-4">{t('cexUpload.uploadTitleDesc')}</p>
                   <div
                     onClick={() => fileInputRef.current?.click()}
                     onDragOver={(e) => { e.preventDefault(); setDragOver(true); }}
                     onDragLeave={() => setDragOver(false)}
                     onDrop={handleDrop}
-                    className={`glass-card rounded-xl p-6 sm:p-8 flex flex-col items-center gap-3 cursor-pointer transition-all duration-200 min-h-[180px] justify-center ${
+                    className={`glass-card rounded-xl p-6 sm:p-8 flex flex-col items-center gap-3 cursor-pointer transition-all duration-200 min-h-[200px] justify-center flex-1 ${
                       dragOver ? 'border-primary/40 bg-primary/5' : 'hover:border-foreground/10'
                     } ${file ? 'border-primary/20 bg-primary/[0.03]' : 'border-dashed'}`}
                   >
@@ -227,17 +231,18 @@ const CexUpload = () => {
                 </div>
 
                 {/* PDF statement upload */}
-                <div>
-                  <div className="flex items-center gap-2 mb-4">
+                <div className="flex flex-col">
+                  <div className="flex items-center gap-2">
                     <h2 className="font-display font-semibold text-lg text-foreground">{t('cexUpload.pdfUploadTitle')}</h2>
-                    <span className="text-[10px] text-muted-foreground bg-secondary px-2 py-0.5 rounded-full">{t('cexUpload.pdfUploadOptional')}</span>
+                    <span className="text-[10px] font-semibold text-primary bg-primary/10 border border-primary/20 px-2 py-0.5 rounded-full">{t('cexUpload.pdfUploadRecommended')}</span>
                   </div>
+                  <p className="text-xs text-muted-foreground mt-1.5 mb-4">{t('cexUpload.pdfUploadBenefit')}</p>
                   <div
                     onClick={() => pdfInputRef.current?.click()}
                     onDragOver={(e) => { e.preventDefault(); setPdfDragOver(true); }}
                     onDragLeave={() => setPdfDragOver(false)}
                     onDrop={handlePdfDrop}
-                    className={`glass-card rounded-xl p-6 sm:p-8 flex flex-col items-center gap-3 cursor-pointer transition-all duration-200 min-h-[180px] justify-center ${
+                    className={`glass-card rounded-xl p-6 sm:p-8 flex flex-col items-center gap-3 cursor-pointer transition-all duration-200 min-h-[200px] justify-center flex-1 ${
                       pdfDragOver ? 'border-primary/40 bg-primary/5' : 'hover:border-foreground/10'
                     } ${pdfFile ? 'border-primary/20 bg-primary/[0.03]' : 'border-dashed'}`}
                   >
