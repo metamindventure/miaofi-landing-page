@@ -357,7 +357,8 @@
       "issuesFound": "발견된 문제",
       "critical": "심각",
       "totalLoss": "추정 손실",
-      "insightsDetected": "인사이트 감지됨"
+      "insightsDetected": "인사이트 감지됨",
+      "asOf": "기준일 2025.3.5"
     }
   }
 }
