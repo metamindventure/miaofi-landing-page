@@ -357,7 +357,8 @@
       "issuesFound": "发现问题",
       "critical": "严重",
       "totalLoss": "估算损失",
-      "insightsDetected": "洞察发现"
+      "insightsDetected": "洞察发现",
+      "asOf": "截至 2025年3月5日"
     }
   }
 }
