@@ -39,6 +39,26 @@ export interface WorstTrade {
   comment: string;
 }
 
+export interface PostExitMove {
+  id: string;
+  asset: string;
+  exitDate: string;
+  exitPrice: string;
+  currentPrice: string;
+  daysAfter: number;
+  changePercent: number;
+  opportunityCost: number;
+  note: string;
+}
+
+export interface PostExitSummary {
+  avgChangePercent: number;
+  totalOpportunityCost: number;
+  exitedPositions: number;
+  windowDays: number;
+  moves: PostExitMove[];
+}
+
 export interface BenchmarkPoint {
   day: number;
   user: number;

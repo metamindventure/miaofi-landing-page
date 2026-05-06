@@ -1,4 +1,18 @@
-import { BehaviorPattern, WorstTrade, BenchmarkData, BenchmarkPoint, PortfolioInsight } from "./types";
+import { BehaviorPattern, WorstTrade, BenchmarkData, BenchmarkPoint, PortfolioInsight, PostExitSummary } from "./types";
+
+export const getMockPostExit = (t: (key: string) => string): PostExitSummary => ({
+  avgChangePercent: 19.7,
+  totalOpportunityCost: 13852,
+  exitedPositions: 6,
+  windowDays: 30,
+  moves: [
+    { id: "pe-1", asset: "BTC",  exitDate: "Feb 11, 2025", exitPrice: "$78,726", currentPrice: "$94,210", daysAfter: 30, changePercent: 19.7, opportunityCost: 7740, note: t('cexResults.postExit.note.btc') },
+    { id: "pe-2", asset: "WBTC", exitDate: "Feb 12, 2025", exitPrice: "$78,420", currentPrice: "$93,580", daysAfter: 30, changePercent: 19.3, opportunityCost: 3088, note: t('cexResults.postExit.note.wbtc') },
+    { id: "pe-3", asset: "SOL",  exitDate: "Jan 28, 2025", exitPrice: "$182.40",  currentPrice: "$214.10", daysAfter: 45, changePercent: 17.4, opportunityCost: 1620, note: t('cexResults.postExit.note.sol') },
+    { id: "pe-4", asset: "ETH",  exitDate: "Feb 03, 2025", exitPrice: "$2,640",   currentPrice: "$3,180",  daysAfter: 38, changePercent: 20.5, opportunityCost: 1404, note: t('cexResults.postExit.note.eth') },
+  ],
+});
+
 
 // All text content uses i18n keys — resolved by components via t()
 export const getMockPatterns = (t: (key: string) => string): BehaviorPattern[] => [

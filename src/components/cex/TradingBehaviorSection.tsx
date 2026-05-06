@@ -1,9 +1,10 @@
 import { useState } from "react";
-import { Activity, Zap, TrendingDown, ChevronDown } from "lucide-react";
+import { Activity, Zap, TrendingDown, ChevronDown, LogOut } from "lucide-react";
 import PatternCard from "./PatternCard";
 import WorstTrades from "./WorstTrades";
 import BenchmarkComparison from "./BenchmarkComparison";
-import { getMockPatterns, getMockWorstTrades, getMockBenchmark } from "./mockData";
+import PostExitMoveSection from "./PostExitMoveSection";
+import { getMockPatterns, getMockWorstTrades, getMockBenchmark, getMockPostExit } from "./mockData";
 import { useI18n } from "@/i18n/I18nContext";
 
 const TradingBehaviorSection = () => {
@@ -13,6 +14,7 @@ const TradingBehaviorSection = () => {
   const mockPatterns = getMockPatterns(t);
   const mockWorstTrades = getMockWorstTrades(t);
   const mockBenchmark = getMockBenchmark(t);
+  const mockPostExit = getMockPostExit(t);
 
   const filteredPatterns = mockPatterns
     .filter((p) => p.confidence > 50)
@@ -91,6 +93,18 @@ const TradingBehaviorSection = () => {
           </div>
         </div>
 
+        {/* Post-exit highlight pill */}
+        <div className="flex items-center gap-2 mb-3 p-2.5 rounded-lg bg-loss/8 border border-loss/20">
+          <LogOut className="w-3.5 h-3.5 text-loss shrink-0" />
+          <span className="text-[11px] text-muted-foreground">{t('cexResults.postExit.title')}</span>
+          <span className="text-sm font-bold font-mono tabular-nums text-loss">
+            +{mockPostExit.avgChangePercent.toFixed(1)}%
+          </span>
+          <span className="text-[11px] text-loss/80 font-mono tabular-nums">
+            ({t('cexResults.postExit.opportunityCost')} ${mockPostExit.totalOpportunityCost.toLocaleString()})
+          </span>
+        </div>
+
         {/* Collapsed footer */}
         {!expanded && (
           <div className="flex items-center gap-2 text-muted-foreground">
@@ -120,6 +134,7 @@ const TradingBehaviorSection = () => {
               <PatternCard key={pattern.id} pattern={pattern} index={i} />
             ))}
           </div>
+          <PostExitMoveSection data={mockPostExit} />
           <WorstTrades trades={mockWorstTrades} />
           <BenchmarkComparison data={mockBenchmark} />
         </div>

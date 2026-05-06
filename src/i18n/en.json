@@ -227,6 +227,24 @@
       "yourReturn": "Your Return",
       "yourPortfolio": "Your Portfolio"
     },
+    "postExit": {
+      "title": "Post-Exit Move",
+      "windowLabel": "{n}-day window",
+      "avgMove": "Avg move after you exited",
+      "avgMoveDesc": "Average price change of {n} tokens after you sold",
+      "opportunityCost": "Opportunity Cost",
+      "opportunityCostDesc": "What you'd have made by holding",
+      "explainer": "These tokens kept climbing after you sold. That upside was yours — you stepped off the train too early.",
+      "viewBreakdown": "Per-exit breakdown",
+      "exited": "Exited",
+      "afterDays": "{n}d later",
+      "note": {
+        "btc": "Heavy BTC sell on Feb 11; price recovered to $94K within 3 weeks.",
+        "wbtc": "Closed WBTC on Feb 12, right before the rebound leg.",
+        "sol": "Sold SOL near the bottom of a consolidation range, missing the breakout.",
+        "eth": "ETH ran up sharply after your exit — biggest single opportunity cost this window."
+      }
+    },
     "traderType": {
       "overtrader": "Overtrader",
       "overtraderDesc": "You trade too frequently — fees and poor timing are silently eating your gains.",
