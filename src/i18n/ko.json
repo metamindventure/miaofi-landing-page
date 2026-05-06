@@ -205,6 +205,7 @@
     "tba": {
       "title": "거래 행동 분석",
       "last9months": "최근 9개월",
+      "dateRange": "2024.6.5 – 2025.3.5",
       "totalCost": "총 행동 비용",
       "trades": "거래 수",
       "winRate": "승률",
