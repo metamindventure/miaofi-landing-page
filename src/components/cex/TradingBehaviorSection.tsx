@@ -93,6 +93,18 @@ const TradingBehaviorSection = () => {
           </div>
         </div>
 
+        {/* Post-exit highlight pill */}
+        <div className="flex items-center gap-2 mb-3 p-2.5 rounded-lg bg-loss/8 border border-loss/20">
+          <LogOut className="w-3.5 h-3.5 text-loss shrink-0" />
+          <span className="text-[11px] text-muted-foreground">{t('cexResults.postExit.title')}</span>
+          <span className="text-sm font-bold font-mono tabular-nums text-loss">
+            +{mockPostExit.avgChangePercent.toFixed(1)}%
+          </span>
+          <span className="text-[11px] text-loss/80 font-mono tabular-nums">
+            ({t('cexResults.postExit.opportunityCost')} ${mockPostExit.totalOpportunityCost.toLocaleString()})
+          </span>
+        </div>
+
         {/* Collapsed footer */}
         {!expanded && (
           <div className="flex items-center gap-2 text-muted-foreground">
