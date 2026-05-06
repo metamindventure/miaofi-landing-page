@@ -228,14 +228,15 @@
       "yourPortfolio": "你的组合"
     },
     "postExit": {
-      "title": "退场后涨跌",
+      "title": "卖飞成本",
+      "subtitle": "离场后行情",
       "windowLabel": "{n} 天窗口",
-      "avgMove": "卖出后平均涨幅",
-      "avgMoveDesc": "你卖出后 {n} 个币种的平均价格变化",
-      "opportunityCost": "机会成本",
-      "opportunityCostDesc": "如果继续持有可能赚到的钱",
-      "explainer": "你卖出之后这些币又涨了。这部分本来属于你的收益，被你提前下车错过了。",
-      "viewBreakdown": "查看每笔退场",
+      "avgMove": "卖飞均涨幅",
+      "avgMoveDesc": "你卖出后 {n} 个币种的平均涨幅",
+      "opportunityCost": "卖飞损失",
+      "opportunityCostDesc": "继续持有本可赚到的钱",
+      "explainer": "你卖了，它涨了。这部分本来是你的收益，被你提前下车错过了。",
+      "viewBreakdown": "查看每笔卖飞",
       "exited": "卖出于",
       "afterDays": "{n} 天后",
       "note": {
