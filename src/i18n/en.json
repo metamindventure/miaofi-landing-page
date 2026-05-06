@@ -225,7 +225,9 @@
       "worstTrades": "Worst Trades",
       "youVsBtc": "You vs. Holding BTC",
       "yourReturn": "Your Return",
-      "yourPortfolio": "Your Portfolio"
+      "yourPortfolio": "Your Portfolio",
+      "expandCta": "Expand {n} high-risk patterns",
+      "expand": "Expand"
     },
     "postExit": {
       "title": "Missed Upside",

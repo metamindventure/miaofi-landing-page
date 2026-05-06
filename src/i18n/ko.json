@@ -225,7 +225,9 @@
       "worstTrades": "최악의 거래",
       "youVsBtc": "나 vs BTC 보유",
       "yourReturn": "내 수익률",
-      "yourPortfolio": "내 포트폴리오"
+      "yourPortfolio": "내 포트폴리오",
+      "expandCta": "고위험 패턴 {n}개 펼치기",
+      "expand": "펼치기"
     },
     "postExit": {
       "title": "놓친 상승분",

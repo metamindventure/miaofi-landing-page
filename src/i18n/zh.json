@@ -225,7 +225,9 @@
       "worstTrades": "最差交易",
       "youVsBtc": "你 vs 持有 BTC",
       "yourReturn": "你的收益",
-      "yourPortfolio": "你的组合"
+      "yourPortfolio": "你的组合",
+      "expandCta": "展开 {n} 个高危行为模式",
+      "expand": "展开"
     },
     "postExit": {
       "title": "卖飞成本",
