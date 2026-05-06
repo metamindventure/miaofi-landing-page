@@ -231,6 +231,9 @@
     },
     "postExit": {
       "title": "놓친 상승분",
+      "headline": "{n}번 너무 일찍 매도",
+      "avgGain": "평균 상승",
+      "missed": "놓침",
       "subtitle": "매도 후 성과",
       "windowLabel": "{n}일 윈도우",
       "avgMove": "매도 후 평균 상승률",

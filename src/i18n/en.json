@@ -231,6 +231,9 @@
     },
     "postExit": {
       "title": "Missed Upside",
+      "headline": "Sold too early on {n} positions",
+      "avgGain": "Avg gain",
+      "missed": "Missed",
       "subtitle": "Post-exit performance",
       "windowLabel": "{n}-day window",
       "avgMove": "Avg gain after you sold",

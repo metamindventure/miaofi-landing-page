@@ -86,12 +86,9 @@ const TradingBehaviorSection = () => {
           </div>
           <div>
             <span className="text-[11px] text-muted-foreground block">{t('cexResults.tba.winRate')}</span>
-            <div className="flex items-baseline gap-1.5">
-              <span className={`text-lg font-bold font-mono tabular-nums ${overviewStats.winRate < 50 ? "text-loss" : "text-profit"}`}>
-                {overviewStats.winRate}%
-              </span>
-              <span className="text-[10px] text-muted-foreground/70 font-mono tabular-nums">vs 50%</span>
-            </div>
+            <span className={`text-lg font-bold font-mono tabular-nums ${overviewStats.winRate < 50 ? "text-loss" : "text-profit"}`}>
+              {overviewStats.winRate}%
+            </span>
           </div>
           <div>
             <span className="text-[11px] text-muted-foreground block">{t('cexResults.tba.avgHold')}</span>
@@ -102,18 +99,25 @@ const TradingBehaviorSection = () => {
           </div>
         </div>
 
-        {/* Missed-upside highlight pill */}
-        <div className="flex items-center gap-2.5 mb-3 p-2.5 rounded-lg bg-loss/8 border border-loss/20">
-          <LogOut className="w-3.5 h-3.5 text-loss shrink-0" />
-          <span className="text-[11px] text-muted-foreground">{t('cexResults.postExit.title')}</span>
-          <span className="text-sm font-bold font-mono tabular-nums text-loss">
-            +{mockPostExit.avgChangePercent.toFixed(1)}%
-          </span>
-          <span className="text-border">·</span>
-          <span className="text-[11px] text-loss/85 font-mono tabular-nums">
-            −${mockPostExit.totalOpportunityCost.toLocaleString()}
-          </span>
-          <span className="text-[10px] text-muted-foreground hidden sm:inline">{t('cexResults.postExit.subtitle')}</span>
+        {/* Missed-upside narrative */}
+        <div className="flex items-center gap-3 mb-3 p-3 rounded-lg bg-loss/8 border border-loss/20">
+          <LogOut className="w-4 h-4 text-loss shrink-0" />
+          <div className="flex-1 min-w-0">
+            <div className="text-sm text-foreground">
+              {t('cexResults.postExit.headline').replace('{n}', String(mockPostExit.exitedPositions))}
+            </div>
+            <div className="flex items-baseline gap-2 mt-0.5 flex-wrap">
+              <span className="text-[11px] text-muted-foreground">{t('cexResults.postExit.avgGain')}</span>
+              <span className="text-sm font-bold font-mono tabular-nums text-loss">
+                +{mockPostExit.avgChangePercent.toFixed(1)}%
+              </span>
+              <span className="text-border">·</span>
+              <span className="text-[11px] text-muted-foreground">{t('cexResults.postExit.missed')}</span>
+              <span className="text-sm font-bold font-mono tabular-nums text-loss">
+                ${mockPostExit.totalOpportunityCost.toLocaleString()}
+              </span>
+            </div>
+          </div>
         </div>
 
         {/* Collapsed footer — strong CTA */}

@@ -231,6 +231,9 @@
     },
     "postExit": {
       "title": "卖飞成本",
+      "headline": "你卖飞了 {n} 次",
+      "avgGain": "平均涨幅",
+      "missed": "错过",
       "subtitle": "离场后行情",
       "windowLabel": "{n} 天窗口",
       "avgMove": "卖飞均涨幅",
