@@ -1,30 +1,41 @@
+## Plan: Clean up TBA stats and redesign the 卖飞 module
 
-
-## Plan: Improve Upload Section Layout with "Required" / "Recommended" Badges
-
-### Problem
-The current two-column upload layout has misaligned headers — the left column has a simple title while the right has title + badge + description, causing vertical misalignment of the drop zones. The reference screenshot shows "必填" (required) and "推荐" (recommended) badges, plus a description under the PDF title explaining its value.
-
-### Design Improvement
-Instead of the reference's misaligned layout, I'll use a **top-aligned grid** where both columns share the same vertical rhythm:
-
-1. **Both columns**: Title row with inline badge → Description text (left: brief format note; right: value proposition) → Drop zone of equal height
-2. **Left column**: "上传交易文件" + orange "必填" badge + brief description
-3. **Right column**: "账户报表 (PDF)" + purple "推荐" badge + description explaining analysis benefits
-4. Drop zones are the same `min-h` so they align perfectly
+### Scope
+Edit only the **current project** (landing page preview). Once approved and verified visually, sync the same changes into **MiaoFi Dashboard** in a follow-up.
 
 ### Changes
 
-**`src/pages/CexUpload.tsx`** (lines 182-276):
-- Left column: Add "必填" badge next to title (orange/warning style), add a short description below title
-- Right column: Change "可选" badge to "推荐" (recommended, purple/primary style), add value-proposition description below title
-- Both drop zones use identical `min-h-[200px]` for vertical alignment
-- Wrap each column header in a consistent structure: `flex items-center gap-2` for title+badge, then `<p>` description, then drop zone
+**1. `src/components/cex/TradingBehaviorSection.tsx` — Stats row**
+- Remove the `vs 50%` benchmark next to win rate (we don't have a real benchmark source).
+- Keep `847 / 9mo` next to trade count (this is just unit context, not a benchmark).
+- Keep avg hold as-is.
 
-**`src/i18n/zh.json`**, **`en.json`**, **`ko.json`**:
-- Add `cexUpload.uploadRequired`: "必填" / "Required" / "필수"
-- Add `cexUpload.pdfUploadRecommended`: "推荐" / "Recommended" / "추천"
-- Add `cexUpload.uploadTitleDesc`: brief description for trade file section
-- Add `cexUpload.pdfUploadBenefit`: description explaining PDF analysis benefits
-- Change existing `pdfUploadOptional` usage to `pdfUploadRecommended`
+**2. `src/components/cex/TradingBehaviorSection.tsx` — 卖飞 highlight**
+Replace the confused 3-label pill with a narrative + 2 supporting numbers:
 
+```
+┌─────────────────────────────────────────────┐
+│  ↗  你卖飞了 6 次                             │
+│     平均涨幅 +19.7% · 错过 $13,852           │
+└─────────────────────────────────────────────┘
+```
+
+- One human sentence as the headline ("你卖飞了 6 次" / "You sold too early on 6 positions" / "6번 너무 일찍 매도").
+- Two clearly-labeled numbers underneath joined by `·`.
+- Drop the `卖飞成本` / `离场后行情` (Post-exit move) sub-labels that were fighting for attention.
+- Keep the red loss styling and the LogOut icon.
+
+**3. i18n keys (`zh.json`, `en.json`, `ko.json`)**
+Add three new keys under `cexResults.postExit`:
+- `headline` — `"你卖飞了 {n} 次"` / `"Sold too early on {n} positions"` / `"{n}번 너무 일찍 매도"`
+- `avgGain` — `"平均涨幅"` / `"Avg gain"` / `"평균 상승"`
+- `missed` — `"错过"` / `"Missed"` / `"놓침"`
+
+Existing `title` / `subtitle` / `opportunityCost` keys stay (used inside the expanded `PostExitMoveSection` component).
+
+**4. Cross-project follow-up (after visual approval)**
+The authoritative `TradingBehavior.tsx` lives in **MiaoFi Dashboard** at `src/components/dashboard/`. Once you confirm the redesign here, I will port the same simplified stats row, the 卖飞 narrative pill, and the i18n keys into that project so the logged-in dashboard matches.
+
+### Out of scope
+- Expanded `PostExitMoveSection` detail panel — already clear, no changes.
+- Pattern cards, Worst Trades, Benchmark chart — untouched.
