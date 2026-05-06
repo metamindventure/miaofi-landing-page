@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Activity, Zap, TrendingDown, ChevronDown } from "lucide-react";
+import { Activity, Zap, TrendingDown, ChevronDown, LogOut } from "lucide-react";
 import PatternCard from "./PatternCard";
 import WorstTrades from "./WorstTrades";
 import BenchmarkComparison from "./BenchmarkComparison";
@@ -134,6 +134,7 @@ const TradingBehaviorSection = () => {
               <PatternCard key={pattern.id} pattern={pattern} index={i} />
             ))}
           </div>
+          <PostExitMoveSection data={mockPostExit} />
           <WorstTrades trades={mockWorstTrades} />
           <BenchmarkComparison data={mockBenchmark} />
         </div>
