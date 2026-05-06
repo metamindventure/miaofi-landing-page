@@ -205,6 +205,7 @@
     "tba": {
       "title": "交易行为分析",
       "last9months": "近 9 个月",
+      "dateRange": "2024年6月5日 – 2025年3月5日",
       "totalCost": "总行为成本",
       "trades": "交易次数",
       "winRate": "胜率",
