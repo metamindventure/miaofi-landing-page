@@ -75,53 +75,69 @@ const TradingBehaviorSection = () => {
           </div>
         </div>
 
-        {/* Stats */}
-        <div className="flex items-center gap-6 mb-3">
+        {/* Stats with benchmarks */}
+        <div className="grid grid-cols-3 gap-4 mb-3">
           <div>
             <span className="text-[11px] text-muted-foreground block">{t('cexResults.tba.trades')}</span>
-            <span className="text-lg font-bold font-mono text-foreground tabular-nums">{overviewStats.totalTrades}</span>
+            <div className="flex items-baseline gap-1.5">
+              <span className="text-lg font-bold font-mono text-foreground tabular-nums">{overviewStats.totalTrades}</span>
+              <span className="text-[10px] text-muted-foreground/70 font-mono">/ 9mo</span>
+            </div>
           </div>
           <div>
             <span className="text-[11px] text-muted-foreground block">{t('cexResults.tba.winRate')}</span>
-            <span className={`text-lg font-bold font-mono tabular-nums ${overviewStats.winRate < 50 ? "text-loss" : "text-profit"}`}>
-              {overviewStats.winRate}%
-            </span>
+            <div className="flex items-baseline gap-1.5">
+              <span className={`text-lg font-bold font-mono tabular-nums ${overviewStats.winRate < 50 ? "text-loss" : "text-profit"}`}>
+                {overviewStats.winRate}%
+              </span>
+              <span className="text-[10px] text-muted-foreground/70 font-mono tabular-nums">vs 50%</span>
+            </div>
           </div>
           <div>
             <span className="text-[11px] text-muted-foreground block">{t('cexResults.tba.avgHold')}</span>
-            <span className="text-lg font-bold font-mono text-foreground tabular-nums">{overviewStats.avgHold} {t('cexResults.tba.days')}</span>
+            <div className="flex items-baseline gap-1.5">
+              <span className="text-lg font-bold font-mono text-foreground tabular-nums">{overviewStats.avgHold}</span>
+              <span className="text-[10px] text-muted-foreground/70">{t('cexResults.tba.days')}</span>
+            </div>
           </div>
         </div>
 
-        {/* Post-exit highlight pill */}
-        <div className="flex items-center gap-2 mb-3 p-2.5 rounded-lg bg-loss/8 border border-loss/20">
+        {/* Missed-upside highlight pill */}
+        <div className="flex items-center gap-2.5 mb-3 p-2.5 rounded-lg bg-loss/8 border border-loss/20">
           <LogOut className="w-3.5 h-3.5 text-loss shrink-0" />
           <span className="text-[11px] text-muted-foreground">{t('cexResults.postExit.title')}</span>
           <span className="text-sm font-bold font-mono tabular-nums text-loss">
             +{mockPostExit.avgChangePercent.toFixed(1)}%
           </span>
-          <span className="text-[11px] text-loss/80 font-mono tabular-nums">
-            ({t('cexResults.postExit.opportunityCost')} ${mockPostExit.totalOpportunityCost.toLocaleString()})
+          <span className="text-border">·</span>
+          <span className="text-[11px] text-loss/85 font-mono tabular-nums">
+            −${mockPostExit.totalOpportunityCost.toLocaleString()}
           </span>
+          <span className="text-[10px] text-muted-foreground hidden sm:inline">{t('cexResults.postExit.subtitle')}</span>
         </div>
 
-        {/* Collapsed footer */}
+        {/* Collapsed footer — strong CTA */}
         {!expanded && (
-          <div className="flex items-center gap-2 text-muted-foreground">
-            <span className="text-sm">
-              {t('cexResults.tba.patternsDetected')} ({filteredPatterns.length})
-            </span>
-            <div className="flex items-center gap-1.5">
-              {filteredPatterns.map((p) => (
-                <span
-                  key={p.id}
-                  className={`w-2 h-2 rounded-full ${
-                    p.severity === "high" ? "bg-loss" : p.severity === "medium" ? "bg-warning" : "bg-profit"
-                  }`}
-                />
-              ))}
+          <div className="flex items-center justify-between gap-2 pt-2 border-t border-border/50">
+            <div className="flex items-center gap-2">
+              <div className="flex items-center gap-1">
+                {filteredPatterns.map((p) => (
+                  <span
+                    key={p.id}
+                    className={`w-1.5 h-1.5 rounded-full ${
+                      p.severity === "high" ? "bg-loss" : p.severity === "medium" ? "bg-warning" : "bg-profit"
+                    }`}
+                  />
+                ))}
+              </div>
+              <span className="text-sm text-foreground/80">
+                {t('cexResults.tba.expandCta').replace('{n}', String(filteredPatterns.length))}
+              </span>
             </div>
-            <ChevronDown className="w-3.5 h-3.5 ml-auto" />
+            <span className="text-xs text-primary flex items-center gap-1">
+              {t('cexResults.tba.expand')}
+              <ChevronDown className="w-3.5 h-3.5" />
+            </span>
           </div>
         )}
       </button>
