@@ -3,7 +3,8 @@ import { Activity, Zap, TrendingDown, ChevronDown } from "lucide-react";
 import PatternCard from "./PatternCard";
 import WorstTrades from "./WorstTrades";
 import BenchmarkComparison from "./BenchmarkComparison";
-import { getMockPatterns, getMockWorstTrades, getMockBenchmark } from "./mockData";
+import PostExitMoveSection from "./PostExitMoveSection";
+import { getMockPatterns, getMockWorstTrades, getMockBenchmark, getMockPostExit } from "./mockData";
 import { useI18n } from "@/i18n/I18nContext";
 
 const TradingBehaviorSection = () => {
@@ -13,6 +14,7 @@ const TradingBehaviorSection = () => {
   const mockPatterns = getMockPatterns(t);
   const mockWorstTrades = getMockWorstTrades(t);
   const mockBenchmark = getMockBenchmark(t);
+  const mockPostExit = getMockPostExit(t);
 
   const filteredPatterns = mockPatterns
     .filter((p) => p.confidence > 50)
