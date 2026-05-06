@@ -227,6 +227,24 @@
       "yourReturn": "你的收益",
       "yourPortfolio": "你的组合"
     },
+    "postExit": {
+      "title": "退场后涨跌",
+      "windowLabel": "{n} 天窗口",
+      "avgMove": "卖出后平均涨幅",
+      "avgMoveDesc": "你卖出后 {n} 个币种的平均价格变化",
+      "opportunityCost": "机会成本",
+      "opportunityCostDesc": "如果继续持有可能赚到的钱",
+      "explainer": "你卖出之后这些币又涨了。这部分本来属于你的收益，被你提前下车错过了。",
+      "viewBreakdown": "查看每笔退场",
+      "exited": "卖出于",
+      "afterDays": "{n} 天后",
+      "note": {
+        "btc": "02-11 集中卖出 BTC，3 周后价格回升至 $94K。",
+        "wbtc": "02-12 清仓 WBTC，错过了随后的反弹行情。",
+        "sol": "在 SOL 横盘震荡区间底部卖出，错失趋势启动。",
+        "eth": "ETH 卖出后强势突破，是本期最大单笔机会成本。"
+      }
+    },
     "traderType": {
       "overtrader": "过度交易者",
       "overtraderDesc": "你交易太频繁了——手续费和糟糕的入场时机正在无声地吞噬你的收益。",

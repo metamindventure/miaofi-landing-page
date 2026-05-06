@@ -227,6 +227,24 @@
       "yourReturn": "내 수익률",
       "yourPortfolio": "내 포트폴리오"
     },
+    "postExit": {
+      "title": "청산 후 가격 변동",
+      "windowLabel": "{n}일 윈도우",
+      "avgMove": "매도 후 평균 변동",
+      "avgMoveDesc": "매도한 {n}개 토큰의 평균 가격 변화",
+      "opportunityCost": "기회비용",
+      "opportunityCostDesc": "계속 보유했다면 얻었을 수익",
+      "explainer": "매도 후에도 가격이 계속 올랐습니다. 원래 당신의 수익이었지만 너무 일찍 내렸습니다.",
+      "viewBreakdown": "건별 보기",
+      "exited": "매도",
+      "afterDays": "{n}일 후",
+      "note": {
+        "btc": "2/11 BTC 집중 매도; 3주 내 $94K까지 회복.",
+        "wbtc": "2/12 WBTC 청산, 직후 반등 구간을 놓침.",
+        "sol": "횡보 구간 저점에서 SOL 매도, 돌파를 놓침.",
+        "eth": "매도 후 ETH 강한 상승 — 이번 윈도우 최대 기회비용."
+      }
+    },
     "traderType": {
       "overtrader": "과잉 거래자",
       "overtraderDesc": "너무 자주 거래합니다 — 수수료와 잘못된 타이밍이 수익을 갉아먹고 있습니다.",
