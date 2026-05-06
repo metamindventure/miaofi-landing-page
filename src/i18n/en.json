@@ -356,7 +356,8 @@
       "issuesFound": "Issues Found",
       "critical": "Critical",
       "totalLoss": "Est. Loss",
-      "insightsDetected": "Insights detected"
+      "insightsDetected": "Insights detected",
+      "asOf": "As of Mar 5, 2025"
     }
   }
 }
