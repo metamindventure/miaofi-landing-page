@@ -205,6 +205,7 @@
     "tba": {
       "title": "Trading Behavior Analysis",
       "last9months": "Last 9 months",
+      "dateRange": "Jun 5, 2024 – Mar 5, 2025",
       "totalCost": "total behavior cost",
       "trades": "Trades",
       "winRate": "Win Rate",
@@ -356,7 +357,8 @@
       "issuesFound": "Issues Found",
       "critical": "Critical",
       "totalLoss": "Est. Loss",
-      "insightsDetected": "Insights detected"
+      "insightsDetected": "Insights detected",
+      "asOf": "As of Mar 5, 2025"
     }
   }
 }

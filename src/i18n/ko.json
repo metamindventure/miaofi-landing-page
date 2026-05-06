@@ -205,6 +205,7 @@
     "tba": {
       "title": "거래 행동 분석",
       "last9months": "최근 9개월",
+      "dateRange": "2024.6.5 – 2025.3.5",
       "totalCost": "총 행동 비용",
       "trades": "거래 수",
       "winRate": "승률",
@@ -356,7 +357,8 @@
       "issuesFound": "발견된 문제",
       "critical": "심각",
       "totalLoss": "추정 손실",
-      "insightsDetected": "인사이트 감지됨"
+      "insightsDetected": "인사이트 감지됨",
+      "asOf": "기준일 2025.3.5"
     }
   }
 }

@@ -47,7 +47,9 @@ const TradingBehaviorSection = () => {
           <div className="flex items-center gap-2.5">
             <Activity className="w-5 h-5 text-primary" />
             <h2 className="section-header text-foreground">{t('cexResults.tba.title')}</h2>
-            <span className="text-xs text-muted-foreground">{t('cexResults.tba.last9months')}</span>
+            <span className="text-[11px] text-muted-foreground px-2 py-0.5 rounded-md bg-foreground/5 border border-foreground/10 font-mono tabular-nums">
+              {t('cexResults.tba.dateRange')}
+            </span>
           </div>
           <div className="flex items-center gap-3">
             <div className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-loss/8 border border-loss/20">
