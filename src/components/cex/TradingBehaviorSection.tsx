@@ -81,7 +81,7 @@ const TradingBehaviorSection = () => {
             <span className="text-[11px] text-muted-foreground block">{t('cexResults.tba.trades')}</span>
             <div className="flex items-baseline gap-1.5">
               <span className="text-lg font-bold font-mono text-foreground tabular-nums">{overviewStats.totalTrades}</span>
-              <span className="text-[10px] text-muted-foreground/70 font-mono">/ 9mo</span>
+              <span className="text-[10px] text-muted-foreground/70 font-mono">/ 270d</span>
             </div>
           </div>
           <div>

@@ -204,7 +204,7 @@
     "downloadReport": "Download Report",
     "tba": {
       "title": "Trading Behavior Analysis",
-      "last9months": "Last 9 months",
+      "last9months": "Last 270 days",
       "dateRange": "Jun 5, 2024 – Mar 5, 2025",
       "totalCost": "total behavior cost",
       "trades": "Trades",
